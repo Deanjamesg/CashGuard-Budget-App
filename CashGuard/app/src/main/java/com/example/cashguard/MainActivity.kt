@@ -1,12 +1,11 @@
 package com.example.cashguard
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Telephony.Mms.Intents
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cashguard.databinding.ActivityMainBinding
-import android.widget.Button;
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +13,10 @@ class MainActivity : AppCompatActivity() {
     //creates the binding variable
     private lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -32,5 +30,7 @@ class MainActivity : AppCompatActivity() {
             registerIntent(this,registration_activity::class.java)
         }
 
+
     }
+
 }
