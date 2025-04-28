@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         //go to login page
         binding.loginButton.setOnClickListener {
-            loginIntent(this, login_activity::class.java)
+            loginIntent(this, LoginActivity::class.java)
         }
 
         //go to registration page
         binding.registerButton.setOnClickListener{
-            registerIntent(this,registration_activity::class.java)
+            registerIntent(this,RegistrationActivity::class.java)
         }
 
 

@@ -26,7 +26,7 @@
         app:tint="#00FFFF" />
 
     <EditText
-        android:id="@+id/emailInput"
+        android:id="@+id/emailEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/userIcon" />
 
     <EditText
-        android:id="@+id/passwordInput"
+        android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailInput" />
+        app:layout_constraintTop_toBottomOf="@id/emailEditText" />
 
     <Button
         android:id="@+id/loginButton"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
+        app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
 
     <Button
         android:id="@+id/redirectLoginToRegisterButton"

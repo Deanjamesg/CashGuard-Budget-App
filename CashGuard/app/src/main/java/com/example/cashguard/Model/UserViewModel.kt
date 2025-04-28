@@ -23,4 +23,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun isEmailRegistered(email: String): Boolean {
         return repository.getUserByEmail(email) != null
     }
+
+    suspend fun validateUserCredentials(email: String, password: String): User? {
+        return repository.validateUser(email, password)
+    }
 }
