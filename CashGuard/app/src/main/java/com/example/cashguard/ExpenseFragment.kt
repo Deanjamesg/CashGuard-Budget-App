@@ -5,29 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cashguard.databinding.FragmentOverviewBinding
+import com.example.cashguard.databinding.FragmentExpenseBinding
 
-class OverviewFragment : Fragment() {
-
-    private var _binding: FragmentOverviewBinding? = null
+class ExpenseFragment : Fragment() {
+    private var _binding: FragmentExpenseBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentOverviewBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentExpenseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Access views using binding
-        //binding.monthText.text = "March"
-        //binding.budgetText.text = "R15 000\nBudget"
-
-        // Set up button click listeners, etc.
+        // Setup your expense list here
     }
 
     override fun onDestroyView() {

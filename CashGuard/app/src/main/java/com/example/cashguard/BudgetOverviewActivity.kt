@@ -23,6 +23,7 @@ class BudgetOverviewActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> "Budget"
                 1 -> "Overview"
+                2 -> "Expenses"
                 else -> ""
             }
         }.attach()

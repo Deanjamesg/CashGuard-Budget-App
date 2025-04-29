@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.cashguard.Dao.CategoryDao
 import com.example.cashguard.Dao.UserDao
+import com.example.cashguard.data.Category
 import com.example.cashguard.data.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Category::class], version = 3)
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
         @Volatile
@@ -21,7 +25,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "cashguard_db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
