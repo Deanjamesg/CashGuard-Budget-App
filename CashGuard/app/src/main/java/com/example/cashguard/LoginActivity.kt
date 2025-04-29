@@ -39,12 +39,21 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val user = userViewModel.validateUserCredentials(email, password)
                 if (user != null) {
-                    // Successful login
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
-                        putExtra("USER_ID", user.userId)
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    // Show welcome toast
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Welcome ${user.firstName}!",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                    startActivity(intent)
+
+                    overViewIntent(
+                        this@LoginActivity,
+                        BudgetOverviewActivity::class.java,
+                        user.firstName,
+                        user.userId
+                    )
                     finish()
                 } else {
                     runOnUiThread {
