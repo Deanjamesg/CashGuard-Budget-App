@@ -32,7 +32,7 @@
         android:inputType="numberDecimal" />
 
     <Spinner
-        android:id="@+id/spinner_algorithm"
+        android:id="@+id/spinner_category"
         style="@style/CustomSpinner"
         android:layout_gravity="start"
         android:layout_marginTop="15sp"

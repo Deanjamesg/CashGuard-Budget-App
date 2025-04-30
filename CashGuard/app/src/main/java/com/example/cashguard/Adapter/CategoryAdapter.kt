@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import com.example.cashguard.R
 import com.example.cashguard.data.Category
 
 class CategoryAdapter(
     context: Context,
-    @LayoutRes private val layoutResource: Int,
-    private var categories: List<Category>) : ArrayAdapter<Category>(context, layoutResource, categories) {
+    private var categories: List<String>) : ArrayAdapter<String>(context, 0, categories) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return createView(position, convertView, parent)
@@ -23,11 +23,11 @@ class CategoryAdapter(
     }
 
     private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(layoutResource, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_spinner, parent, false)
         val textView = view.findViewById<TextView>(android.R.id.text1)
 
         getItem(position)?.let { category ->
-            textView.text = category.name
+            textView.text = category
         } ?: run {
             textView.text = "Select Category"
         }
@@ -35,7 +35,7 @@ class CategoryAdapter(
         return view
     }
 
-    fun updateData(newCategories: List<Category>) {
+    fun updateData(newCategories: List<String>) {
         clear()
         addAll(newCategories)
         notifyDataSetChanged()

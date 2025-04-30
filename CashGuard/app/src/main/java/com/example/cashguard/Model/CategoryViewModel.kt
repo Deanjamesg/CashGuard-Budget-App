@@ -20,6 +20,20 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         repository = CategoryRepository(categoryDao)
     }
 
+    fun createDefaultCategories(userId: Int) = viewModelScope.launch {
+
+        val defaultCategories = listOf(
+            Category(userId = userId, name = "Food & Drink", type = "Expense"),
+            Category(userId = userId, name = "Transport", type = "Expense"),
+            Category(userId = userId, name = "Household", type = "Expense"),
+            Category(userId = userId, name = "Entertainment", type = "Expense"),
+            Category(userId = userId, name = "Subscription", type = "Expense"),
+            Category(userId = userId, name = "Salary", type = "Income")
+        )
+
+        repository.insertCategories(defaultCategories)
+    }
+
     fun getCategoriesByType(userId: Int, type: String): LiveData<List<Category>> {
         viewModelScope.launch {
             _categories.postValue(repository.getCategoriesByType(userId, type))
