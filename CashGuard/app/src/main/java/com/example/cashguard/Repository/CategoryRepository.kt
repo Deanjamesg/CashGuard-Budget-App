@@ -9,9 +9,9 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
 
     suspend fun getCategories(userId: Int) = categoryDao.getCategoriesByUser(userId)
 
-    suspend fun getCategoriesByType(userId: Int, type: String): List<Category> {
-        return categoryDao.getCategoriesByType(userId, type)
-    }
+    suspend fun getExpenseCategories(userId: Int) = categoryDao.getExpenseCategoriesByUser(userId)
+
+    suspend fun getCategoriesByType(userId: Int, type: String) = categoryDao.getCategoriesByType(userId, type)
 
     suspend fun deleteCategory(category: Category) = categoryDao.delete(category)
 

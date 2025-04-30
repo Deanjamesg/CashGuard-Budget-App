@@ -1,6 +1,7 @@
 package com.example.cashguard.Acitivties
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,67 +24,58 @@ class AddTransactionActivity : AppCompatActivity() {
     private lateinit var categoryViewModel: CategoryViewModel
     private var userId: Int = -1
     private var transactionType: String = "Expense"
-    private lateinit var categoryAdapter: CategoryAdapter
-    private var items: ArrayList<String> = ArrayList()
-
+    private lateinit var categoryList: List<Category>
+    private lateinit var spinnerCat: Spinner
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityAddTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Validate intent extras
         userId = intent.getIntExtra("USER_ID", -1).takeIf { it != -1 } ?: run {
+            Toast.makeText(this, "Invalid category {userId} selection", Toast.LENGTH_SHORT).show()
             showErrorAndFinish("Invalid user session")
             return
         }
 
-        // We need to populate the array list of categories in the onCreate()
-        items = ArrayList()
-        items.add("Household")
-        items.add("Entertainment")
-        items.add("Fuel")
-        items.add("Food & Drink")
-        items.add("Subscription")
-        items.add("Medical")
+        // Will be set with Cookies / User Session
+        val userId = 1
 
-        val spinner: Spinner = findViewById(R.id.spinner_algorithm)
+        // Initialize ViewModels
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
+        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
-        // Set the adapter for the spinner
-        val adapter = CategoryAdapter(this, items)
-        spinner.adapter = adapter
+        spinnerCat = findViewById(R.id.spinner_category)
 
         transactionType = intent.getStringExtra("TRANSACTION_TYPE") ?: run {
             showErrorAndFinish("Invalid transaction type")
             return
         }
 
-        // Initialize ViewModels
-        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
-        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
-
-        setupCategorySpinner()
+        populateCategoryList(userId)
         setupSubmitButton()
     }
 
-    private fun setupCategorySpinner() {
-        // Initialize adapter with empty list
-        categoryAdapter = CategoryAdapter(
-            this,
-            items
-        ).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-        binding.spinnerAlgorithm.adapter = categoryAdapter
+    private fun populateCategoryList(userId: Int) {
 
-        // Observe categories
-        categoryViewModel.getCategoriesByType(userId, transactionType).observe(this) { categories ->
-            if (categories.isEmpty()) {
-                showNoCategoriesDialog()
-            } else {
-                categoryAdapter.clear()
-//                categoryAdapter.addAll(categories)
-                categoryAdapter.notifyDataSetChanged()
+        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+
+        lifecycleScope.launch {
+            try {
+                categoryList = categoryViewModel.getExpenseCategories(userId)
+
+                // Log or use the populated list
+                for (category in categoryList) {
+                    Log.d("AddTransactionActivity", "Category: ${category.name}")
+                }
+                adapter = CategoryAdapter(this@AddTransactionActivity, categoryList)
+                spinnerCat.adapter = adapter
+
+            } catch (e: Exception) {
+                Log.e("AddTransactionActivity", "Error fetching categories: ${e.message}")
             }
         }
     }
@@ -92,7 +84,7 @@ class AddTransactionActivity : AppCompatActivity() {
         binding.buttonSubmit.setOnClickListener {
             val amountText = binding.editTextAmount.text.toString()
             val note = binding.editTextNote.text.toString()
-            val selectedCategory = binding.spinnerAlgorithm.selectedItem as? Category
+            val selectedCategory = binding.spinnerCategory.selectedItem as? Category
 
             // Validation
             when {
@@ -100,6 +92,7 @@ class AddTransactionActivity : AppCompatActivity() {
                     binding.editTextAmount.error = "Amount required"
                     return@setOnClickListener
                 }
+
                 selectedCategory == null -> {
                     Toast.makeText(this, "Select a category", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
@@ -128,25 +121,33 @@ class AddTransactionActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     transactionViewModel.addTransaction(transaction)
-                    Toast.makeText(this@AddTransactionActivity, "Transaction saved!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@AddTransactionActivity,
+                        "Transaction saved!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 } catch (e: Exception) {
-                    Toast.makeText(this@AddTransactionActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@AddTransactionActivity,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
     }
 
-    private fun showNoCategoriesDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("No Categories Found")
-            .setMessage("Create $transactionType categories first")
-            .setPositiveButton("Create") { _, _ ->
-                // Navigate to category creation
-            }
-            .setNegativeButton("Cancel") { _, _ -> finish() }
-            .show()
-    }
+//    private fun showNoCategoriesDialog() {
+//        AlertDialog.Builder(this)
+//            .setTitle("No Categories Found")
+//            .setMessage("Create $transactionType categories first")
+//            .setPositiveButton("Create") { _, _ ->
+//                // Navigate to category creation
+//            }
+//            .setNegativeButton("Cancel") { _, _ -> finish() }
+//            .show()
+//    }
 
     private fun showErrorAndFinish(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()

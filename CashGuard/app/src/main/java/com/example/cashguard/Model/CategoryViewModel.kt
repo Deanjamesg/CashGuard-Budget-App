@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class CategoryViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: CategoryRepository
     private val _categories = MutableLiveData<List<Category>>()
-    val categories: LiveData<List<Category>> = _categories
+//    val categories: LiveData<List<Category>> = _categories
 
     init {
         val categoryDao = AppDatabase.getInstance(application).categoryDao()
@@ -30,22 +30,23 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             Category(userId = userId, name = "Subscription", type = "Expense"),
             Category(userId = userId, name = "Salary", type = "Income")
         )
-
         repository.insertCategories(defaultCategories)
     }
 
-    fun getCategoriesByType(userId: Int, type: String): LiveData<List<Category>> {
-        viewModelScope.launch {
-            _categories.postValue(repository.getCategoriesByType(userId, type))
-        }
-        return _categories
-    }
+//    fun getCategoriesByType(userId: Int, type: String): LiveData<List<Category>> {
+//        viewModelScope.launch {
+//            _categories.postValue(repository.getCategoriesByType(userId, type))
+//        }
+//        return _categories
+//    }
 
     fun addCategory(category: Category) = viewModelScope.launch {
         repository.insertCategory(category)
     }
 
-    suspend fun getCategories(userId: Int) = repository.getCategories(userId)
+//    suspend fun getCategories(userId: Int) = repository.getCategories(userId)
+
+    suspend fun getExpenseCategories(userId: Int) = repository.getExpenseCategories(userId)
 
     fun loadCategories(userId: Int) = viewModelScope.launch {
         _categories.postValue(repository.getCategories(userId))
