@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121C3D"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="24dp">
 
@@ -15,114 +17,100 @@
         <!-- Title -->
         <TextView
             android:id="@+id/registerTitle"
+            style="@style/HeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="Register"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textSize="32sp"/>
 
         <!-- Subtitle -->
         <TextView
             android:id="@+id/registerSubtitle"
+            style="@style/SubHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Please enter in all your personal details."
-            android:textColor="#B0B0B0"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <!-- First Name Field -->
         <EditText
             android:id="@+id/firstNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="@style/LargeInputField"
             android:layout_marginBottom="12dp"
-
-            android:hint="First Name"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#B0B0B0" />
+            android:hint="First Name" />
 
         <!-- Last Name Field -->
         <EditText
             android:id="@+id/lastNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="@style/LargeInputField"
             android:layout_marginBottom="12dp"
-
-            android:hint="Last Name"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#B0B0B0" />
+            android:hint="Last Name"/>
 
         <!-- Email Field -->
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="@style/LargeInputField"
             android:layout_marginBottom="12dp"
             android:hint="Email"
-
-            android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#B0B0B0" />
+            android:inputType="textEmailAddress" />
 
         <!-- Password Field -->
         <EditText
             android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="@style/LargeInputField"
             android:layout_marginBottom="12dp"
             android:hint="Password"
-
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#B0B0B0" />
+            android:inputType="textPassword" />
 
         <!-- Confirm Password Field -->
         <EditText
             android:id="@+id/confirmPasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
+            style="@style/LargeInputField"
+            android:layout_marginBottom="12dp"
             android:hint="Confirm Password"
+            android:inputType="textPassword" />
 
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#B0B0B0" />
-
-        <!-- Checkbox -->
-        <CheckBox
-            android:id="@+id/termsCheckbox"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Do you agree to our Terms of Service and Privacy Policy?"
-            android:textColor="#FFFFFF" />
+            android:layout_gravity="start"
+            android:layout_marginTop="30sp"
+            android:layout_marginBottom="20sp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/termsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white" />
+
+            <TextView
+                style="@style/CheckboxTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you agree to our Terms of Service and Privacy Policy?" />
+        </LinearLayout>
 
         <!-- Register Button -->
         <Button
             android:id="@+id/registerButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="@style/SubmitButton"
+            app:cornerRadius="6dp"
+            android:layout_marginTop="20sp"
             android:layout_marginBottom="16dp"
-            android:text="Register"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:text="Register" />
 
         <!-- Sign In Redirect -->
-        <Button
+        <TextView
             android:id="@+id/redirectRegisterToLoginButton"
+            style="@style/FooterText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Already have an account? Sign In"
-            android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
     </LinearLayout>

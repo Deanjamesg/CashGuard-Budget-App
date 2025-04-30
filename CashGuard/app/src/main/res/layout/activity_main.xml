@@ -13,7 +13,7 @@
         android:layout_width="264dp"
         android:layout_height="80dp"
         android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/poppins"
         android:text="CashGuard"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
@@ -139,12 +139,10 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/SubmitButton"
         android:layout_marginTop="104dp"
         android:text="Login"
-
-        android:textColor="#FFFFFF"
+        app:cornerRadius="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,12 +150,10 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/SubmitButton"
+        app:cornerRadius="6dp"
         android:layout_marginTop="16dp"
         android:text="Register"
-
-        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="40sp">
+
+    <TextView
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Currency"
+        android:textStyle="bold" />
+
+    <TextView
+        style="@style/SubHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Please select your currency from one of the following:"
+        android:textSize="18sp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="AED: U.A.E. (DH)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="AUD: Australia (AUS)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="CNY: China (CN¥)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="GBP: The United Kingdom (£)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="HKD: Hong Kong (HK$)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:layout_marginBottom="12dp"
+        android:text="USD: USA (US$)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+
+    <Button
+        style="@style/SubmitButton"
+        android:text="ZAR: South Africa (R)"
+        android:textSize="18sp"
+        app:cornerRadius="6dp" />
+</LinearLayout>
