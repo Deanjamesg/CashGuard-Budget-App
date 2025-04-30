@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import com.example.cashguard.databinding.ActivityRegistrationBinding
 import com.example.cashguard.Intent.loginIntent
 import com.example.cashguard.Intent.registerIntent
+import com.example.cashguard.Model.CategoryViewModel
+import com.example.cashguard.data.Category
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -59,12 +61,19 @@ class RegistrationActivity : AppCompatActivity() {
 
             val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+            val categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
+
+
             lifecycleScope.launch {
                 val isEmailExists = userViewModel.isEmailRegistered(email)
                 if (isEmailExists) {
                     Toast.makeText(this@RegistrationActivity, "Email already exists", Toast.LENGTH_SHORT).show()
                 } else {
                     userViewModel.insertUser(user)
+
+                    val userId = userViewModel.getUserIdByEmail(user.email)
+                    categoryViewModel.createDefaultCategories(userId ?:0)
+
                     Toast.makeText(this@RegistrationActivity, "Registration successful", Toast.LENGTH_SHORT).show()
                     loginIntent(this@RegistrationActivity, LoginActivity::class.java)
                 }
