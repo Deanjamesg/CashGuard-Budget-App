@@ -1,20 +1,28 @@
 package com.example.cashguard.Acitivties
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Adapter.TabsPagerAdapter
 import com.example.cashguard.Model.SharedViewModel
+import com.example.cashguard.R
+import com.example.cashguard.databinding.ActivityBudgetoverviewWithNavDrawerBinding
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
-import com.example.cashguard.databinding.ActivityBudgetoverviewBinding
 
-class BudgetOverviewActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBudgetoverviewBinding
-    private lateinit var sharedViewModel: SharedViewModel
+class BudgetOverviewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var binding: ActivityBudgetoverviewWithNavDrawerBinding
+    lateinit var sharedViewModel: SharedViewModel
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBudgetoverviewBinding.inflate(layoutInflater)
+        binding = ActivityBudgetoverviewWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Get user ID from intent
@@ -37,5 +45,60 @@ class BudgetOverviewActivity : AppCompatActivity() {
                 else -> "Expenses"
             }
         }.attach()
+
+        // Setup Navigation Drawer
+        toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.navToolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        binding.navView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_transaction -> openAddTransaction()
+            R.id.nav_create_budget -> openCreateBudget()
+            R.id.nav_manage_categories -> openManageCategories()
+            R.id.nav_signout -> signOut()
+            // Add other cases for menu items
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun openAddTransaction() {
+        val intent = Intent(this, AddTransactionActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openCreateBudget() {
+        // Implement create budget logic
+    }
+
+    private fun openManageCategories() {
+        // Implement manage categories logic
+    }
+
+    private fun signOut() {
+        finish()
+    }
+
+    override fun onBackPressed() {
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
     }
 }

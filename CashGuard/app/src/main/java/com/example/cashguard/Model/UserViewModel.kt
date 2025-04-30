@@ -20,14 +20,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         repository.insertUser(user)
     }
 
-    suspend fun getUserByEmail(email: String): User? {
-        return repository.getUserByEmail(email)
-    }
-
-    suspend fun getUserIdByEmail(email: String): Int? {
-        return repository.getUserIdByEmail(email)
-    }
-
     suspend fun isEmailRegistered(email: String): Boolean {
         return repository.getUserByEmail(email) != null
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Acitivties.AddTransactionActivity
+import com.example.cashguard.Acitivties.BudgetOverviewActivity
 import com.example.cashguard.Model.SharedViewModel
 import com.example.cashguard.R
 import com.example.cashguard.databinding.FragmentBudgetBinding
@@ -69,6 +70,22 @@ class BudgetFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private fun launchAddTransaction(budgetFragment: BudgetFragment, transactionType: String) {
+            val userId = (budgetFragment.activity as BudgetOverviewActivity).sharedViewModel.userId
+            if (userId == -1) {
+                Toast.makeText(budgetFragment.requireContext(), "Session expired", Toast.LENGTH_SHORT).show()
+                budgetFragment.activity?.finish()
+                return
+            }
+    
+            val intent = Intent(budgetFragment.requireActivity(), AddTransactionActivity::class.java).apply {
+                putExtra("USER_ID", userId)
+            }
+            budgetFragment.startActivity(intent)
+        }
     }
 }
 
