@@ -1,7 +1,6 @@
 package com.example.cashguard.Acitivties
 
 import android.os.Bundle
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cashguard.Adapter.CategoryAdapter
 import com.example.cashguard.Model.CategoryViewModel
 import com.example.cashguard.Model.TransactionViewModel
-import com.example.cashguard.R
 import com.example.cashguard.data.Category
 import com.example.cashguard.data.Transaction
 import com.example.cashguard.databinding.ActivityAddTransactionBinding
@@ -24,8 +22,6 @@ class AddTransactionActivity : AppCompatActivity() {
     private var userId: Int = -1
     private var transactionType: String = "Expense"
     private lateinit var categoryAdapter: CategoryAdapter
-    private var items: ArrayList<String> = ArrayList()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +33,6 @@ class AddTransactionActivity : AppCompatActivity() {
             showErrorAndFinish("Invalid user session")
             return
         }
-
-        // We need to populate the array list of categories in the onCreate()
-        items = ArrayList()
-        items.add("Household")
-        items.add("Entertainment")
-        items.add("Fuel")
-        items.add("Food & Drink")
-        items.add("Subscription")
-        items.add("Medical")
-
-        val spinner: Spinner = findViewById(R.id.spinner_algorithm)
-
-        // Set the adapter for the spinner
-        val adapter = CategoryAdapter(this, items)
-        spinner.adapter = adapter
 
         transactionType = intent.getStringExtra("TRANSACTION_TYPE") ?: run {
             showErrorAndFinish("Invalid transaction type")
@@ -70,7 +51,8 @@ class AddTransactionActivity : AppCompatActivity() {
         // Initialize adapter with empty list
         categoryAdapter = CategoryAdapter(
             this,
-            items
+            android.R.layout.simple_spinner_item,
+            emptyList()
         ).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
@@ -82,7 +64,7 @@ class AddTransactionActivity : AppCompatActivity() {
                 showNoCategoriesDialog()
             } else {
                 categoryAdapter.clear()
-//                categoryAdapter.addAll(categories)
+                categoryAdapter.addAll(categories)
                 categoryAdapter.notifyDataSetChanged()
             }
         }

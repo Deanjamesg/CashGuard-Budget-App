@@ -6,4 +6,6 @@
     <string name="currency_title">Currency</string>
     <string name="export_summary">Export Summary to Excel</string>
     <string name="help">Help</string>
-</resources>
+    <string name="navigation_drawer_open" translatable="false">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close Navigation Drawer</string>
+    </resources>

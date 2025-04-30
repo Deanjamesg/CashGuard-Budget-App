@@ -23,14 +23,10 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     fun createDefaultCategories(userId: Int) = viewModelScope.launch {
 
         val defaultCategories = listOf(
-            Category(userId = userId, name = "Food & Drink", type = "Expense"),
+            Category(userId = userId, name = "Food", type = "Expense"),
             Category(userId = userId, name = "Transport", type = "Expense"),
-            Category(userId = userId, name = "Household", type = "Expense"),
-            Category(userId = userId, name = "Entertainment", type = "Expense"),
-            Category(userId = userId, name = "Subscription", type = "Expense"),
-            Category(userId = userId, name = "Salary", type = "Income")
+            Category(userId = userId, name = "Household", type = "Expense")
         )
-
         repository.insertCategories(defaultCategories)
     }
 
@@ -58,5 +54,4 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             loadCategories(category.userId)
         }
     }
-
 }
