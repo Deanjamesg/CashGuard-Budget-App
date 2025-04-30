@@ -14,4 +14,7 @@ interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE user_id = :userId AND type = :type")
     suspend fun getCategoriesByType(userId: Int, type: String): List<Category>
+
+    @Delete
+    suspend fun delete(category: Category)
 }

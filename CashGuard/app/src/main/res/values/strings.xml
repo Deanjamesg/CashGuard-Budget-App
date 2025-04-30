@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">CashGuard</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_category">Select a Category</string>
+    <string name="settings_title">Settings</string>
+    <string name="change_currency">Change Currency</string>
+    <string name="currency_title">Currency</string>
+    <string name="export_summary">Export Summary to Excel</string>
+    <string name="help">Help</string>
 </resources>

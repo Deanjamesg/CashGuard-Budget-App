@@ -1,0 +1,74 @@
+package com.example.cashguard.Fragments
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.example.cashguard.Acitivties.AddTransactionActivity
+import com.example.cashguard.Model.SharedViewModel
+import com.example.cashguard.R
+import com.example.cashguard.databinding.FragmentBudgetBinding
+
+class BudgetFragment : Fragment() {
+
+    private var _binding: FragmentBudgetBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var sharedViewModel: SharedViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentBudgetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Get SharedViewModel from activity
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+
+        binding.btnAddExpense.setOnClickListener {
+            launchAddTransaction("Expense")
+        }
+
+        binding.btnAddIncome.setOnClickListener {
+            launchAddTransaction("Income")
+        }
+    }
+
+    private fun launchAddTransaction(transactionType: String) {
+        try {
+            val userId = sharedViewModel.userId.takeIf { it != -1 } ?: run {
+                Toast.makeText(requireContext(), "User session expired", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+                return
+            }
+
+            val intent = Intent(requireActivity(), AddTransactionActivity::class.java).apply {
+                putExtra("TRANSACTION_TYPE", transactionType)
+                putExtra("USER_ID", userId)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("BudgetFragment", "Navigation error", e)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+

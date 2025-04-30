@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0D1836"
-    tools:context=".BudgetFragment">
+    tools:context=".Fragments.BudgetFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
                     android:layout_marginBottom="16dp">
 
                     <Button
+                        android:id="@+id/btnAddExpense"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
@@ -55,6 +56,7 @@
                         android:layout_marginEnd="8dp"/>
 
                     <Button
+                        android:id="@+id/btnAddIncome"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"

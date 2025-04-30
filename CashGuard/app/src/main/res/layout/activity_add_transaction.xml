@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="40sp">
+
+    <TextView
+        style="@style/HeaderText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Add Transaction"
+        android:textAlignment="center" />
+
+    <!-- Other elements remain in their original order -->
+    <TextView
+        style="@style/SubHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Transaction Amount:"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/edit_text_amount"
+        style="@style/LargeInputField"
+        android:hint="R"
+        android:inputType="numberDecimal" />
+
+    <Spinner
+        android:id="@+id/spinner_algorithm"
+        style="@style/CustomSpinner"
+        android:layout_gravity="start"
+        android:layout_marginTop="15sp"
+        android:layout_marginBottom="25sp"
+        android:spinnerMode="dropdown"
+        tools:entry="Select a Category" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Note (Optional):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edit_text_note"
+        style="@style/LargeInputField"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Attach a Photo ( Invoice / Receipt ):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button_add_photo"
+        style="@style/SubmitButton"
+        android:layout_width="150sp"
+        android:layout_height="50sp"
+        android:layout_marginBottom="16dp"
+        android:text="Add Photo"
+        android:textSize="16sp"
+        app:cornerRadius="6dp" />
+
+    <!-- Moved buttons wrapped in a horizontal LinearLayout at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/smallButton1"
+            style="@style/SmallButton"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginEnd="10dp"
+            android:padding="0dp"
+            android:text="+"
+            android:textSize="28sp"
+            app:cornerRadius="6dp"
+            app:strokeColor="@color/glow"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/smallButton2"
+            style="@style/SmallButton"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:padding="0dp"
+            android:text="-"
+            android:textSize="28sp"
+            app:cornerRadius="6dp"
+            app:strokeColor="#FF0000"
+            app:strokeWidth="2dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_submit"
+        style="@style/SubmitButton"
+        android:layout_marginTop="16dp"
+        android:text="Submit"
+        app:cornerRadius="6dp" />
+
+</LinearLayout>
