@@ -27,7 +27,7 @@ import android.content.Intent
         context.startActivity(intent)
     }
 
-    fun overViewIntent(context: Context, activityToOpen: Class<*>, firstName: String, userId: Int) {
+    fun dashboardIntent(context: Context, activityToOpen: Class<*>, firstName: String, userId: Int) {
         val intent = Intent(context, activityToOpen).apply {
             putExtra("FIRST_NAME", firstName)
             putExtra("USER_ID", userId)

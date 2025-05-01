@@ -2,9 +2,11 @@ package com.example.cashguard.Dao
 
 import androidx.room.*
 import com.example.cashguard.data.Transaction
+import java.util.Date
 
 @Dao
 interface TransactionDao {
+
     @Insert
     suspend fun insert(transaction: Transaction)
 
@@ -16,4 +18,8 @@ interface TransactionDao {
 
     @Query("DELETE FROM transactions WHERE transactionId = :transactionId")
     suspend fun deleteTransaction(transactionId: Int)
+
+    // ─── New: suspend call for searching by Date range ──────────────────────
+    @Query("""SELECT * FROM transactions WHERE user_id = :userId AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC""")
+    suspend fun getDateRange(userId:   Int, fromDate: Date, toDate: Date): List<Transaction>
 }

@@ -13,7 +13,10 @@
         android:theme="@style/Theme.CashGuard"
         tools:targetApi="31">
         <activity
-            android:name=".Acitivties.BudgetOverviewActivity"
+            android:name=".Acitivties.SearchByDateActivity"
+            android:theme="@style/Theme.CashGuard"/>
+        <activity
+            android:name=".Acitivties.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".Acitivties.AddTransactionActivity"

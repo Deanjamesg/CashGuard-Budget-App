@@ -1,0 +1,170 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121C38"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+    <!--  1. Hamburger icon  -->
+
+    <ImageView
+        android:id="@+id/menuIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FFFFFF" />
+    <!--  2. Title  -->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Filter by Date"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/menuIcon"
+        app:layout_constraintTop_toTopOf="@id/menuIcon" />
+    <!--  3. From Date picker button  -->
+    <Button
+        android:id="@+id/btnFromDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@null"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:drawableTint="#FFFFFF"
+        android:gravity="start|center_vertical"
+        android:text="From Date"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+    <!--  4. Underline  -->
+    <View
+        android:id="@+id/underlineFrom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/btnFromDate"
+        app:layout_constraintStart_toStartOf="@id/btnFromDate"
+        app:layout_constraintTop_toBottomOf="@id/btnFromDate" />
+    <!--  5. To Date picker button  -->
+    <Button
+        android:id="@+id/btnToDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:drawableTint="#FFFFFF"
+        android:gravity="start|center_vertical"
+        android:text="To Date"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/underlineFrom"
+        app:layout_constraintStart_toStartOf="@id/underlineFrom"
+        app:layout_constraintTop_toBottomOf="@id/underlineFrom" />
+    <!--  6. Underline  -->
+    <View
+        android:id="@+id/underlineTo"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/btnToDate"
+        app:layout_constraintStart_toStartOf="@id/btnToDate"
+        app:layout_constraintTop_toBottomOf="@id/btnToDate" />
+    <!--  7. Main divider  -->
+    <View
+        android:id="@+id/mainDivider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/underlineTo"
+        app:layout_constraintStart_toStartOf="@id/underlineTo"
+        app:layout_constraintTop_toBottomOf="@id/underlineTo" />
+    <!--  8. Transactions label  -->
+    <TextView
+        android:id="@+id/tvTransactions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Transactions"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainDivider" />
+    <!--  9. Date range  -->
+    <TextView
+        android:id="@+id/tvDateRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="15 Feb – 18 Mar"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvTransactions"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!--  10. Transaction list  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTransactions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTransactions" />
+    <!--  11. Bottom navigation  -->
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/home"
+            app:tint="@android:color/white"/>
+
+        <ImageButton
+            android:id="@+id/searchIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/search"
+            app:tint="@android:color/white"/>
+
+        <ImageButton
+            android:id="@+id/settingsIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting"
+            app:tint="@android:color/white"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

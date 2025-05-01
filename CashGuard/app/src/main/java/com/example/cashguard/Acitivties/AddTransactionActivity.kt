@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.cashguard.Adapter.CategoryAdapter
-import com.example.cashguard.Model.CategoryViewModel
 import com.example.cashguard.Model.TransactionViewModel
+import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.R
 import com.example.cashguard.data.Category
 import com.example.cashguard.data.Transaction
@@ -43,7 +42,10 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         // Will be set with Cookies / User Session
-        val userId = 1
+        userId = intent.getIntExtra("USER_ID", -1).takeIf { it != -1 } ?: run {
+            showErrorAndFinish("Invalid user session")
+            return
+        }
 
         // Initialize ViewModels
         transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
@@ -61,7 +63,16 @@ class AddTransactionActivity : AppCompatActivity() {
 
         binding.homeIcon.setOnClickListener {
             // Create intent to return to BudgetOverviewActivity
-            val intent = Intent(this, BudgetOverviewActivity::class.java).apply {
+            val intent = Intent(this, DashboardActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
+            finish() // Close current activity
+        }
+
+        binding.searchIcon.setOnClickListener {
+            // Create intent to return to BudgetOverviewActivity
+            val intent = Intent(this, DashboardActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)

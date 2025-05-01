@@ -6,9 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.cashguard.Model.UserViewModel
+import com.example.cashguard.Intent.dashboardIntent
+import com.example.cashguard.ViewModel.UserViewModel
 import com.example.cashguard.databinding.ActivityLoginBinding
-import com.example.cashguard.Intent.overViewIntent
 import com.example.cashguard.Intent.registerIntent
 import kotlinx.coroutines.launch
 
@@ -49,9 +49,9 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                     }
 
-                    overViewIntent(
+                    dashboardIntent(
                         this@LoginActivity,
-                        BudgetOverviewActivity::class.java,
+                        DashboardActivity::class.java,
                         user.firstName,
                         user.userId
                     )
