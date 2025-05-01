@@ -1,11 +1,13 @@
 package com.example.cashguard.Acitivties
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.cashguard.Intent.SessionManager
 import com.example.cashguard.Intent.dashboardIntent
 import com.example.cashguard.ViewModel.UserViewModel
 import com.example.cashguard.databinding.ActivityLoginBinding
@@ -40,6 +42,14 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val user = userViewModel.validateUserCredentials(email, password)
                 if (user != null) {
+
+                    // Save user session
+                    val sessionManager = SessionManager(this@LoginActivity)
+                    sessionManager.saveUserSession(userId = user.userId)
+
+                    // Works
+                    Log.d("SESSION MANAGER", "Login ID: ${sessionManager.getUserId()}")
+
                     // Show welcome toast
                     runOnUiThread {
                         Toast.makeText(

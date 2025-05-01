@@ -3,6 +3,7 @@ package com.example.cashguard.Acitivties
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cashguard.Adapter.TransactionAdapter
 import com.example.cashguard.Database.AppDatabase
+import com.example.cashguard.Intent.SessionManager
 import com.example.cashguard.Model.TransactionViewModel
 import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.R
@@ -25,14 +27,20 @@ class SearchByDateActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchByDateBinding
     private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var transactionAdapter: TransactionAdapter
-    private var userId: Int = -1
     private var selectedFromDate: Date? = null
     private var selectedToDate: Date? = null
+
+    private lateinit var sessionManager : SessionManager
+    private var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchByDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId()
+        Log.d("SESSION", "Search By Date ID: ${sessionManager.getUserId()}")
 
         binding.homeIcon.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java).apply {

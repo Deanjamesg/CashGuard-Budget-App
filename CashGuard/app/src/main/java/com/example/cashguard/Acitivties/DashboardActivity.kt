@@ -2,12 +2,14 @@ package com.example.cashguard.Acitivties
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Adapter.TabsPagerAdapter
+import com.example.cashguard.Intent.SessionManager
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.R
 import com.example.cashguard.databinding.ActivityBudgetoverviewWithNavDrawerBinding
@@ -20,14 +22,20 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var sharedViewModel: SharedViewModel
     private lateinit var toggle: ActionBarDrawerToggle
 
+    private lateinit var sessionManager : SessionManager
+    private var userId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBudgetoverviewWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // Get user ID from intent
-        val userId = intent.getIntExtra("USER_ID", -1)
+//        val userId = intent.getIntExtra("USER_ID", -1)
+
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId()
+        Log.d("SESSION", "Dashboard ID: ${sessionManager.getUserId()}")
 
         // Initialize SharedViewModel
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
@@ -41,7 +49,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         if (intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TOP != 0) {
             binding.viewPager.currentItem = 1 // Switch to Overview tab
         }
-
 
         viewPager.adapter = TabsPagerAdapter(this)
 

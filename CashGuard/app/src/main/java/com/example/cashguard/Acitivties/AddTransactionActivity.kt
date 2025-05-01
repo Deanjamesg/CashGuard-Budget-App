@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.cashguard.Adapter.CategoryAdapter
 import com.example.cashguard.Database.AppDatabase
+import com.example.cashguard.Intent.SessionManager
 import com.example.cashguard.Model.TransactionViewModel
 import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.ViewModel.CategoryViewModel
@@ -25,11 +26,13 @@ class AddTransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddTransactionBinding
     private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var categoryViewModel: CategoryViewModel
-    private var userId: Int = -1
+
     private var transactionType: String = "Expense"
     private lateinit var categoryList: List<Category>
     private lateinit var spinnerCat: Spinner
     private lateinit var adapter: CategoryAdapter
+    private lateinit var sessionManager : SessionManager
+    private var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,6 +52,10 @@ class AddTransactionActivity : AppCompatActivity() {
             showErrorAndFinish("Invalid user session")
             return
         }
+
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId()
+        Log.d("SESSION", "Add Transaction ID: ${sessionManager.getUserId()}")
 
         // Initialize ViewModels
          fun setupViewModels() {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_title"
+        style="@style/HeaderText"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Change Currency Button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_currency"
+        android:drawableLeft="@drawable/ic_currency"
+        android:drawablePadding="16dp"
+        app:cornerRadius="6dp"
+        android:layout_marginBottom="16dp"
+        style="@style/SubmitButton"/>
+
+    <!-- Export Summary to Excel Button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/export_summary"
+        android:drawableLeft="@drawable/file_export_24"
+        android:drawablePadding="16dp"
+        app:cornerRadius="6dp"
+        android:layout_marginBottom="16dp"
+        style="@style/SubmitButton"/>
+
+    <!-- Help Button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        android:drawableLeft="@drawable/ic_question"
+        android:drawablePadding="16dp"
+        app:cornerRadius="6dp"
+        style="@style/SubmitButton"/>
+
+</LinearLayout>
