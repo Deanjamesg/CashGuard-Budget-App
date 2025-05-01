@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.cashguard.Acitivties.AddTransactionActivity
-import com.example.cashguard.Acitivties.DashboardActivity
+import com.example.cashguard.Activties.AddTransactionActivity
+import com.example.cashguard.Activties.DashboardActivity
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.R
 import com.example.cashguard.databinding.FragmentBudgetBinding

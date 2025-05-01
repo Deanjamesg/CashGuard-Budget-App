@@ -1,22 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom"
     android:background="@color/background"
     android:orientation="vertical"
-    android:padding="40sp"
-    android:layout_gravity="bottom">
+    android:padding="40sp">
 
     <TextView
         style="@style/HeaderText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Add Expense"
         android:layout_marginBottom="20sp"
+        android:text="Add Expense"
         android:textAlignment="center" />
 
     <TextView
@@ -30,8 +28,8 @@
     <EditText
         android:id="@+id/edit_text_amount"
         style="@style/LargeInputField"
-        android:hint="R"
         android:layout_marginBottom="16dp"
+        android:hint="R"
         android:inputType="numberDecimal" />
 
     <Spinner
@@ -39,15 +37,15 @@
         android:layout_width="250sp"
         android:layout_height="50sp"
         android:background="@drawable/spinner_box"
-        android:spinnerMode="dropdown"
         android:popupBackground="@color/menu"
+        android:spinnerMode="dropdown"
         tools:entry="Select a Category" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="20sp"
+        android:layout_marginBottom="10dp"
         android:text="Note (Optional):"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
@@ -55,7 +53,9 @@
     <EditText
         android:id="@+id/edit_text_note"
         style="@style/LargeInputField"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:hint="e.g. Pick 'n Pay"
+        android:textColorHint="@color/gray" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,7 +74,6 @@
         android:text="Add Photo"
         android:textSize="16sp"
         app:cornerRadius="6dp" />
-
 
     <Button
         android:id="@+id/button_submit"
@@ -121,5 +120,4 @@
             android:src="@drawable/setting"
             app:tint="@android:color/white" />
     </LinearLayout>
-
 </LinearLayout>
