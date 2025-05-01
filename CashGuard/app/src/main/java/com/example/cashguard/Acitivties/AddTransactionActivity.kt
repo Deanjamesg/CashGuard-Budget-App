@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.cashguard.Adapter.CategoryAdapter
+import com.example.cashguard.Database.AppDatabase
 import com.example.cashguard.Model.TransactionViewModel
+import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.R
+import com.example.cashguard.Repository.TransactionRepository
 import com.example.cashguard.data.Category
 import com.example.cashguard.data.Transaction
 import com.example.cashguard.databinding.ActivityAddTransactionBinding
@@ -48,7 +51,15 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         // Initialize ViewModels
-        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
+         fun setupViewModels() {
+            val transactionDao = AppDatabase.getInstance(this).transactionDao()
+            val repository = TransactionRepository(transactionDao)
+            val factory = TransactionViewModelFactory(repository)
+
+            transactionViewModel = ViewModelProvider(this, factory)
+                .get(TransactionViewModel::class.java)
+        }
+
         categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
         spinnerCat = findViewById(R.id.spinner_category)
@@ -60,6 +71,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
         populateCategoryList(userId)
         setupSubmitButton()
+        setupViewModels()
 
         binding.homeIcon.setOnClickListener {
             // Create intent to return to BudgetOverviewActivity
