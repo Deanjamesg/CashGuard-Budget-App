@@ -25,6 +25,7 @@ class BudgetOverviewActivity : AppCompatActivity(), NavigationView.OnNavigationI
         binding = ActivityBudgetoverviewWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         // Get user ID from intent
         val userId = intent.getIntExtra("USER_ID", -1)
 
@@ -36,6 +37,12 @@ class BudgetOverviewActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
 
+        // Check if coming from home icon click
+        if (intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TOP != 0) {
+            binding.viewPager.currentItem = 1 // Switch to Overview tab
+        }
+
+
         viewPager.adapter = TabsPagerAdapter(this)
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -45,6 +52,11 @@ class BudgetOverviewActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 else -> "Expenses"
             }
         }.attach()
+
+        // Navigate to Overview tab (position 1)
+        binding.homeIcon.setOnClickListener {
+            binding.viewPager.currentItem = 1
+        }
 
         // Setup Navigation Drawer
         toggle = ActionBarDrawerToggle(
@@ -58,6 +70,8 @@ class BudgetOverviewActivity : AppCompatActivity(), NavigationView.OnNavigationI
         toggle.syncState()
 
         binding.navView.setNavigationItemSelectedListener(this)
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -66,34 +66,40 @@
             android:id="@+id/bottomNavBar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="#0A1128"
+
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/homeIcon"
-                android:layout_width="32dp"
+                android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
                 android:src="@drawable/home"
-                app:tint="@android:color/white" />
+                app:tint="@android:color/white"/>
 
-            <ImageView
-                android:id="@+id/centerIcon"
-                android:layout_width="32dp"
+            <ImageButton
+                android:id="@+id/searchIcon"
+                android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
                 android:src="@drawable/search"
-                app:tint="@android:color/white" />
+                app:tint="@android:color/white"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/settingsIcon"
-                android:layout_width="32dp"
+                android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
                 android:src="@drawable/setting"
-                app:tint="@android:color/white" />
+                app:tint="@android:color/white"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

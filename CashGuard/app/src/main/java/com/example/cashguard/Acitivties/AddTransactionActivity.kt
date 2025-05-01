@@ -1,5 +1,6 @@
 package com.example.cashguard.Acitivties
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Spinner
@@ -57,6 +58,15 @@ class AddTransactionActivity : AppCompatActivity() {
 
         populateCategoryList(userId)
         setupSubmitButton()
+
+        binding.homeIcon.setOnClickListener {
+            // Create intent to return to BudgetOverviewActivity
+            val intent = Intent(this, BudgetOverviewActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
+            finish() // Close current activity
+        }
     }
 
     private fun populateCategoryList(userId: Int) {

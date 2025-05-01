@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    android:padding="40sp">
+    android:padding="40sp"
+    android:layout_gravity="bottom">
 
     <TextView
         style="@style/HeaderText"
@@ -81,5 +82,44 @@
         android:layout_marginTop="16dp"
         android:text="Submit"
         app:cornerRadius="6dp" />
+
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/home"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/searchIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/search"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/settingsIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting"
+            app:tint="@android:color/white" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -37,10 +37,12 @@ class BudgetFragment : Fragment() {
 
         binding.btnAddExpense.setOnClickListener {
             launchAddTransaction("Expense")
+            Log.d("Button", "Expense")
         }
 
         binding.btnAddIncome.setOnClickListener {
             launchAddTransaction("Income")
+            Log.d("Button", "Income")
         }
     }
 
