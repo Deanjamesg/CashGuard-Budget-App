@@ -72,6 +72,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
         }
 
+        binding.settingsIcon.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         // Setup Navigation Drawer
         toggle = ActionBarDrawerToggle(
             this,

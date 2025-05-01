@@ -50,6 +50,11 @@ class SearchByDateActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.settingsIcon.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         // Get user ID from intent
 //        userId = intent.getIntExtra("USER_ID", -1)
 //        if (userId == -1) finish()

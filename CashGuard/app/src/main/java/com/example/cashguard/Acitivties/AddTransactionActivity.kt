@@ -95,6 +95,11 @@ class AddTransactionActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        binding.settingsIcon.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun populateCategoryList(userId: Int) {
