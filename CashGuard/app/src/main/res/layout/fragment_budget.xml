@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D1836"
+    android:background="@color/background"
     tools:context=".Fragments.BudgetFragment">
 
     <ScrollView
@@ -25,7 +25,6 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="32dp"
-
                 android:scaleType="fitCenter"/>
 
             <!-- Button Grid -->
@@ -47,22 +46,24 @@
 
                     <Button
                         android:id="@+id/btnAddExpense"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:text="Add Expense"
-                        android:backgroundTint="#FF4C4C"
-                        android:textColor="#FFFFFF"
+                        app:strokeColor="#FF4C4C"
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
+                        android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
 
                     <Button
                         android:id="@+id/btnAddIncome"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        style="@style/SmallButton"
                         android:layout_weight="1"
+                        app:cornerRadius="6dp"
                         android:text="Add Income"
-                        android:backgroundTint="#00C853"
-                        android:textColor="#FFFFFF"/>
+                        app:strokeColor="#00FF6A"
+                        app:strokeWidth="2dp"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
 
                 <!-- Second Row -->
@@ -73,21 +74,22 @@
                     android:gravity="center">
 
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:text="Budget Manager"
-                        android:backgroundTint="#00FFFF"
-                        android:textColor="#0D1836"
+                        app:strokeColor="@color/glow"
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
                         android:layout_marginEnd="8dp"/>
 
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
                         android:layout_weight="1"
+                        app:strokeColor="@color/white"
                         android:text="View Transactions"
-                        android:backgroundTint="#00FFFF"
-                        android:textColor="#0D1836"/>
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </LinearLayout>
 

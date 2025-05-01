@@ -9,7 +9,6 @@
 
             <item android:bottom="2dp">
                 <shape android:shape="rectangle">
-                    <size android:height="0dp"/>
                     <solid android:color="@color/background"/>
                 </shape>
             </item>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A1E3F"
+    android:background="@color/background"
     android:padding="16dp">
 
     <!-- App Name -->
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
-            android:background="#1D2B4D">
+            android:background="@color/menu">
 
             <ImageView
                 android:layout_width="48dp"
@@ -68,9 +68,10 @@
 
                 <TextView
                     android:text="Track your expenses"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    app:fontFamily="@font/poppins"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"/>
 
@@ -78,6 +79,7 @@
                     android:text="Track, manage, and optimize your spending effortlessly."
                     android:textColor="#B0B0B0"
                     android:textSize="12sp"
+                    app:fontFamily="@font/poppins"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"/>
             </LinearLayout>
@@ -101,7 +103,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
-            android:background="#1D2B4D">
+            android:background="@color/menu">
 
             <ImageView
                 android:layout_width="48dp"
@@ -117,15 +119,17 @@
 
                 <TextView
                     android:text="Create a budget"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    app:fontFamily="@font/poppins"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"/>
 
                 <TextView
                     android:text="Plan your spending and stay within your limits."
                     android:textColor="#B0B0B0"
+                    app:fontFamily="@font/poppins"
                     android:textSize="12sp"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"/>

@@ -44,7 +44,7 @@
     </style>
 
     <style name="SmallButton" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="android:layout_width">500px</item>
+        <item name="android:layout_width">550px</item>
         <item name="android:layout_height">150px</item>
         <item name="android:backgroundTint">@color/menu</item>
         <item name="android:fontFamily">@font/poppins</item>
@@ -61,15 +61,14 @@
 
     </style>
 
-    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
-        <item name="android:background">@drawable/spinner_box</item>
-        <item name="popupMenuBackground">@color/background</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:layout_width">200sp</item>
-        <item name="android:layout_height">50sp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/poppins</item>
-
-    </style>
+<!--    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">-->
+<!--        <item name="android:background">@drawable/spinner_box</item>-->
+<!--        <item name="popupMenuBackground">@color/background</item>-->
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        <item name="android:layout_width">200sp</item>-->
+<!--        <item name="android:layout_height">50sp</item>-->
+<!--        <item name="android:textSize">16sp</item>-->
+<!--        <item name="android:fontFamily">@font/poppins</item>-->
+<!--    </style>-->
 
 </resources>

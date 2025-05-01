@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121C38"
+    android:background="@color/background"
     tools:context=".Fragments.OverviewFragment">
 
     <ScrollView
@@ -14,8 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
             <!-- Circular Chart Placeholder -->
             <ImageView
@@ -74,58 +74,68 @@
                     android:gravity="center"/>
             </LinearLayout>
 
-            <!-- Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp"
-                android:weightSum="2">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Weekly Challenge"
-                    android:backgroundTint="#7B2CBF"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginEnd="4dp"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Budget Balances"
-                    android:backgroundTint="#48CAE4"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginStart="4dp"/>
-            </LinearLayout>
-
-            <!-- View Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginTop="16dp"
-                android:weightSum="2">
+                android:paddingHorizontal="16dp">
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="View Analytics"
-                    android:backgroundTint="#FFB703"
-                    android:textColor="@android:color/black"
-                    android:layout_marginEnd="4dp"/>
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp">
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="View Transactions"
-                    android:backgroundTint="#003566"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="4dp"/>
+                    <Button
+                        android:layout_weight="1"
+                        android:text="Weekly Challenge"
+                        app:strokeColor="#A600FF"
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        style="@style/SmallButton"
+                        android:layout_weight="1"
+                        app:cornerRadius="6dp"
+                        android:text="Budget Balances"
+                        app:strokeColor="@color/glow"
+                        app:strokeWidth="2dp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <!-- Second Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:text="View Analytics"
+                        app:strokeColor="#FF9900"
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        style="@style/SmallButton"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="6dp"
+                        android:layout_weight="1"
+                        app:strokeColor="@color/white"
+                        android:text="View Transactions"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Summary Section -->

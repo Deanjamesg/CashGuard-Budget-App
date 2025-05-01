@@ -30,21 +30,23 @@
         android:id="@+id/edit_text_amount"
         style="@style/LargeInputField"
         android:hint="R"
+        android:layout_marginBottom="16dp"
         android:inputType="numberDecimal" />
 
     <Spinner
         android:id="@+id/spinner_category"
-        style="@style/CustomSpinner"
-        android:layout_gravity="start"
-        android:layout_marginTop="15sp"
-        android:layout_marginBottom="25sp"
+        android:layout_width="250sp"
+        android:layout_height="50sp"
+        android:background="@drawable/spinner_box"
         android:spinnerMode="dropdown"
+        android:popupBackground="@color/menu"
         tools:entry="Select a Category" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="20sp"
         android:text="Note (Optional):"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
