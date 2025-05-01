@@ -1,0 +1,121 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="16sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--  Title  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Savings Calculator"
+            style="@style/HeaderText"/>
+
+        <!--  Description  -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SubHeaderText"
+            android:layout_marginBottom="24dp"
+            android:text="Enter a value for your savings goal as an amount (how much you wish to save) or as a percentage (which will be a percent of your income that you wish to save)."
+            android:textSize="16sp" />
+
+        <!--  Savings Goal  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Savings Goal (Percentage)"
+            style="@style/SubHeaderText"/>
+
+        <EditText
+            android:layout_marginBottom="16dp"
+            style="@style/LargeInputField"
+            android:hint="0 %"
+            android:inputType="numberDecimal"
+            android:text="15 %" />
+
+        <!--  Income Amount  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            style="@style/SubHeaderText"
+            android:text="Income Amount"/>
+
+        <EditText
+            android:layout_marginBottom="24dp"
+            style="@style/LargeInputField"
+            android:hint="R0"
+            android:inputType="numberDecimal"
+            android:text="R10 000" />
+
+        <!--  Divider Line  -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/white" />
+
+        <!--  Budget Amount Section  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget Amount ="
+                style="@style/SubHeaderText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="R8500"
+                style="@style/SubHeaderText" />
+        </LinearLayout>
+
+        <!--  Savings Amount Section  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Savings Amount ="
+                style="@style/SubHeaderText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                style="@style/SubHeaderText"
+                android:text="R1500"/>
+        </LinearLayout>
+
+        <!--  Submit Button  -->
+        <Button
+            android:layout_gravity="center"
+            style="@style/SubmitButton"
+            app:cornerRadius="6dp"
+            android:text="Submit Budget"/>
+
+    </LinearLayout>
+
+</LinearLayout>

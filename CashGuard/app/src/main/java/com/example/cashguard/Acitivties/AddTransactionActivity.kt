@@ -90,12 +90,10 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         binding.searchIcon.setOnClickListener {
-            // Create intent to return to BudgetOverviewActivity
-            val intent = Intent(this, DashboardActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            val intent = Intent(this, SearchByDateActivity::class.java).apply {
+                putExtra("USER_ID", userId) // Pass user ID to search activity
             }
             startActivity(intent)
-            finish() // Close current activity
         }
     }
 

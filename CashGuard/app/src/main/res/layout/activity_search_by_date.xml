@@ -119,8 +119,8 @@
     <!--  10. Transaction list  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTransactions"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"

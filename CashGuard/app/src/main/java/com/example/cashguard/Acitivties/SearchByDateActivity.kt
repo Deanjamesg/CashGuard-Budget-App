@@ -51,8 +51,8 @@ class SearchByDateActivity : AppCompatActivity() {
         }
 
         // Get user ID from intent
-        userId = intent.getIntExtra("USER_ID", -1)
-        if (userId == -1) finish()
+//        userId = intent.getIntExtra("USER_ID", -1)
+//        if (userId == -1) finish()
 
         // Initialize components
         setupViewModel()
@@ -121,6 +121,9 @@ class SearchByDateActivity : AppCompatActivity() {
                     selectedFromDate!!,
                     selectedToDate!!
                 )
+                for (transaction in transactions) {
+                    Log.d("Transaction", transaction.toString())
+                }
                 transactionAdapter.updateData(transactions)
                 updateDateRangeText()
             } catch (e: Exception) {
