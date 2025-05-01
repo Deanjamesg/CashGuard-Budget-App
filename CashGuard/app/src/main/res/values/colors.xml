@@ -6,4 +6,8 @@
     <color name="background">#1C2541</color>
     <color name="stroke">#5BC0BE</color>
     <color name="glow">#6FFFE9</color>
+    <color name="orange">#FF9900</color>
+    <color name="purple">#A600FF</color>
+    <color name="green">#00FF6A</color>
+    <color name="gray">#CBCBCB</color>
 </resources>

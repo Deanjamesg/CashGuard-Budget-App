@@ -70,6 +70,7 @@
 <!--        <item name="android:textSize">16sp</item>-->
 <!--        <item name="android:fontFamily">@font/poppins</item>-->
 <!--    </style>-->
+
     <style name="DatePickerTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <!-- Calendar days -->
         <item name="materialCalendarStyle">@style/CustomCalendarStyle</item>
@@ -82,6 +83,12 @@
     <style name="CustomCalendarStyle" parent="Widget.MaterialComponents.MaterialCalendar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="BodyText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#CBCBCB</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
 </resources>
