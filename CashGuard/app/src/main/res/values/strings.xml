@@ -8,4 +8,15 @@
     <string name="help">Help</string>
     <string name="navigation_drawer_open" translatable="false">Open Navigation Drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close Navigation Drawer</string>
+
+    <string name="budget_amount_format">%1$s / %2$s</string>
+    <string name="budget_percentage_format">%d%%</string>
+    <string name="add_budget_category">Add Budget Category</string>
+    <string name="category_name_hint">Category Name</string>
+    <string name="budget_amount_hint">Budget Amount</string>
+    <string name="category_color_label">Category Color:</string>
+    <string name="add_budget_fab_description">Add Budget Category</string>
+    <string name="budget_balances_empty_state">You haven\'t set any budgets yet.\nTap the + button below to add one!</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     </resources>

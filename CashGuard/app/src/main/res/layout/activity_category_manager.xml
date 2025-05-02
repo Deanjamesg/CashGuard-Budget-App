@@ -11,8 +11,8 @@
         style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category Manager"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Category Manager" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,46 +23,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <!-- Default Categories Header -->
+            <!--  Replace the category sections with these  -->
+            <!--  Income Categories  -->
             <TextView
                 style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Default Categories"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:text="Income Categories"
+                android:textColor="@color/green" />
 
-            <!-- Default Categories Container -->
             <LinearLayout
-                android:id="@+id/defaultCategoriesContainer"
+                android:id="@+id/incomeCategoriesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/background"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp"/>
-
-            <!-- User Categories Header -->
+                android:padding="8dp" />
+            <!--  Expense Categories  -->
             <TextView
                 style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Categories"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:text="Expense Categories"
+                android:textColor="@color/white" />
 
-            <!-- Dynamic Categories Container -->
             <LinearLayout
-                android:id="@+id/categoryButtonsContainer"
+                android:id="@+id/expenseCategoriesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-            <!-- Add/Remove Controls -->
+                android:background="@color/background"
+                android:orientation="vertical"
+                android:padding="8dp" />
+            <!--  Add/Remove Controls  -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp">
-            </LinearLayout>
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"></LinearLayout>
 
             <Button
                 android:id="@+id/addButton"
@@ -76,8 +79,7 @@
                 app:cornerRadius="6dp"
                 app:strokeColor="@color/glow"
                 app:strokeWidth="2dp" />
-
-            <!-- Add/Remove Controls -->
+            <!--  Add/Remove Controls  -->
             <Button
                 android:id="@+id/removeButton"
                 style="@style/SmallButton"
@@ -93,11 +95,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-            </LinearLayout>
+                android:gravity="center"
+                android:orientation="horizontal"></LinearLayout>
 
             <Button
                 android:id="@+id/submitBudget"

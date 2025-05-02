@@ -1,4 +1,4 @@
-package com.example.cashguard.Activities
+package com.example.cashguard.Activties
 
 import android.content.Intent
 import android.net.Uri
@@ -7,9 +7,14 @@ import android.util.Log
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.cashguard.Activities.CategoryManagerActivity
+import com.example.cashguard.Activities.DashboardActivity
+import com.example.cashguard.Activities.SearchByDateActivity
+import com.example.cashguard.Activities.SettingsActivity
 import com.example.cashguard.Adapter.CategoryAdapter
 import com.example.cashguard.Database.AppDatabase
 import com.example.cashguard.Helper.SessionManager
@@ -50,8 +55,8 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        Log.d("NAV_DEBUG", "AddTransactionActivity started")
         binding = ActivityAddTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -62,8 +67,8 @@ class AddTransactionActivity : AppCompatActivity() {
             return
         }
 
-        // Will be set with Cookies / User Session
-        userId = intent.getIntExtra("USER_ID", -1).takeIf { it != -1 } ?: run {
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId().takeIf { it != -1 } ?: run {
             showErrorAndFinish("Invalid user session")
             return
         }
@@ -82,6 +87,13 @@ class AddTransactionActivity : AppCompatActivity() {
                 .get(TransactionViewModel::class.java)
         }
 
+
+
+        binding.titleText.text = when (transactionType) {
+            "Income" -> "Add Income"
+            else -> "Add Expense"
+        }
+
         categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
         spinnerCat = findViewById(R.id.spinner_category)
@@ -91,7 +103,8 @@ class AddTransactionActivity : AppCompatActivity() {
             return
         }
 
-        populateCategoryList(userId)
+        // Pass transactionType to populateCategoryList
+        populateCategoryList(userId, transactionType) // Changed here
         setupSubmitButton()
         setupViewModels()
 
@@ -121,20 +134,22 @@ class AddTransactionActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateCategoryList(userId: Int) {
-
-        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
-
+    private fun populateCategoryList(userId: Int, transactionType: String) {
         lifecycleScope.launch {
             try {
-                categoryList = categoryViewModel.getExpenseCategories(userId)
-
-                // Log or use the populated list
-                for (category in categoryList) {
-                    Log.d("AddTransactionActivity", "Category: ${category.name}")
+                // Fetch categories based on transaction type
+                categoryList = when (transactionType) {
+                    "Income" -> categoryViewModel.getIncomeCategories(userId)
+                    else -> categoryViewModel.getExpenseCategories(userId)
                 }
+
+                // Update spinner
                 adapter = CategoryAdapter(this@AddTransactionActivity, categoryList)
                 spinnerCat.adapter = adapter
+
+                if (categoryList.isEmpty()) {
+                    showNoCategoriesDialog()
+                }
 
             } catch (e: Exception) {
                 Log.e("AddTransactionActivity", "Error fetching categories: ${e.message}")
@@ -201,19 +216,21 @@ class AddTransactionActivity : AppCompatActivity() {
         }
     }
 
-//    private fun showNoCategoriesDialog() {
-//        AlertDialog.Builder(this)
-//            .setTitle("No Categories Found")
-//            .setMessage("Create $transactionType categories first")
-//            .setPositiveButton("Create") { _, _ ->
-//                // Navigate to category creation
-//            }
-//            .setNegativeButton("Cancel") { _, _ -> finish() }
-//            .show()
-//    }
-
     private fun showErrorAndFinish(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
+
+
+    private fun showNoCategoriesDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("No Categories Found")
+            .setMessage("Create $transactionType categories first")
+            .setPositiveButton("Create") { _, _ ->
+                startActivity(Intent(this, CategoryManagerActivity::class.java))
+            }
+            .setNegativeButton("Cancel") { _, _ -> finish() }
+            .show()
+    }
+
 }

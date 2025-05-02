@@ -15,7 +15,7 @@ import com.example.cashguard.data.Category
 import com.example.cashguard.data.Transaction
 import com.example.cashguard.data.User
 
-@Database(entities = [User::class, Category::class, Transaction::class, Budget::class], version = 6)
+@Database(entities = [User::class, Category::class, Transaction::class, Budget::class], version = 7)
 @TypeConverters(Converters::class)
 
 abstract class AppDatabase : RoomDatabase() {

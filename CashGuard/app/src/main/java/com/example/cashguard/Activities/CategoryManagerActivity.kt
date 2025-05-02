@@ -62,37 +62,45 @@ class CategoryManagerActivity : AppCompatActivity() {
     }
 
     private fun refreshCategoryDisplay(categories: List<Category>) {
-        val defaultContainer: LinearLayout = findViewById(R.id.defaultCategoriesContainer)
-        val userContainer: LinearLayout = findViewById(R.id.categoryButtonsContainer)
+        val incomeContainer: LinearLayout = findViewById(R.id.incomeCategoriesContainer)
+        val expenseContainer: LinearLayout = findViewById(R.id.expenseCategoriesContainer)
 
-        defaultContainer.removeAllViews()
-        userContainer.removeAllViews()
+        incomeContainer.removeAllViews()
+        expenseContainer.removeAllViews()
 
         categories.forEach { category ->
-            val isDefault = viewModel.isDefaultCategory(category)
-            val container = if (isDefault) defaultContainer else userContainer
+            val container = when (category.type) {
+                "Income" -> incomeContainer
+                "Expense" -> expenseContainer
+                else -> null
+            }
 
-            Button(this).apply {
-                text = category.name
-                setTextColor(Color.WHITE)
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    setMargins(0, 0, 0, 16.dpToPx())
+            container?.let {
+                Button(this).apply {
+                    text = category.name
+                    setTextColor(Color.WHITE)
+                    background = ContextCompat.getDrawable(
+                        context,
+                        if (viewModel.isDefaultCategory(category)) {
+                            R.drawable.bg_default_category
+                        } else {
+                            if (category.type == "Income") R.drawable.bg_income_category
+                            else R.drawable.bg_expense_category
+                        }
+                    )
+                    isEnabled = !viewModel.isDefaultCategory(category)
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        setMargins(0, 0, 0, 16.dpToPx())
+                    }
+                    it.addView(this)
                 }
-
-                if (isDefault) {
-                    background = ContextCompat.getDrawable(context, R.drawable.bg_default_category)
-                    isEnabled = false
-                } else {
-                   // background = ContextCompat.getDrawable(context, R.drawable.button_background)
-                }
-
-                container.addView(this)
             }
         }
     }
+
 
     private fun createCategoryButton(category: Category): Button {
         return Button(this).apply {

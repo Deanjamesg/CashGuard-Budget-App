@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-
+import android.graphics.Color
 
 @Entity(
     tableName = "categories",
@@ -29,5 +29,8 @@ data class Category(
     val type: String,
 
     @ColumnInfo(name = "budget_amount")
-    val budgetAmount: Double? = null
+    val budgetAmount: Double? = null,
+
+    @ColumnInfo(name = "color", defaultValue = "-16777216")
+    val color: Int = Color.BLACK
 )
