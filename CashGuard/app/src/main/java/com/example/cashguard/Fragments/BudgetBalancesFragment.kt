@@ -151,13 +151,13 @@ class AddBudgetDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         selectedColor = ContextCompat.getColor(requireContext(), R.color.green)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        Log.d("CategoryInputFragment", "Inflated view for category:")
         _binding = FragmentAddBudgetBinding.inflate(inflater, container, false)
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         return binding.root

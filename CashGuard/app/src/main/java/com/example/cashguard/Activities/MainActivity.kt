@@ -10,8 +10,8 @@ import com.example.cashguard.databinding.ActivityMainBinding
 import com.example.cashguard.Helper.loginIntent
 import com.example.cashguard.Helper.registerIntent
 
-private lateinit var sessionManager : SessionManager
-private var userId: Int = -1
+lateinit var sessionManager : SessionManager
+var userId: Int = -1
 
 class MainActivity : AppCompatActivity() {
 

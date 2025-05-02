@@ -27,6 +27,9 @@ interface CategoryDao {
     @Query("SELECT * FROM categories WHERE user_id = :userId AND type = 'Income'")
     suspend fun getIncomeCategoriesByUser(userId: Int): List<Category>
 
+    @Query("SELECT name FROM categories WHERE type = 'Expense' AND user_id = :userId")
+    suspend fun getExpenseCategoryNames(userId: Int): List<String>
+
     @Delete
     suspend fun delete(category: Category)
 }

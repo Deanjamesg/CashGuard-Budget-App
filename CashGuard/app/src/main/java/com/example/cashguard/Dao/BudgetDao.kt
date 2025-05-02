@@ -22,4 +22,5 @@ interface BudgetDao {
 
     @Query("DELETE FROM budgets WHERE budgetId = :budgetId")
     suspend fun deleteBudget(budgetId: Int)
+
 }
