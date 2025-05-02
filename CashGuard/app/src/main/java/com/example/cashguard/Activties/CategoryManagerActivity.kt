@@ -1,4 +1,4 @@
-package com.example.cashguard.Activities
+package com.example.cashguard.Activties
 
 import android.graphics.Color
 import android.os.Bundle
