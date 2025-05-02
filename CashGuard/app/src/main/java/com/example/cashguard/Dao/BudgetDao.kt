@@ -1,3 +1,8 @@
+//source: https://developer.android.com/training/data-storage/room/accessing-data#:~:text=When%20you%20use%20the%20Room,the%20DAOs%20that%20you%20define.
+//title: Accessing data using Room DAOs
+//Author: Android Developers
+//Date Accessed: 2 May 2025
+
 package com.example.cashguard.Dao
 
 import androidx.room.*
@@ -22,5 +27,4 @@ interface BudgetDao {
 
     @Query("DELETE FROM budgets WHERE budgetId = :budgetId")
     suspend fun deleteBudget(budgetId: Int)
-
 }

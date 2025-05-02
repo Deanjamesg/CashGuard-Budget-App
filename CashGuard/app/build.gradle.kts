@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -51,8 +49,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("androidx.fragment:fragment-ktx:1.7.1")
-
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
@@ -68,5 +64,5 @@ dependencies {
     // Lifecycle Scope
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
-
+    implementation ("androidx.fragment:fragment-ktx:1.6.1")
 }

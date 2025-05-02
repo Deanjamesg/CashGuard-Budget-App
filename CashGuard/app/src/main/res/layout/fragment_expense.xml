@@ -15,46 +15,47 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp">
+            android:orientation="vertical">
 
+            <!-- Total Expenses -->
             <TextView
-                android:id="@+id/totalExpensesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R0.00"
-                android:textColor="@color/white"
-                android:textSize="28sp"
+                android:text="R12 500"
+                android:textColor="#FF4444"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/poppins"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Expenses"
-                android:textColor="#A0A0A0"
-                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
                 android:fontFamily="@font/poppins"
-                android:layout_gravity="center"
-                android:layout_marginBottom="24dp"/>
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:layout_marginTop="24dp"
                 android:paddingHorizontal="16dp">
+
+                <!-- First Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
+                    android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp">
 
                     <Button
-                        android:id="@+id/buttonAddExpense"
                         android:layout_weight="1"
                         android:text="Add Expense"
                         app:strokeColor="#FF4C4C"
@@ -65,7 +66,6 @@
                         android:layout_marginEnd="8dp"/>
 
                     <Button
-                        android:id="@+id/buttonAddIncome"
                         style="@style/SmallButton"
                         android:layout_weight="1"
                         app:cornerRadius="6dp"
@@ -74,11 +74,14 @@
                         app:strokeWidth="2dp"
                         android:textColor="@color/white"/>
                 </LinearLayout>
+
+                <!-- Second Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center">
+
                     <Button
                         android:id="@+id/categoryManager"
                         android:layout_weight="1"
@@ -89,8 +92,9 @@
                         android:textSize="12sp"
                         app:cornerRadius="6dp"
                         android:layout_marginEnd="8dp"/>
+
                     <Button
-                        android:id="@+id/buttonViewTransactions"
+                        android:id="@+id/viewTransactionExpensePage"
                         style="@style/SmallButton"
                         app:strokeWidth="2dp"
                         app:cornerRadius="6dp"
@@ -101,24 +105,10 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expenses by Category"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/poppins"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"/>
 
-            <LinearLayout
-                android:id="@+id/expense_category_list_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"/>
+
+
         </LinearLayout>
     </ScrollView>
+
 </FrameLayout>

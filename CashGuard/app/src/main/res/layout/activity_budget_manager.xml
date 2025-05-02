@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
+    android:fillViewport="true"
+
     android:padding="16dp">
 
     <!-- Header -->
@@ -35,7 +37,6 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/budgetAmountEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="24dp"
@@ -55,23 +56,123 @@
         android:textSize="16sp" />
 
     <!-- Categories and Budgets Table -->
-    <ScrollView
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="24dp"
+        android:stretchColumns="1">
 
-        <LinearLayout
-            android:id="@+id/categoryContainer"
+        <!-- Header Row -->
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp" />
+            android:layout_marginBottom="8dp">
 
-    </ScrollView>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Categories"
+                style="@style/SubHeaderText" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Budget"
+                style="@style/SubHeaderText"/>
+        </TableRow>
+
+        <!-- Food & Drink -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/FooterText"
+                android:text="Food &amp; Drink"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="R0"
+                android:inputType="numberDecimal"
+                style="@style/LargeInputField"
+                android:text="R4500"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <!-- Subscriptions -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/FooterText"
+                android:text="Subscriptions"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                style="@style/LargeInputField"
+                android:hint="R0"
+                android:inputType="numberDecimal"
+                android:text="R1500"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <!-- Transport -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/FooterText"
+                android:text="Transport"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                style="@style/LargeInputField"
+                android:hint="R0"
+                android:inputType="numberDecimal"
+                android:text="R5000"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <!-- Entertainment -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Household -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"/>
+    </TableLayout>
 
     <!-- Action Buttons -->
     <Button
-        android:id="@+id/submitButton"
         android:layout_marginBottom="12dp"
         style="@style/SubmitButton"
         app:cornerRadius="6dp"

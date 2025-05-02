@@ -10,8 +10,8 @@ import com.example.cashguard.databinding.ActivityMainBinding
 import com.example.cashguard.Helper.loginIntent
 import com.example.cashguard.Helper.registerIntent
 
-lateinit var sessionManager : SessionManager
-var userId: Int = -1
+private lateinit var sessionManager : SessionManager
+private var userId: Int = -1
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //session manager to manage user session for userId
         sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
         Log.d("SESSION", "Main ID: ${sessionManager.getUserId()}")

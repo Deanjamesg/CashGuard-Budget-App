@@ -12,6 +12,7 @@ import com.example.cashguard.Acitivties.BudgetBalancesActivity
 import com.example.cashguard.databinding.ActivityOverviewBinding
 import com.example.cashguard.ViewModel.SharedViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.cashguard.Activities.TransactionsReportActivity
 import com.example.cashguard.ViewModel.BudgetInfo
 
 class OverviewFragment : Fragment() {
@@ -51,6 +52,11 @@ class OverviewFragment : Fragment() {
                 Log.e("OverviewFragment", "Cannot navigate to Budget Balances: User ID is invalid ($userId)")
                 // Optional: Show a Toast or error message to the user
             }
+        }
+
+        // Add this to onViewCreated()
+        binding.viewTransactionOverviewPage.setOnClickListener {
+            startActivity(Intent(requireContext(), TransactionsReportActivity::class.java))
         }
     }
 
