@@ -1,6 +1,7 @@
 package com.example.cashguard.Activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
@@ -11,40 +12,33 @@ import com.example.cashguard.ViewModel.UserViewModel
 import kotlinx.coroutines.launch
 import com.example.cashguard.databinding.ActivityRegistrationBinding
 import com.example.cashguard.Helper.loginIntent
-import com.example.cashguard.Helper.registerIntent
 import com.example.cashguard.ViewModel.CategoryViewModel
 
 class RegistrationActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityRegistrationBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //go to registration page
-        binding.redirectRegisterToLoginButton.setOnClickListener{
-            registerIntent(this, LoginActivity::class.java)
+        binding.redirectRegisterToLoginButton.setOnClickListener {
+            loginIntent(this, LoginActivity::class.java)
         }
 
-        // Add registration button click listener
         binding.registerButton.setOnClickListener {
-            val firstName = binding.firstNameEditText.text.toString()
-            val lastName = binding.lastNameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
+            val firstName = binding.firstNameEditText.text.toString().trim()
+            val lastName = binding.lastNameEditText.text.toString().trim()
+            val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString()
             val confirmPassword = binding.confirmPasswordEditText.text.toString()
 
-            // Validate inputs
+            // Validation checks
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             if (password != confirmPassword) {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -58,22 +52,37 @@ class RegistrationActivity : AppCompatActivity() {
             )
 
             val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
             val categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
-
             lifecycleScope.launch {
-                val isEmailExists = userViewModel.isEmailRegistered(email)
-                if (isEmailExists) {
-                    Toast.makeText(this@RegistrationActivity, "Email already exists", Toast.LENGTH_SHORT).show()
-                } else {
-                    userViewModel.insertUser(user)
+                try {
+                    // 1. Check if email exists
+                    if (userViewModel.isEmailRegistered(email)) {
+                        Toast.makeText(this@RegistrationActivity, "Email already exists", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
 
-                    val userId = userViewModel.getUserIdByEmail(user.email)
-                    categoryViewModel.createDefaultCategories(userId ?:0)
+                    // 2. Insert user and wait for completion
+                    userViewModel.insertUser(user) // Ensure this is a SUSPEND function
 
-                    Toast.makeText(this@RegistrationActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+                    // 3. Retrieve user ID (add delay if needed for debugging)
+                    val userId = userViewModel.getUserIdByEmail(email)
+                    Log.d("Registration", "User ID retrieved: $userId")
+
+                    if (userId == null) {
+                        Toast.makeText(this@RegistrationActivity, "Registration failed - try again", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
+
+                    // 4. Create default categories
+                    categoryViewModel.createDefaultCategories(userId)
+
+                    // 5. Navigate to login
+                    Toast.makeText(this@RegistrationActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
                     loginIntent(this@RegistrationActivity, LoginActivity::class.java)
+                } catch (e: Exception) {
+                    Log.e("Registration", "Error: ${e.message}", e)
+                    Toast.makeText(this@RegistrationActivity, "Registration failed: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
