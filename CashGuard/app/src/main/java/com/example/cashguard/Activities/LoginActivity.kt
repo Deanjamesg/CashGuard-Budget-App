@@ -28,21 +28,17 @@ class LoginActivity : AppCompatActivity() {
             registerIntent(this, RegistrationActivity::class.java)
         }
 
-        // Initialize ViewModel
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        // Set up the login button click listener
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            // Validate input
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Validate user credentials
             lifecycleScope.launch {
                 val user = userViewModel.validateUserCredentials(email, password)
                 if (user != null) {
@@ -51,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                     val sessionManager = SessionManager(this@LoginActivity)
                     sessionManager.saveUserSession(userId = user.userId)
 
-                    // tester
+                    // Works
                     Log.d("SESSION MANAGER", "Login ID: ${sessionManager.getUserId()}")
 
                     // Show welcome toast
@@ -63,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                     }
 
-                    // Navigate to dashboard
                     dashboardIntent(
                         this@LoginActivity,
                         DashboardActivity::class.java,

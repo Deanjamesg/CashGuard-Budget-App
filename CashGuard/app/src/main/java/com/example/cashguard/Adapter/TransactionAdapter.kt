@@ -15,7 +15,6 @@ class TransactionAdapter(private var transactions: List<Transaction>) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        // Inflate the layout for each item
         val binding = ItemTransactionActivityBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -24,12 +23,9 @@ class TransactionAdapter(private var transactions: List<Transaction>) :
         return TransactionViewHolder(binding)
     }
 
-    // Bind the data to the views
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        // Get the transaction at the current position
         val transaction = transactions[position]
         with(holder.binding) {
-            // Set the transaction details to the views
             tvAmount.text = "R${transaction.amount}"
             tvCategory.text = transaction.categoryName
             tvDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
@@ -39,7 +35,6 @@ class TransactionAdapter(private var transactions: List<Transaction>) :
 
     override fun getItemCount() = transactions.size
 
-    // Update the list of transactions and notify the adapter
     fun updateData(newTransactions: List<Transaction>) {
         transactions = newTransactions
         notifyDataSetChanged()

@@ -1,14 +1,6 @@
-//source: https://medium.com/@dilip2882/why-use-viewmodel-factory-understanding-parameterized-viewmodels-2dbfcf92a11d
-//author: Dilip Kumar
-//title: Why use ViewModel Factory? Understanding Parameterized ViewModels
-//date accessed: 2 May 2025
-
-
 package com.example.cashguard.Model
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -19,15 +11,12 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 class TransactionViewModel(private val repository: TransactionRepository) : ViewModel() {
-    // Secondary constructor for Application-based initialization
+    // For direct initialization (alternative to factory pattern)
     constructor(application: Application) : this(
         TransactionRepository(
             AppDatabase.getInstance(application).transactionDao()
         )
     )
-    private val _transactions = MutableLiveData<List<Transaction>>()
-    val transactions: LiveData<List<Transaction>> get() = _transactions
-
 
     fun addTransaction(transaction: Transaction) = viewModelScope.launch {
         repository.insertTransaction(transaction)
@@ -39,30 +28,16 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
 
     suspend fun getTransactionsByDateRange(userId: Int, from: Date, to: Date) =
         repository.getByDateRange(userId, from, to)
-
-    fun loadTransactionsByDateRange(userId: Int, from: Date, to: Date) {
-        viewModelScope.launch {
-            _transactions.value = repository.getByDateRange(userId, from, to)
-        }
-    }
 }
 
-// Factory class for creating instances of TransactionViewModel **
-class TransactionViewModelFactory(
-private val repository: TransactionRepository? = null,
-private val application: Application? = null
-) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
+class TransactionViewModelFactory(private val repository: TransactionRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
-            modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
-                when {
-                    repository != null -> TransactionViewModel(repository)
-                    application != null -> TransactionViewModel(application)
-                    else -> throw IllegalStateException("Factory must be initialized with either repository or application")
-                }
-            }
-            else -> throw IllegalArgumentException("Unknown ViewModel class")
-        } as T
+        if (modelClass.isAssignableFrom(TransactionViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return TransactionViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+

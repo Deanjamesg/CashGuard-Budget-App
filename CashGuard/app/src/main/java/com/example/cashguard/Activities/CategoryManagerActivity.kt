@@ -19,7 +19,6 @@ import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.data.Category
 
 class CategoryManagerActivity : AppCompatActivity() {
-    //viewmodel to handle category operations
     private lateinit var viewModel: CategoryViewModel
     private lateinit var sessionManager: SessionManager
     private var userId: Int = -1
@@ -35,7 +34,7 @@ class CategoryManagerActivity : AppCompatActivity() {
             return
         }
 
-        // sets up the viewmodel with default factory
+        // Initialize ViewModel
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -45,24 +44,23 @@ class CategoryManagerActivity : AppCompatActivity() {
         initializeCategories()
         setupClickListeners()
     }
-    //observe live data from viewmodel
+
     private fun setupObservers() {
-        //update ui when categories are loaded/ changed
         viewModel.categories.observe(this) { categories ->
             categories?.let { refreshCategoryDisplay(it) } ?: showError("Failed to load categories")
         }
-        //show error message if any occurred
+
         viewModel.errorMessage.observe(this) { error ->
             error?.let { showError(it) }
         }
     }
-    //initialize categories for the user
+
     private fun initializeCategories() {
         lifecycleScope.launchWhenStarted {
             viewModel.initializeUserCategories(userId)
         }
     }
-    //dynamically load categories from the database
+
     private fun refreshCategoryDisplay(categories: List<Category>) {
         val incomeContainer: LinearLayout = findViewById(R.id.incomeCategoriesContainer)
         val expenseContainer: LinearLayout = findViewById(R.id.expenseCategoriesContainer)
@@ -70,7 +68,6 @@ class CategoryManagerActivity : AppCompatActivity() {
         incomeContainer.removeAllViews()
         expenseContainer.removeAllViews()
 
-        //create styled buttons for each category
         categories.forEach { category ->
             val container = when (category.type) {
                 "Income" -> incomeContainer
@@ -82,7 +79,6 @@ class CategoryManagerActivity : AppCompatActivity() {
                 Button(this).apply {
                     text = category.name
                     setTextColor(Color.WHITE)
-                    //set background based on category type
                     background = ContextCompat.getDrawable(
                         context,
                         if (viewModel.isDefaultCategory(category)) {
@@ -92,7 +88,6 @@ class CategoryManagerActivity : AppCompatActivity() {
                             else R.drawable.bg_expense_category
                         }
                     )
-                    //disable editing for default categories
                     isEnabled = !viewModel.isDefaultCategory(category)
                     layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -107,28 +102,26 @@ class CategoryManagerActivity : AppCompatActivity() {
     }
 
 
-//    private fun createCategoryButton(category: Category): Button {
-//        return Button(this).apply {
-//            text = category.name
-//            setTextColor(Color.WHITE)
-//            //background = ContextCompat.getDrawable(context, R.drawable.button_background)
-//            layoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.WRAP_CONTENT
-//            ).apply {
-//                setMargins(0, 0, 0, 16.dpToPx())
-//            }
-//        }
-//    }
+    private fun createCategoryButton(category: Category): Button {
+        return Button(this).apply {
+            text = category.name
+            setTextColor(Color.WHITE)
+            //background = ContextCompat.getDrawable(context, R.drawable.button_background)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0, 0, 0, 16.dpToPx())
+            }
+        }
+    }
 
-    //show dialog to add a new category
     private fun setupClickListeners() {
         findViewById<Button>(R.id.addButton).setOnClickListener { showAddDialog() }
         findViewById<Button>(R.id.removeButton).setOnClickListener { showRemoveDialog() }
         findViewById<Button>(R.id.submitBudget).setOnClickListener { finish() }
     }
 
-    //show dialog to add a new category
     private fun showAddDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_category_editor, null)
         val nameET = dialogView.findViewById<EditText>(R.id.etCategoryName)
@@ -144,7 +137,6 @@ class CategoryManagerActivity : AppCompatActivity() {
             .show()
     }
 
-    //validate and create a new category
     private fun handleCategoryCreation(nameET: EditText, typeRG: RadioGroup) {
         val name = nameET.text.toString().trim()
         val type = when (typeRG.checkedRadioButtonId) {
@@ -166,7 +158,6 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
-    //show dialog to remove a category
     private fun showRemoveDialog() {
         val removable = viewModel.getRemovableCategories()
         when {
@@ -175,7 +166,6 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
-    //helper function to show a dialog for category removal
     private fun showRemovalSelectionDialog(categories: List<Category>) {
         AlertDialog.Builder(this)
             .setTitle("Remove Category")
@@ -186,11 +176,9 @@ class CategoryManagerActivity : AppCompatActivity() {
             .show()
     }
 
-    //show error message
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    //extension function to convert dp to px
     private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
 }

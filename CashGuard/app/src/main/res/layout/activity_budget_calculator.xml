@@ -33,6 +33,7 @@
             android:text="Savings Goal (Percentage)" />
 
         <EditText
+            android:id="@+id/savingsPercentageInput"
             style="@style/LargeInputField"
             android:layout_marginBottom="16dp"
             android:hint="0 %"
@@ -47,6 +48,7 @@
             android:text="Income Amount" />
 
         <EditText
+            android:id="@+id/incomeAmount"
             style="@style/LargeInputField"
             android:layout_marginBottom="24dp"
             android:hint="R0"
@@ -73,6 +75,7 @@
                 android:text="Budget Amount =" />
 
             <TextView
+                android:id="@+id/budgetAmount"
                 style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +97,7 @@
                 android:text="Savings Amount =" />
 
             <TextView
+                android:id="@+id/savingsAmount"
                 style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +106,7 @@
         </LinearLayout>
         <!--   Submit Button   -->
         <Button
+            android:id="@+id/submitButton"
             style="@style/SubmitButton"
             android:layout_gravity="center"
             android:text="Submit Budget"

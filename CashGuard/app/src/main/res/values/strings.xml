@@ -20,8 +20,9 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
 
-    <string-array name="transaction_types">
-        <item>Expense</item>
-        <item>Income</item>
-    </string-array>
-    </resources>
+    <string name="tab_budget">Budget</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_expenses">Expenses</string>
+
+
+</resources>

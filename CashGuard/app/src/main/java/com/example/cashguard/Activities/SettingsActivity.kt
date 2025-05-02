@@ -34,5 +34,10 @@ class SettingsActivity : AppCompatActivity() {
                 putExtra("USER_ID", userId)
             }.also { startActivity(it) }
         }
+
+        binding.helpButton.setOnClickListener {
+            val intent = Intent(this, BudgetCalculatorActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

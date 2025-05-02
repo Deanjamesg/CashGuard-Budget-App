@@ -28,7 +28,6 @@ class RegistrationActivity : AppCompatActivity() {
             loginIntent(this, LoginActivity::class.java)
         }
 
-        // Register button click listener
         binding.registerButton.setOnClickListener {
             val firstName = binding.firstNameEditText.text.toString().trim()
             val lastName = binding.lastNameEditText.text.toString().trim()

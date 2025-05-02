@@ -42,7 +42,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private var userId: Int = -1
 
     private var selectedPhotoUri: Uri? = null
-
+    // Initialise the activity result launcher for picking an image
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
