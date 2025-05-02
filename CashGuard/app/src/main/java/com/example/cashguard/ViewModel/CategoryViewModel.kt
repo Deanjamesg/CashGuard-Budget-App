@@ -59,17 +59,18 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun initializeUserCategories(userId: Int) = viewModelScope.launch {
-        if (repository.getCategories(userId).isEmpty()) {
-            createDefaultCategories(userId)
-        }
-        loadCategories(userId)
+            if (repository.getCategories(userId).isEmpty()) {
+                Log.d("category creation","initial")
+                createDefaultCategories(userId)
+            }
+            loadCategories(userId)
     }
 
 
     fun createDefaultCategories(userId: Int) = viewModelScope.launch {
         // Get context to resolve color resource IDs
         val context = getApplication<Application>().applicationContext
-
+        Log.d("category creation","create")
         val defaultCategories = DEFAULT_CATEGORIES.map { (name, type, colorResId) ->
             // Create Category object, explicitly setting null budget and resolving color
             Category(

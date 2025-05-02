@@ -16,6 +16,7 @@ import com.example.cashguard.ViewModel.CategoryViewModel
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
+    //private var userId : Int =-1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,38 +52,56 @@ class RegistrationActivity : AppCompatActivity() {
                 password = password
             )
 
-            val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-            val categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
+            var userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+            var categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
             lifecycleScope.launch {
                 try {
                     // 1. Check if email exists
                     if (userViewModel.isEmailRegistered(email)) {
-                        Toast.makeText(this@RegistrationActivity, "Email already exists", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@RegistrationActivity,
+                            "Email already exists",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         return@launch
                     }
 
-                    // 2. Insert user and wait for completion
-                    userViewModel.insertUser(user) // Ensure this is a SUSPEND function
+                    // 2. Insert user
+                    userViewModel.insertUser(user)
 
-                    // 3. Retrieve user ID (add delay if needed for debugging)
-                    val userId = userViewModel.getUserIdByEmail(email)
+                    // 3. Get user ID as nullable Int
+                    val userId: Int? = userViewModel.getUserIdByEmail(email)
                     Log.d("Registration", "User ID retrieved: $userId")
 
-                    if (userId == null) {
-                        Toast.makeText(this@RegistrationActivity, "Registration failed - try again", Toast.LENGTH_SHORT).show()
+                    // 4. Check if ID is valid
+                    if (userId == null || userId == -1) {
+                        Toast.makeText(
+                            this@RegistrationActivity,
+                            "Registration failed - try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         return@launch
                     }
 
-                    // 4. Create default categories
-                    categoryViewModel.createDefaultCategories(userId)
+                    // 5. Initialize categories with valid user ID
+                    categoryViewModel.initializeUserCategories(userId)
+                    //categoryViewModel.createDefaultCategories(userId)
 
-                    // 5. Navigate to login
-                    Toast.makeText(this@RegistrationActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
+                    // 6. Navigate to login
+                    Toast.makeText(
+                        this@RegistrationActivity,
+                        "Registration successful!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     loginIntent(this@RegistrationActivity, LoginActivity::class.java)
                 } catch (e: Exception) {
                     Log.e("Registration", "Error: ${e.message}", e)
-                    Toast.makeText(this@RegistrationActivity, "Registration failed: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@RegistrationActivity,
+                        "Registration failed: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

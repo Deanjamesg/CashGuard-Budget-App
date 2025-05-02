@@ -16,7 +16,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         repository = UserRepository(userDao)
     }
 
-    fun insertUser(user: User) = viewModelScope.launch {
+     fun insertUser(user: User) = viewModelScope.launch {
         repository.insertUser(user)
     }
 
