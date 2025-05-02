@@ -1,9 +1,8 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cashguard.R
 import com.example.cashguard.databinding.ActivityBudgetManagerBinding
 
 class BudgetManagerActivity : AppCompatActivity() {

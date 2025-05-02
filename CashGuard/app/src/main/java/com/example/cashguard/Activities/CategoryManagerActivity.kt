@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.R
 import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.data.Category

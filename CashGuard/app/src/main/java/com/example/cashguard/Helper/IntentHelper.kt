@@ -1,4 +1,4 @@
-package com.example.cashguard.Intent
+package com.example.cashguard.Helper
 
 
 import android.app.Activity

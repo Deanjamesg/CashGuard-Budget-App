@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -10,8 +10,8 @@ import com.example.cashguard.data.User
 import com.example.cashguard.ViewModel.UserViewModel
 import kotlinx.coroutines.launch
 import com.example.cashguard.databinding.ActivityRegistrationBinding
-import com.example.cashguard.Intent.loginIntent
-import com.example.cashguard.Intent.registerIntent
+import com.example.cashguard.Helper.loginIntent
+import com.example.cashguard.Helper.registerIntent
 import com.example.cashguard.ViewModel.CategoryViewModel
 
 class RegistrationActivity : AppCompatActivity() {

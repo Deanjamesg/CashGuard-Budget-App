@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.os.Bundle
 import android.util.Log
@@ -7,11 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.cashguard.Intent.SessionManager
-import com.example.cashguard.Intent.dashboardIntent
+import com.example.cashguard.Helper.SessionManager
+import com.example.cashguard.Helper.dashboardIntent
 import com.example.cashguard.ViewModel.UserViewModel
 import com.example.cashguard.databinding.ActivityLoginBinding
-import com.example.cashguard.Intent.registerIntent
+import com.example.cashguard.Helper.registerIntent
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {

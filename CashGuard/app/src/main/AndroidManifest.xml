@@ -13,31 +13,31 @@
         android:theme="@style/Theme.CashGuard"
         tools:targetApi="31">
         <activity
-            android:name=".Activties.BudgetManagerActivity"
+            android:name=".Activities.BudgetManagerActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.CategoryManagerActivity"
+            android:name=".Activities.CategoryManagerActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.SettingsActivity"
+            android:name=".Activities.SettingsActivity"
             android:theme="@style/Theme.CashGuard"/>
         <activity
-            android:name=".Activties.SearchByDateActivity"
+            android:name=".Activities.SearchByDateActivity"
             android:theme="@style/Theme.CashGuard"/>
         <activity
-            android:name=".Activties.DashboardActivity"
+            android:name=".Activities.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.AddTransactionActivity"
+            android:name=".Activities.AddTransactionActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.RegistrationActivity"
+            android:name=".Activities.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Activties.MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

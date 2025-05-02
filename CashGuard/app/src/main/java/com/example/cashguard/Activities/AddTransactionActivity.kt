@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.cashguard.Adapter.CategoryAdapter
 import com.example.cashguard.Database.AppDatabase
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.Model.TransactionViewModel
 import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.ViewModel.CategoryViewModel

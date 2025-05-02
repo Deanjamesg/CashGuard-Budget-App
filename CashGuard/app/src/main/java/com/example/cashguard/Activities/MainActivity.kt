@@ -1,14 +1,14 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.os.Bundle
 import android.util.Log
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.databinding.ActivityMainBinding
-import com.example.cashguard.Intent.loginIntent
-import com.example.cashguard.Intent.registerIntent
+import com.example.cashguard.Helper.loginIntent
+import com.example.cashguard.Helper.registerIntent
 
 private lateinit var sessionManager : SessionManager
 private var userId: Int = -1

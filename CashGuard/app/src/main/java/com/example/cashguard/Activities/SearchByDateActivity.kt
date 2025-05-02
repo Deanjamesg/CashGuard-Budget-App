@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cashguard.Adapter.TransactionAdapter
 import com.example.cashguard.Database.AppDatabase
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.Model.TransactionViewModel
 import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.R

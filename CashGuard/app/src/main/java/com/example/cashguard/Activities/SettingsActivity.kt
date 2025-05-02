@@ -1,10 +1,10 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.cashguard.Activties
+package com.example.cashguard.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Adapter.TabsPagerAdapter
-import com.example.cashguard.Intent.SessionManager
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.R
 import com.example.cashguard.databinding.ActivityBudgetoverviewWithNavDrawerBinding
