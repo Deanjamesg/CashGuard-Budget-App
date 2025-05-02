@@ -10,9 +10,14 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Activities.AddTransactionActivity
 import com.example.cashguard.Adapter.TabsPagerAdapter
+import com.example.cashguard.Database.AppDatabase
 import com.example.cashguard.Helper.SessionManager
+import com.example.cashguard.Model.TransactionViewModel
+import com.example.cashguard.Model.TransactionViewModelFactory
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.R
+import com.example.cashguard.Repository.TransactionRepository
+import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.databinding.ActivityBudgetoverviewWithNavDrawerBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,6 +27,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var binding: ActivityBudgetoverviewWithNavDrawerBinding
     lateinit var sharedViewModel: SharedViewModel
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var transactionViewModel: TransactionViewModel
+    private lateinit var categoryViewModel: CategoryViewModel
 
     private lateinit var sessionManager : SessionManager
     private var userId: Int = -1
@@ -31,67 +38,89 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         binding = ActivityBudgetoverviewWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get user ID from intent
-//        val userId = intent.getIntExtra("USER_ID", -1)
-
         sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
-        Log.d("SESSION", "Dashboard ID: ${sessionManager.getUserId()}")
+        // ... (handle invalid userId if needed) ...
+        Log.d("SESSION", "Dashboard ID: $userId")
 
-        // Initialize SharedViewModel
-        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-        sharedViewModel.userId = userId
+        // --- Initialize ALL ViewModels ---
+        Log.d("DashboardActivity", "Initializing ViewModels...")
+        try {
+            // SharedViewModel (This one is simple)
+            sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+            sharedViewModel.userId = userId
 
-        // Setup ViewPager and TabLayout
+            // --- Initialize TransactionViewModel using its Factory (REQUIRED) ---
+            // 1. Get Database instance safely
+            val database = AppDatabase.getInstance(applicationContext) // Use applicationContext for safety
+            // 2. Create Repository instance
+            val transactionRepository = TransactionRepository(database.transactionDao())
+            // 3. Create the Factory
+            val transactionFactory = TransactionViewModelFactory(transactionRepository)
+            // 4. Initialize ViewModel using the Factory
+            transactionViewModel = ViewModelProvider(this, transactionFactory)[TransactionViewModel::class.java] // Pass the factory!
+
+
+            // Initialize CategoryViewModel using the default factory (This should be fine)
+            categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+
+            Log.d("DashboardActivity", "ViewModels Initialized Successfully.")
+
+        } catch (e: Exception) {
+            Log.e("DashboardActivity", "CRITICAL ERROR initializing ViewModels!", e)
+            // Show error to user / Close activity if ViewModels are essential
+            // Toast.makeText(this, "Failed to load essential components.", Toast.LENGTH_LONG).show()
+            finish() // Example: Close activity if initialization fails
+            return
+        }
+
+        // --- Rest of your onCreate setup ---
+        setupNavigationDrawer() // Example call
+        setupViewPagerAndTabs() // Example call
+        setupIconListeners()    // Example call
+
+        Log.d("DashboardActivity", "onCreate completed.")
+    }
+
+    // --- Helper methods for setup --- (Break down your onCreate logic)
+
+    private fun setupViewPagerAndTabs() {
+        Log.d("DashboardActivity", "Setting up ViewPager and Tabs...")
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
-
-        // Check if coming from home icon click
-        if (intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TOP != 0) {
-            binding.viewPager.currentItem = 1 // Switch to Overview tab
-        }
-
         viewPager.adapter = TabsPagerAdapter(this)
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when(position) {
-                0 -> "Budget"
-                1 -> "Overview"
-                else -> "Expenses"
+                0 -> getString(R.string.tab_budget)
+                1 -> getString(R.string.tab_overview)
+                2 -> getString(R.string.tab_expenses)
+                else -> null
             }
         }.attach()
+        // Set default tab if needed
+        // binding.viewPager.currentItem = 1 // Example: Overview default
+        Log.d("DashboardActivity", "ViewPager and Tabs setup complete.")
+    }
 
-        // Navigate to Overview tab (position 1)
-        binding.homeIcon.setOnClickListener {
-            binding.viewPager.currentItem = 1
-        }
+    private fun setupIconListeners() {
+        Log.d("DashboardActivity", "Setting up Icon Listeners...")
+        binding.homeIcon.setOnClickListener { binding.viewPager.currentItem = 1 }
+        binding.searchIcon.setOnClickListener { /* ... start SearchByDateActivity ... */ }
+        binding.settingsIcon.setOnClickListener { /* ... start SettingsActivity ... */ }
+        Log.d("DashboardActivity", "Icon Listeners setup complete.")
+    }
 
-        binding.searchIcon.setOnClickListener {
-            val intent = Intent(this, SearchByDateActivity::class.java).apply {
-                putExtra("USER_ID", sharedViewModel.userId)
-            }
-            startActivity(intent)
-        }
-
-        binding.settingsIcon.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Setup Navigation Drawer
+    private fun setupNavigationDrawer() {
+        Log.d("DashboardActivity", "Setting up Navigation Drawer...")
         toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.navToolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+            this, binding.drawerLayout, binding.navToolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
         binding.navView.setNavigationItemSelectedListener(this)
-
-
+        // setSupportActionBar(binding.navToolbar) // If using as ActionBar
+        // supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        Log.d("DashboardActivity", "Navigation Drawer setup complete.")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

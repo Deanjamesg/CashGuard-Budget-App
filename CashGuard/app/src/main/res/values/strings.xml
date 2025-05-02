@@ -19,4 +19,10 @@
     <string name="budget_balances_empty_state">You haven\'t set any budgets yet.\nTap the + button below to add one!</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    </resources>
+
+    <string name="tab_budget">Budget</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_expenses">Expenses</string>
+
+
+</resources>
