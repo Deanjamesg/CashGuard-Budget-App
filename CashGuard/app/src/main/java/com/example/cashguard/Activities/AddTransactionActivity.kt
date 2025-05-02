@@ -1,10 +1,13 @@
 package com.example.cashguard.Activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -27,7 +30,9 @@ import com.example.cashguard.data.Category
 import com.example.cashguard.data.Transaction
 import com.example.cashguard.databinding.ActivityAddTransactionBinding
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class AddTransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddTransactionBinding
@@ -39,10 +44,11 @@ class AddTransactionActivity : AppCompatActivity() {
     private lateinit var spinnerCat: Spinner
     private lateinit var adapter: CategoryAdapter
     private lateinit var sessionManager : SessionManager
+    private var selectedDate: Date? = null
     private var userId: Int = -1
 
     private var selectedPhotoUri: Uri? = null
-    // Initialise the activity result launcher for picking an image
+
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -68,12 +74,6 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         sessionManager = SessionManager(this)
-        userId = sessionManager.getUserId().takeIf { it != -1 } ?: run {
-            showErrorAndFinish("Invalid user session")
-            return
-        }
-
-        sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
         Log.d("SESSION", "Add Transaction ID: ${sessionManager.getUserId()}")
 
@@ -87,13 +87,6 @@ class AddTransactionActivity : AppCompatActivity() {
                 .get(TransactionViewModel::class.java)
         }
 
-
-
-        binding.titleText.text = when (transactionType) {
-            "Income" -> "Add Income"
-            else -> "Add Expense"
-        }
-
         categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
         spinnerCat = findViewById(R.id.spinner_category)
@@ -103,10 +96,22 @@ class AddTransactionActivity : AppCompatActivity() {
             return
         }
 
+        // Set the titleText dynamically based on transactionType
+        binding.titleText.text = when (transactionType) {
+            "Income" -> "Add Income"
+            "Expense" -> "Add Expense"
+            else -> "Add Transaction"
+        }
+
+        Log.d("AddTransactionActivity 1", "${transactionType}")
         // Pass transactionType to populateCategoryList
         populateCategoryList(userId, transactionType) // Changed here
         setupSubmitButton()
         setupViewModels()
+
+        binding.btnDate.setOnClickListener {
+            showDatePicker()
+        }
 
         binding.homeIcon.setOnClickListener {
             // Create intent to return to BudgetOverviewActivity
@@ -137,6 +142,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun populateCategoryList(userId: Int, transactionType: String) {
         lifecycleScope.launch {
             try {
+                Log.d("AddTransactionActivity 2", "${transactionType}")
                 // Fetch categories based on transaction type
                 categoryList = when (transactionType) {
                     "Income" -> categoryViewModel.getIncomeCategories(userId)
@@ -155,6 +161,22 @@ class AddTransactionActivity : AppCompatActivity() {
                 Log.e("AddTransactionActivity", "Error fetching categories: ${e.message}")
             }
         }
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        DatePickerDialog(
+            this,
+            R.style.DatePickerTheme,
+            { _, year, month, day ->
+                calendar.set(year, month, day)
+                selectedDate = calendar.time // Set selectedDate to the chosen date
+                binding.btnDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(selectedDate!!)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     private fun setupSubmitButton() {
@@ -185,7 +207,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
             val transaction = Transaction(
                 userId = userId,
-                date = Date(),
+                date = selectedDate ?: Date(),
                 amount = amount,
                 note = note.ifBlank { null },
                 type = transactionType,

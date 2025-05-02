@@ -9,8 +9,8 @@
     android:padding="40sp">
 
     <TextView
-        style="@style/HeaderText"
         android:id="@+id/titleText"
+        style="@style/HeaderText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -75,6 +75,21 @@
         android:text="Add Photo"
         android:textSize="16sp"
         app:cornerRadius="6dp" />
+
+    <Button
+        android:id="@+id/btnDate"
+        style="@style/SmallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:drawableTint="@color/white"
+        android:text="Date"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:cornerRadius="6dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/button_submit"

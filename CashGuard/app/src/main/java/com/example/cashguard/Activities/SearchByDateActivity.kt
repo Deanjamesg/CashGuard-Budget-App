@@ -55,10 +55,6 @@ class SearchByDateActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Get user ID from intent
-//        userId = intent.getIntExtra("USER_ID", -1)
-//        if (userId == -1) finish()
-
         // Initialize components
         setupViewModel()
         setupRecyclerView()
@@ -91,11 +87,13 @@ class SearchByDateActivity : AppCompatActivity() {
                         set(Calendar.MINUTE, 0)
                         set(Calendar.SECOND, 0)
                         selectedFromDate = time
+                        binding.btnFromDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(time)
                     } else {
                         set(Calendar.HOUR_OF_DAY, 23)
                         set(Calendar.MINUTE, 59)
                         set(Calendar.SECOND, 59)
                         selectedToDate = time
+                        binding.btnToDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(time)
                     }
                 }
                 loadTransactions()
