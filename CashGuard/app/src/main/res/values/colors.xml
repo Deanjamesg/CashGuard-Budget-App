@@ -10,4 +10,6 @@
     <color name="purple">#A600FF</color>
     <color name="green">#00FF6A</color>
     <color name="gray">#CBCBCB</color>
+    <color name="button_background">#6200EE</color>
+    <color name="default_category">#6C757D</color>
 </resources>

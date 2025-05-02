@@ -1,10 +1,13 @@
 package com.example.cashguard.Fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.cashguard.Activities.CategoryManagerActivity
+
 import com.example.cashguard.databinding.FragmentExpenseBinding
 
 class ExpenseFragment : Fragment() {
@@ -22,7 +25,22 @@ class ExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Setup your expense list here
+
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        // Category Manager navigation
+        binding.categoryManager.setOnClickListener {
+            navigateToCategoryManager()
+        }
+
+        // Add other button listeners here if needed
+    }
+
+    private fun navigateToCategoryManager() {
+        val intent = Intent(requireContext(), CategoryManagerActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

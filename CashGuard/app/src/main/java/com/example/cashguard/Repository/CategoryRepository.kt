@@ -9,7 +9,7 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
 
     suspend fun getCategories(userId: Int) = categoryDao.getCategoriesByUser(userId)
 
-    suspend fun getExpenseCategories(userId: Int) = categoryDao.getExpenseCategoriesByUser(userId)
+    //suspend fun getExpenseCategories(userId: Int) = categoryDao.getExpenseCategoriesByUser(userId)
 
     suspend fun getCategoriesByType(userId: Int, type: String) = categoryDao.getCategoriesByType(userId, type)
 
@@ -19,6 +19,9 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
         for (category in categories) {
             categoryDao.insert(category)
         }
+    }
+    suspend fun getExpenseCategories(userId: Int): List<Category> {
+        return categoryDao.getExpenseCategoriesByUser(userId)
     }
 
 }
