@@ -1,5 +1,6 @@
 package com.example.cashguard.Repository
 
+import android.util.Log
 import com.example.cashguard.Dao.TransactionDao
 import com.example.cashguard.data.Transaction
 import java.util.Date
@@ -18,5 +19,19 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     suspend fun getSpentAmountForCategory(userId: Int, categoryName: String): Double? {
 
         return transactionDao.getSumExpensesByCategoryName(userId, categoryName)
+    }
+
+    suspend fun getTotalAmountByTypeAndDate(userId: Int, transactionType: String, fromDate: Date, toDate: Date): Double? {
+        // Log parameters being passed TO the DAO
+        Log.d("PieChartDebug", "TransactionRepository: Calling DAO getTotalAmountByTypeAndDateRange for userId=$userId, type=$transactionType")
+
+        // Call the DAO method
+        val result = transactionDao.getTotalAmountByTypeAndDateRange(userId, transactionType, fromDate, toDate)
+
+        // ** Log the result RECEIVED directly FROM the DAO **
+        Log.d("PieChartDebug", "TransactionRepository: DAO returned result = $result for type=$transactionType")
+
+        // Return the result
+        return result
     }
 }

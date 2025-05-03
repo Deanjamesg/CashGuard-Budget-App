@@ -25,4 +25,7 @@ interface TransactionDao {
 
     @Query("""SELECT SUM(amount) FROM transactions WHERE user_id = :userId AND category_name = :categoryName AND type = 'Expense'""")
         suspend fun getSumExpensesByCategoryName(userId: Int, categoryName: String): Double? // Nullable
+
+    @Query("""SELECT SUM(amount) FROM transactions WHERE user_id = :userId AND type = :transactionType AND date BETWEEN :fromDate AND :toDate""")
+    suspend fun getTotalAmountByTypeAndDateRange(userId: Int, transactionType: String, fromDate: Date, toDate: Date): Double?
 }
