@@ -17,62 +17,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Circular Chart Placeholder -->
-            <ImageView
+            <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/circularChart"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-
-                android:layout_marginTop="16dp"/>
-
-            <!-- Budget Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="R15 000\nBudget"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"/>
-
-            <!-- Quick Stats Row -->
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp"
-                android:weightSum="3">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="R25 000\nIncome"
-                    android:textColor="#00FF00"
-                    android:textSize="16sp"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="R5 000\nExpenses"
-                    android:textColor="#FF0000"
-                    android:textSize="16sp"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="R10 000\nSavings"
-                    android:textColor="#00FFFF"
-                    android:textSize="16sp"
-                    android:gravity="center"/>
-            </LinearLayout>
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,13 +38,48 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
+                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp">
 
                     <Button
+                        android:id="@+id/buttonBudgetBalances"
+                        style="@style/SmallButton"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:text="Weekly Challenge"
-                        app:strokeColor="#A600FF"
+                        android:text="Budget Balances"
+                        android:textColor="@color/white"
+                        app:cornerRadius="6dp"
+                        app:strokeColor="@color/glow"
+                        app:strokeWidth="2dp" />
+
+                    <Button
+                        android:id="@+id/btnViewTransactions2"
+                        style="@style/SmallButton"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="View Transactions"
+                        android:textColor="@color/white"
+                        app:cornerRadius="6dp"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btnAddExpense"
+                        android:layout_weight="1"
+                        android:text="Add Expense"
+                        app:strokeColor="#FF4C4C"
                         style="@style/SmallButton"
                         app:strokeWidth="2dp"
                         app:cornerRadius="6dp"
@@ -102,12 +87,12 @@
                         android:layout_marginEnd="8dp"/>
 
                     <Button
+                        android:id="@+id/btnAddIncome"
                         style="@style/SmallButton"
-                        android:id="@+id/buttonBudgetBalances"
                         android:layout_weight="1"
                         app:cornerRadius="6dp"
-                        android:text="Budget Balances"
-                        app:strokeColor="@color/glow"
+                        android:text="Add Income"
+                        app:strokeColor="#00FF6A"
                         app:strokeWidth="2dp"
                         android:textColor="@color/white"/>
                 </LinearLayout>
@@ -117,76 +102,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"/>
 
-                    <Button
-                        android:layout_weight="1"
-                        android:text="View Analytics"
-                        app:strokeColor="#FF9900"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
-                        android:layout_marginEnd="8dp"/>
 
-                    <Button
-                        android:id="@+id/buttonViewTransactions"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
-                        android:layout_weight="1"
-                        app:strokeColor="@color/white"
-                        android:text="View Transactions"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Summary Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp"
-                android:padding="16dp"
-                android:background="#1E2A4D">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Income: R25 000"
-                    android:textColor="#00FF00"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Expenses: R5 000"
-                    android:textColor="#FF0000"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Savings: R10 000"
-                    android:textColor="#00FFFF"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Budget: R15 000"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Available Balance: R10 000"
-                    android:textColor="#888888"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -25,4 +25,7 @@
     <color name="yellow_light">#FFF9EC</color>
     <color name="lightBlue">#1DA1F2</color>
     <color name="lightBlue_light">#E8F6FE</color>
+
+    <color name="pie_chart_expense">#FF6B6B</color>
+    <color name="pie_chart_savings">#4ECDC4</color>
 </resources>

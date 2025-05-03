@@ -1,6 +1,7 @@
 package com.example.cashguard.Model
 
 import android.app.Application
+import android.view.SurfaceControl
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -30,6 +31,7 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
         repository.getByDateRange(userId, from, to)
 }
 
+// Factory class for creating instances of TransactionViewModel **
 class TransactionViewModelFactory(private val repository: TransactionRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -40,4 +42,5 @@ class TransactionViewModelFactory(private val repository: TransactionRepository)
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+
 
