@@ -16,6 +16,9 @@
         <activity android:name=".Activities.BudgetCalculatorActivity"
             android:exported="false"/>
         <activity
+            android:name=".Activities.BudgetBalancesActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Activities.BudgetManagerActivity"
             android:exported="false" />
         <activity
@@ -49,12 +52,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Acitivties.BudgetBalancesActivity"
-            android:exported="false"
-            android:label="Budget Balances"
-            android:parentActivityName=".Activities.DashboardActivity"
-            android:theme="@style/Theme.CashGuard"> </activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

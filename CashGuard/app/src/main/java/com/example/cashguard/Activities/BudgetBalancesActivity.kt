@@ -1,4 +1,4 @@
-package com.example.cashguard.Acitivties
+package com.example.cashguard.Activities
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -26,12 +26,6 @@ class BudgetBalancesActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
 
-        // --- Setup Toolbar ---
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        // --- End Toolbar Setup ---
-
         // Load the fragment only if it's the first creation
         if (savedInstanceState == null) {
             val fragment = BudgetBalancesFragment().apply {
@@ -44,13 +38,5 @@ class BudgetBalancesActivity : AppCompatActivity() {
         }
     }
 
-    // Handle Toolbar back button click
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressedDispatcher.onBackPressed() // More modern way to handle back press
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 }

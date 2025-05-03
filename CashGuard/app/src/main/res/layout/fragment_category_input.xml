@@ -11,15 +11,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        style="@style/SubHeaderText"
         android:text="Category Name"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/budgetInput"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:hint="Budget"
-        android:textColor="@android:color/white"
-        android:inputType="numberDecimal" />
+        android:layout_width="125dp"
+        style="@style/LargeInputField"
+        android:layout_height="50dp"
+
+        android:hint="0"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/white"
+        android:inputType="number" />
 </LinearLayout>
