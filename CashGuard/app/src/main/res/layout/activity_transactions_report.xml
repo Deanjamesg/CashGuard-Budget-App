@@ -11,6 +11,8 @@
     <Button
         android:id="@+id/btnFromDate"
         android:layout_width="0dp"
+        style="@style/SubmitButton"
+        app:cornerRadius="6dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
@@ -35,6 +37,8 @@
     <Button
         android:id="@+id/btnToDate"
         android:layout_width="0dp"
+        style="@style/SubmitButton"
+        app:cornerRadius="6dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
@@ -75,6 +79,8 @@
     <!-- Results ScrollView -->
     <Button
         android:id="@+id/btnSearch"
+        style="@style/SubmitButton"
+        app:cornerRadius="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

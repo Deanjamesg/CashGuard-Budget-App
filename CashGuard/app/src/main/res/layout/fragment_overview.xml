@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,25 +21,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="24dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 android:paddingHorizontal="16dp">
 
                 <!-- First Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
 
                     <Button
                         android:id="@+id/buttonBudgetBalances"
@@ -66,76 +65,38 @@
                         app:strokeWidth="2dp" />
 
 
-
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
 
                     android:gravity="center"
-                    android:paddingHorizontal="16dp"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
 
                     <Button
                         android:id="@+id/btnAddExpense"
+                        style="@style/SmallButton"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:text="Add Expense"
-                        app:strokeColor="#FF4C4C"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
                         android:textColor="@color/white"
-                        android:layout_marginEnd="8dp"/>
+                        app:cornerRadius="6dp"
+                        app:strokeColor="#FF4C4C"
+                        app:strokeWidth="2dp" />
 
                     <Button
                         android:id="@+id/btnAddIncome"
                         style="@style/SmallButton"
                         android:layout_weight="1"
-                        app:cornerRadius="6dp"
                         android:text="Add Income"
+                        android:textColor="@color/white"
+                        app:cornerRadius="6dp"
                         app:strokeColor="#00FF6A"
-                        app:strokeWidth="2dp"
-                        android:textColor="@color/white"/>
+                        app:strokeWidth="2dp" />
                 </LinearLayout>
-
-                    android:gravity="center"/>
-            </LinearLayout>
-
-            <!-- Summary Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp"
-                android:padding="16dp"
-                android:background="#1E2A4D">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Income: R25 000"
-                    android:textColor="#00FF00"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Expenses: R5 000"
-                    android:textColor="#FF0000"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
-
-
-                <!-- Second Row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"/>
-
 
             </LinearLayout>
 

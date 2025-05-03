@@ -26,7 +26,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
 
 // Project Specific Imports
-import com.example.cashguard.Acitivties.BudgetBalancesActivity
 import com.example.cashguard.Activities.AddTransactionActivity
 import com.example.cashguard.R
 import com.example.cashguard.Database.AppDatabase
@@ -38,17 +37,8 @@ import com.example.cashguard.ViewModel.OverviewViewModelFactory
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.databinding.FragmentOverviewBinding
 
-import com.example.cashguard.databinding.FragmentOverviewBinding
-import android.content.Intent
-import android.util.Log
 import com.example.cashguard.Activities.BudgetBalancesActivity
-import android.widget.Toast
-import com.example.cashguard.databinding.ActivityOverviewBinding
-import com.example.cashguard.ViewModel.SharedViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Activities.TransactionsReportActivity
-import com.example.cashguard.R
-import com.example.cashguard.ViewModel.BudgetInfo
 
 
 class OverviewFragment : Fragment() {
