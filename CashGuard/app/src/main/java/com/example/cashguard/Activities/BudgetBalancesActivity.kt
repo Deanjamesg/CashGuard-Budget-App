@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf // For creating fragment arguments easily
 import com.example.cashguard.Adapter.BudgetCategoryAdapter
 import com.example.cashguard.Fragments.BudgetBalancesFragment
+import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.R
 import com.example.cashguard.databinding.ActivityBudgetBalancesBinding
 import com.example.cashguard.ViewModel.BudgetInfo
@@ -13,6 +14,7 @@ import com.example.cashguard.ViewModel.BudgetInfo
 class BudgetBalancesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBudgetBalancesBinding
+    private lateinit var sessionManager: SessionManager
     private var userId: Int = -1
     //private lateinit var progressAdpter: BudgetCategoryAdapter
 
@@ -21,20 +23,14 @@ class BudgetBalancesActivity : AppCompatActivity() {
         binding = ActivityBudgetBalancesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve the userId from the Intent
-        userId = intent.getIntExtra("USER_ID", -1)
-
-        if (userId == -1) {
-            finish() // Close the activity if no user ID
-            return
-        }
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId()
 
         // --- Setup Toolbar ---
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         // --- End Toolbar Setup ---
-
 
         // Load the fragment only if it's the first creation
         if (savedInstanceState == null) {

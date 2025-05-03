@@ -27,7 +27,6 @@ class TransactionAdapter(private var transactions: List<Transaction>) :
         return TransactionViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactions[position]
         with(holder.binding) {
@@ -55,18 +54,6 @@ class TransactionAdapter(private var transactions: List<Transaction>) :
             }
         }
     }
-
-
-    // OLD
-//    override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-//        val transaction = transactions[position]
-//        with(holder.binding) {
-//            tvAmount.text = "R${transaction.amount}"
-//            tvCategory.text = transaction.categoryName
-//            tvDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-//                .format(transaction.date)
-//        }
-//    }
 
     override fun getItemCount() = transactions.size
 

@@ -16,7 +16,6 @@ import com.example.cashguard.ViewModel.CategoryViewModel
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
-    //private var userId : Int =-1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,24 +69,6 @@ class RegistrationActivity : AppCompatActivity() {
                     // 2. Insert user
                     userViewModel.insertUser(user)
 
-                    // 3. Get user ID as nullable Int
-                    val userId: Int? = userViewModel.getUserIdByEmail(email)
-                    Log.d("Registration", "User ID retrieved: $userId")
-
-                    // 4. Check if ID is valid
-                    if (userId == null || userId == -1) {
-                        Toast.makeText(
-                            this@RegistrationActivity,
-                            "Registration failed - try again",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        return@launch
-                    }
-
-                    // 5. Initialize categories with valid user ID
-                    categoryViewModel.initializeUserCategories(userId)
-                    //categoryViewModel.createDefaultCategories(userId)
-
                     // 6. Navigate to login
                     Toast.makeText(
                         this@RegistrationActivity,
@@ -95,6 +76,8 @@ class RegistrationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     loginIntent(this@RegistrationActivity, LoginActivity::class.java)
+                    finish()
+
                 } catch (e: Exception) {
                     Log.e("Registration", "Error: ${e.message}", e)
                     Toast.makeText(

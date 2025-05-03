@@ -33,27 +33,20 @@ class OverviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        // Access views using binding
-        //binding.monthText.text = "March"
-        //binding.budgetText.text = "R15 000\nBudget"
 
         // Set up button click listeners, etc.
         binding.buttonBudgetBalances.setOnClickListener {
-            val userId = sharedViewModel.userId // Get userId from the initialized ViewModel
-            if (userId != null && userId != -1) {
-                // Create Intent for the new Activity
-                val intent = Intent(requireActivity(), BudgetBalancesActivity::class.java).apply {
-                    // Pass the userId to the new Activity
-                    putExtra("USER_ID", userId)
-                }
-                startActivity(intent) // Launch the Activity
-            } else {
-                Log.e("OverviewFragment", "Cannot navigate to Budget Balances: User ID is invalid ($userId)")
-                // Optional: Show a Toast or error message to the user
-            }
+            val intent = Intent(requireActivity(), BudgetBalancesActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
+        binding.buttonBudgetBalances.setOnClickListener {
+            val intent = Intent(requireActivity(), BudgetBalancesActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

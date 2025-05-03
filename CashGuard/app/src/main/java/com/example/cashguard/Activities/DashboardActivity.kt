@@ -40,8 +40,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
-        // ... (handle invalid userId if needed) ...
-        Log.d("SESSION", "Dashboard ID: $userId")
 
         // --- Initialize ALL ViewModels ---
         Log.d("DashboardActivity", "Initializing ViewModels...")
@@ -49,6 +47,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             // SharedViewModel (This one is simple)
             sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
             sharedViewModel.userId = userId
+
+            // ADD TO THE SHARED VIEW MODEL
 
             // --- Initialize TransactionViewModel using its Factory (REQUIRED) ---
             // 1. Get Database instance safely
@@ -78,8 +78,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setupNavigationDrawer() // Example call
         setupViewPagerAndTabs() // Example call
         setupIconListeners()    // Example call
-
-        Log.d("DashboardActivity", "onCreate completed.")
     }
 
     // --- Helper methods for setup --- (Break down your onCreate logic)
@@ -98,16 +96,27 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }.attach()
         // Set default tab if needed
+
+        binding.viewPager.currentItem = 1
         // binding.viewPager.currentItem = 1 // Example: Overview default
         Log.d("DashboardActivity", "ViewPager and Tabs setup complete.")
     }
 
     private fun setupIconListeners() {
-        Log.d("DashboardActivity", "Setting up Icon Listeners...")
+
         binding.homeIcon.setOnClickListener { binding.viewPager.currentItem = 1 }
-        binding.searchIcon.setOnClickListener { /* ... start SearchByDateActivity ... */ }
-        binding.settingsIcon.setOnClickListener { /* ... start SettingsActivity ... */ }
-        Log.d("DashboardActivity", "Icon Listeners setup complete.")
+        binding.searchIcon.setOnClickListener {
+            val intent = Intent(this, SearchByDateActivity::class.java).apply {
+            }
+            startActivity(intent)
+            finish()
+        }
+        binding.settingsIcon.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java).apply {
+            }
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupNavigationDrawer() {

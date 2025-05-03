@@ -19,20 +19,20 @@ import kotlinx.coroutines.withContext
 class BudgetManagerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBudgetManagerBinding
+    private lateinit var sessionManager : SessionManager
+    private var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBudgetManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         // Initialises the databases
         val database = AppDatabase.getInstance(this)
         var budgetDao = database.budgetDao()
-        // Gets the users id
-        sessionManager = SessionManager(this)
-        userId = sessionManager.getUserId().takeIf { it != -1 } ?: run {
 
-            return
-        }
+        sessionManager = SessionManager(this)
+        userId = sessionManager.getUserId()
 
         // Fetch categories and populate the ScrollView
         fetchAndDisplayCategories()
@@ -104,6 +104,7 @@ class BudgetManagerActivity : AppCompatActivity() {
             }
         }
     }
+
     // Function to save category budgets
     private fun saveCategoryBudgets() {
         val categoryDao = AppDatabase.getInstance(this).categoryDao()

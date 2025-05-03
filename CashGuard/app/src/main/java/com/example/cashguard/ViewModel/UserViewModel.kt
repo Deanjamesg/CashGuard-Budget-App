@@ -1,6 +1,7 @@
 package com.example.cashguard.ViewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cashguard.Database.AppDatabase
@@ -18,6 +19,16 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
      fun insertUser(user: User) = viewModelScope.launch {
         repository.insertUser(user)
+
+         val userId = getUserIdByEmail(user.email)
+         Log.d("UserViewModel", "USER ID: ${userId}")
+
+         // Check if userId is not null before proceeding
+         // Create default categories
+         if (userId != null) {
+             var categoryViewModel = CategoryViewModel(getApplication())
+             categoryViewModel.createDefaultCategories(userId)
+         }
     }
 
     suspend fun getUserByEmail(email: String): User? {

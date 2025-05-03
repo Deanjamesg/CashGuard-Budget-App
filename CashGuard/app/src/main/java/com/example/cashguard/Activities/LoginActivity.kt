@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         //go to registration page
         binding.redirectLoginToRegisterButton.setOnClickListener{
             registerIntent(this, RegistrationActivity::class.java)
+            finish()
         }
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -46,9 +47,6 @@ class LoginActivity : AppCompatActivity() {
                     // Save user session
                     val sessionManager = SessionManager(this@LoginActivity)
                     sessionManager.saveUserSession(userId = user.userId)
-
-                    // Works
-                    Log.d("SESSION MANAGER", "Login ID: ${sessionManager.getUserId()}")
 
                     // Show welcome toast
                     runOnUiThread {

@@ -41,7 +41,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
     private var transactionType: String = "Expense"
     private lateinit var categoryList: List<Category>
-    private lateinit var spinnerCat: Spinner
+    private lateinit var spinnerCategory: Spinner
     private lateinit var adapter: CategoryAdapter
     private lateinit var sessionManager : SessionManager
     private var selectedDate: Date? = null
@@ -62,20 +62,12 @@ class AddTransactionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("NAV_DEBUG", "AddTransactionActivity started")
         binding = ActivityAddTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Validate intent extras
-        userId = intent.getIntExtra("USER_ID", -1).takeIf { it != -1 } ?: run {
-            Toast.makeText(this, "Invalid category {userId} selection", Toast.LENGTH_SHORT).show()
-            showErrorAndFinish("Invalid user session")
-            return
-        }
-
         sessionManager = SessionManager(this)
         userId = sessionManager.getUserId()
-        Log.d("SESSION", "Add Transaction ID: ${sessionManager.getUserId()}")
+        Log.d("Activity", "Add Transaction")
 
         // Initialize ViewModels
         fun setupViewModels() {
@@ -89,7 +81,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
         categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
 
-        spinnerCat = findViewById(R.id.spinner_category)
+        spinnerCategory = findViewById(R.id.spinner_category)
 
         transactionType = intent.getStringExtra("TRANSACTION_TYPE") ?: run {
             showErrorAndFinish("Invalid transaction type")
@@ -103,9 +95,8 @@ class AddTransactionActivity : AppCompatActivity() {
             else -> "Add Transaction"
         }
 
-        Log.d("AddTransactionActivity 1", "${transactionType}")
         // Pass transactionType to populateCategoryList
-        populateCategoryList(userId, transactionType) // Changed here
+        populateCategoryList(userId, transactionType)
         setupSubmitButton()
         setupViewModels()
 
@@ -114,24 +105,26 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         binding.homeIcon.setOnClickListener {
-            // Create intent to return to BudgetOverviewActivity
+
             val intent = Intent(this, DashboardActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)
-            finish() // Close current activity
+            finish()
         }
 
         binding.searchIcon.setOnClickListener {
             val intent = Intent(this, SearchByDateActivity::class.java).apply {
-                putExtra("USER_ID", userId) // Pass user ID to search activity
+                putExtra("USER_ID", userId)
             }
             startActivity(intent)
+            finish()
         }
 
         binding.settingsIcon.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.buttonAddPhoto.setOnClickListener {
@@ -142,7 +135,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun populateCategoryList(userId: Int, transactionType: String) {
         lifecycleScope.launch {
             try {
-                Log.d("AddTransactionActivity 2", "${transactionType}")
+
                 // Fetch categories based on transaction type
                 categoryList = when (transactionType) {
                     "Income" -> categoryViewModel.getIncomeCategories(userId)
@@ -151,7 +144,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
                 // Update spinner
                 adapter = CategoryAdapter(this@AddTransactionActivity, categoryList)
-                spinnerCat.adapter = adapter
+                spinnerCategory.adapter = adapter
 
                 if (categoryList.isEmpty()) {
                     showNoCategoriesDialog()
@@ -170,7 +163,7 @@ class AddTransactionActivity : AppCompatActivity() {
             R.style.DatePickerTheme,
             { _, year, month, day ->
                 calendar.set(year, month, day)
-                selectedDate = calendar.time // Set selectedDate to the chosen date
+                selectedDate = calendar.time
                 binding.btnDate.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(selectedDate!!)
             },
             calendar.get(Calendar.YEAR),
@@ -180,6 +173,7 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     private fun setupSubmitButton() {
+
         binding.buttonSubmit.setOnClickListener {
             val amountText = binding.editTextAmount.text.toString()
             val note = binding.editTextNote.text.toString()
@@ -242,7 +236,6 @@ class AddTransactionActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
-
 
     private fun showNoCategoriesDialog() {
         AlertDialog.Builder(this)

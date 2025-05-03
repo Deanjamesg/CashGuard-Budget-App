@@ -26,6 +26,8 @@ class BudgetCalculatorActivity : AppCompatActivity() {
 
     private lateinit var budgetDao: BudgetDao
     private var currentBudget: Budget? = null
+    private lateinit var sessionManager: SessionManager
+    private var userId: Int = -1
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +38,8 @@ class BudgetCalculatorActivity : AppCompatActivity() {
         val database = AppDatabase.getInstance(this)
         budgetDao = database.budgetDao()
 
-        // Initialises session manager and gets the user ID
         sessionManager = SessionManager(this)
-        userId = sessionManager.getUserId().takeIf { it != -1 } ?: run {
-            Toast.makeText(this, "Invalid user session", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
+        userId = sessionManager.getUserId()
 
         val savingsPercentageInput = findViewById<EditText>(R.id.savingsPercentageInput)
         val incomeInput = findViewById<EditText>(R.id.incomeAmount)

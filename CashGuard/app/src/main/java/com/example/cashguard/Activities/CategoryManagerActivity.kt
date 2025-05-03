@@ -27,12 +27,8 @@ class CategoryManagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_manager)
 
-        // Initialize session and user ID
         sessionManager = SessionManager(this)
-        userId = sessionManager.getUserId().takeIf { it != -1 } ?: run {
-            finish()
-            return
-        }
+        userId = sessionManager.getUserId()
 
         // Initialize ViewModel
         viewModel = ViewModelProvider(

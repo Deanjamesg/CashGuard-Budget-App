@@ -26,17 +26,6 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     private val _budgetInfoList = MutableLiveData<List<BudgetInfo>>()
     val budgetInfoList: LiveData<List<BudgetInfo>> = _budgetInfoList
 
-    /*companion object {
-        private val DEFAULT_CATEGORIES = listOf(
-            "Food & Drink" to "Expense",
-            "Transport" to "Expense",
-            "Household" to "Expense",
-            "Entertainment" to "Expense",
-            "Subscription" to "Expense",
-            "Salary" to "Income"
-        )
-    }*/
-
     companion object {
         // Store Name, Type, and Color Resource ID using Triple
         private val DEFAULT_CATEGORIES = listOf(
@@ -65,7 +54,6 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             }
             loadCategories(userId)
     }
-
 
     fun createDefaultCategories(userId: Int) = viewModelScope.launch {
         // Get context to resolve color resource IDs
@@ -121,6 +109,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun loadBudgetInfo(userId: Int) = viewModelScope.launch {
+
         Log.d("CategoryViewModel", "loadBudgetInfo called for userId: $userId")
         val budgetCategories = repository.getBudgetCategories(userId) // Uses new repo method
         Log.d("CategoryViewModel", "Fetched ${budgetCategories.size} budget categories")
@@ -149,7 +138,6 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             type = "Expense",
             budgetAmount = budgetAmount, // Set the budget amount
             color = color
-            // categoryId will be auto-generated or replaced by OnConflictStrategy
         )
         repository.insertCategory(newCategory) // Uses INSERT OR REPLACE
         loadBudgetInfo(userId) // Refresh the list

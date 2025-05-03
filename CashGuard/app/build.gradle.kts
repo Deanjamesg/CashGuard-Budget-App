@@ -52,6 +52,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation("androidx.fragment:fragment-ktx:1.7.1")
+//    implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
