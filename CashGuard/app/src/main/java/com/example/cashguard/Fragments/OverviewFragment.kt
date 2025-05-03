@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import com.example.cashguard.databinding.FragmentOverviewBinding
 import android.content.Intent
 import android.util.Log
+import com.example.cashguard.Activities.BudgetBalancesActivity
 import android.widget.Toast
-import com.example.cashguard.Acitivties.BudgetBalancesActivity
 import com.example.cashguard.databinding.ActivityOverviewBinding
 import com.example.cashguard.ViewModel.SharedViewModel
 import androidx.lifecycle.ViewModelProvider

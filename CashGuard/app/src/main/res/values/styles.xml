@@ -45,7 +45,7 @@
 
     <style name="SmallButton" parent="Widget.Material3.Button.ElevatedButton">
         <item name="android:layout_width">550px</item>
-        <item name="android:layout_height">150px</item>
+        <item name="android:layout_height">200px</item>
         <item name="android:backgroundTint">@color/menu</item>
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/white</item>

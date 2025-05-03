@@ -4,20 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".Acitivties.BudgetBalancesActivity"> <com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="Budget Balances"
-        app:titleTextColor="@color/white"
-        android:background="@color/menu"
-        app:navigationIcon="@drawable/ic_arrow_back" /> </com.google.android.material.appbar.AppBarLayout>
+    android:orientation="vertical"
+    tools:context=".Activities.BudgetBalancesActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/budget_balances_fragment_container"

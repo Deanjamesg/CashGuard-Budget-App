@@ -1,5 +1,6 @@
 package com.example.cashguard.Fragments
 
+import android.content.Intent
 import com.example.cashguard.ViewModel.CategoryViewModel
 import android.graphics.Color
 import android.os.Bundle
@@ -20,6 +21,10 @@ import com.example.cashguard.databinding.FragmentAddBudgetBinding
 import com.example.cashguard.databinding.FragmentBudgetBalancesBinding
 import com.example.cashguard.ViewModel.BudgetProgressBarView
 import androidx.core.view.isNotEmpty
+import com.example.cashguard.Activities.BudgetManagerActivity
+import com.example.cashguard.Activities.DashboardActivity
+import com.example.cashguard.Activities.SearchByDateActivity
+import com.example.cashguard.Activities.SettingsActivity
 import com.example.cashguard.ViewModel.BudgetInfo
 
 
@@ -32,11 +37,7 @@ class BudgetBalancesFragment : Fragment() {
 
     private var userId: Int = -1
 
-    // --- Get ViewModels ---
-
     private lateinit var categoryViewModel: CategoryViewModel
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,7 @@ class BudgetBalancesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupIconListeners()
         setupRecyclerView()
         setupFab()
         observeViewModel()
@@ -80,13 +82,10 @@ class BudgetBalancesFragment : Fragment() {
 
     }
 
-
-
     private fun setupRecyclerView() {
         binding.budgetRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.budgetRecyclerView.adapter = budgetAdapter // Use the adapter instance
     }
-
 
     private fun observeViewModel() {
         categoryViewModel.budgetInfoList.observe(viewLifecycleOwner) { budgetList ->
@@ -105,11 +104,36 @@ class BudgetBalancesFragment : Fragment() {
         }
     }
 
+    private fun setupIconListeners() {
+
+        binding.homeIcon.setOnClickListener {
+            val intent = Intent(requireActivity(), DashboardActivity::class.java).apply {
+            }
+            startActivity(intent)
+            requireActivity().finish()
+        }
+        binding.searchIcon.setOnClickListener {
+            val intent = Intent(requireActivity(), SearchByDateActivity::class.java).apply {
+            }
+            startActivity(intent)
+            requireActivity().finish()
+        }
+        binding.settingsIcon.setOnClickListener {
+            val intent = Intent(requireActivity(), SettingsActivity::class.java).apply {
+            }
+            startActivity(intent)
+            requireActivity().finish()
+        }
+    }
+
 
     private fun setupFab() {
         binding.fabAddBudget.setOnClickListener {
-            Log.d("BudgetBalancesFragment", "FAB clicked.")
-            showAddBudgetDialog()
+            val intent = Intent(requireActivity(), BudgetManagerActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+//            Log.d("BudgetBalancesFragment", "FAB clicked.")
+//            showAddBudgetDialog()
         }
     }
 
@@ -222,7 +246,6 @@ class AddBudgetDialogFragment : DialogFragment() {
         }
     }
 
-
     private fun updateColorSelection(selectedView: View?) {
         val checkDrawable = try {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle)
@@ -243,7 +266,6 @@ class AddBudgetDialogFragment : DialogFragment() {
             selectedView.animate().scaleX(1.1f).scaleY(1.1f).setDuration(100).start()
         }
     }
-
 
     private fun setupButtons() {
         binding.cancelButton.setOnClickListener { dismiss() }
