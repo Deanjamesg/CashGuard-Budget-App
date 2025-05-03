@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cashguard.Activities.BudgetManagerActivity
 import com.example.cashguard.Activities.DashboardActivity
 import com.example.cashguard.Activities.AddTransactionActivity
+import com.example.cashguard.Activities.SearchByDateActivity
+import com.example.cashguard.Activities.SettingsActivity
+import com.example.cashguard.Activities.TransactionsReportActivity
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.R
 import com.example.cashguard.databinding.FragmentBudgetBinding
@@ -49,6 +52,11 @@ class BudgetFragment : Fragment() {
         binding.btnBudgetManager.setOnClickListener {
             launchBudgetManager()
             Log.d("Button", "Budget Manager")
+        }
+
+        binding.btnViewTransactions1.setOnClickListener {
+            launchTransactionReport()
+            Log.d("Button", "View Transactions")
         }
 
     }
@@ -122,5 +130,28 @@ class BudgetFragment : Fragment() {
             budgetFragment.startActivity(intent)
         }
     }
+
+    private fun launchTransactionReport() {
+        try {
+            val userId = sharedViewModel.userId.takeIf { it != -1 } ?: run {
+                Toast.makeText(requireContext(), "User session expired", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+                return
+            }
+
+            val intent = Intent(requireActivity(), TransactionsReportActivity::class.java).apply {
+                putExtra("USER_ID", userId)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("BudgetFragment", "Navigation error", e)
+        }
+    }
+
 }
 

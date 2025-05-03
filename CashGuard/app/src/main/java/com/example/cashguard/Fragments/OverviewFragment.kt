@@ -8,6 +8,7 @@ import android.util.Log // Keep Log import
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -36,6 +37,19 @@ import com.example.cashguard.ViewModel.OverviewViewModel
 import com.example.cashguard.ViewModel.OverviewViewModelFactory
 import com.example.cashguard.ViewModel.SharedViewModel
 import com.example.cashguard.databinding.FragmentOverviewBinding
+
+import com.example.cashguard.databinding.FragmentOverviewBinding
+import android.content.Intent
+import android.util.Log
+import com.example.cashguard.Activities.BudgetBalancesActivity
+import android.widget.Toast
+import com.example.cashguard.databinding.ActivityOverviewBinding
+import com.example.cashguard.ViewModel.SharedViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.cashguard.Activities.TransactionsReportActivity
+import com.example.cashguard.R
+import com.example.cashguard.ViewModel.BudgetInfo
+
 
 class OverviewFragment : Fragment() {
 
@@ -301,6 +315,11 @@ class OverviewFragment : Fragment() {
             Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
             Log.e("BudgetFragment", "Navigation error", e)
         }
+
+        binding.btnViewTransactions2.setOnClickListener {
+            launchTransactionReport()
+            Log.d("Button", "View Transactions")
+        }
     }
 
     // Standard fragment lifecycle method: clean up when the view is destroyed
@@ -309,5 +328,27 @@ class OverviewFragment : Fragment() {
         Log.d(TAG, "onDestroyView: View destroyed, nullifying binding.")
         // Setting binding to null helps prevent memory leaks with view binding in fragments
         _binding = null
+    }
+
+    private fun launchTransactionReport() {
+        try {
+            val userId = sharedViewModel.userId.takeIf { it != -1 } ?: run {
+                Toast.makeText(requireContext(), "User session expired", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+                return
+            }
+
+            val intent = Intent(requireActivity(), TransactionsReportActivity::class.java).apply {
+                putExtra("USER_ID", userId)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("BudgetFragment", "Navigation error", e)
+        }
     }
 }

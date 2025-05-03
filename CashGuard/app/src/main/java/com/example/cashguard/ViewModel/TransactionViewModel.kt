@@ -1,7 +1,12 @@
 package com.example.cashguard.Model
 
 import android.app.Application
+
 import android.view.SurfaceControl
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -12,12 +17,15 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 class TransactionViewModel(private val repository: TransactionRepository) : ViewModel() {
-    // For direct initialization (alternative to factory pattern)
+    // Secondary constructor for Application-based initialization
     constructor(application: Application) : this(
         TransactionRepository(
             AppDatabase.getInstance(application).transactionDao()
         )
     )
+    private val _transactions = MutableLiveData<List<Transaction>>()
+    val transactions: LiveData<List<Transaction>> get() = _transactions
+
 
     fun addTransaction(transaction: Transaction) = viewModelScope.launch {
         repository.insertTransaction(transaction)
@@ -29,6 +37,12 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
 
     suspend fun getTransactionsByDateRange(userId: Int, from: Date, to: Date) =
         repository.getByDateRange(userId, from, to)
+
+    fun loadTransactionsByDateRange(userId: Int, from: Date, to: Date) {
+        viewModelScope.launch {
+            _transactions.value = repository.getByDateRange(userId, from, to)
+        }
+    }
 }
 
 // Factory class for creating instances of TransactionViewModel **
@@ -41,6 +55,10 @@ class TransactionViewModelFactory(private val repository: TransactionRepository)
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
 }
+
+
+
 
 

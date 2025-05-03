@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope // Import lifecycleScope
 import com.example.cashguard.Activities.AddTransactionActivity
 import com.example.cashguard.Activities.CategoryManagerActivity
+import com.example.cashguard.Activities.TransactionsReportActivity
 import com.example.cashguard.Model.TransactionViewModel
 import com.example.cashguard.ViewModel.CategoryViewModel
 import com.example.cashguard.ViewModel.SharedViewModel
@@ -68,6 +70,11 @@ class ExpenseFragment : Fragment() {
             Log.e("ExpenseFragment", "User ID is invalid!")
             // Consider showing an error message to the user
             return
+        }
+
+        binding.btnViewTransactions3.setOnClickListener {
+            launchTransactionReport()
+            Log.d("Button", "View Transactions")
         }
 
         setupClickListeners()
@@ -280,5 +287,27 @@ class ExpenseFragment : Fragment() {
         }
 
         Log.d("ExpenseFragment", "Finished updateExpenseProgressBars.")
+    }
+
+    private fun launchTransactionReport() {
+        try {
+            val userId = sharedViewModel.userId.takeIf { it != -1 } ?: run {
+                Toast.makeText(requireContext(), "User session expired", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+                return
+            }
+
+            val intent = Intent(requireActivity(), TransactionsReportActivity::class.java).apply {
+                putExtra("USER_ID", userId)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("BudgetFragment", "Navigation error", e)
+        }
     }
 }

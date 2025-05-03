@@ -14,36 +14,52 @@
         style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30sp"
         android:layout_marginBottom="8dp"
         android:text="Budget Manager" />
 
     <TextView
-        style="@style/SubHeaderText"
+        style="@style/BodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="If you only want to add a budget for your TOTAL expenses and not for SPECIFIC categories, enter a value right below."
+        android:text="Create a budget and manage your expenses."
         android:textSize="16sp" />
 
-    <!-- Total Expenses Section -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Total Expenses (Budget)"
+        android:text="Budget Total:"
         style="@style/SubHeaderText"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/budgetAmountEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
-        style="@style/LargeInputField"
-        android:hint="R0"
-        android:inputType="numberDecimal"
-        android:text="R21 500"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:text="R"
+            android:textColor="@color/glow"
+            style="@style/SubHeaderText"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tvBudgetTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:text="12500"
+            android:textColor="@color/glow"
+            style="@style/SubHeaderText"
+            android:textSize="30sp" />
+    </LinearLayout>
 
     <!-- Categories Section Header -->
     <TextView
@@ -51,13 +67,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         style="@style/SubHeaderText"
-        android:text="To add a budget for specific categories, enter a value for each one below."
+        android:textColor="@color/gray"
+        android:text="Add a budget for specific categories."
         android:textSize="16sp" />
 
     <!-- Categories and Budgets Table -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350sp"
         android:layout_marginBottom="24dp">
 
         <LinearLayout
@@ -77,5 +94,45 @@
         app:cornerRadius="6dp"
         android:layout_gravity="center"
         android:text="Submit Budget" />
+
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/home"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/searchIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/search"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/settingsIcon"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting"
+            app:tint="@android:color/white" />
+    </LinearLayout>
 
 </LinearLayout>
