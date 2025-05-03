@@ -63,8 +63,13 @@ https://www.google.com/search?q=https://developer.android.com/develop/ui/views/t
 https://developer.android.com/guide/topics/resources/drawable-resource
 * Color resources
 
-https://developer.android.com/guide/topics/resources/color-list-resource (Though we mainly used simple color values)
+https://developer.android.com/guide/topics/resources/color-list-resource
+* Pie chart
 
+["com.github.PhilJay:MPAndroidChart:v3.1.0"](https://github.com/PhilJay/MPAndroidChart)
+
+## Youtube link
+https://www.youtube.com/watch?v=0iK8LnR5h_I
 
 
 
