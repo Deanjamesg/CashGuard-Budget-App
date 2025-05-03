@@ -1,10 +1,12 @@
 package com.example.cashguard.Activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -39,8 +41,10 @@ class CategoryManagerActivity : AppCompatActivity() {
         setupObservers()
         initializeCategories()
         setupClickListeners()
+        setupBottomNav()
     }
 
+    // Function to fetch and display categories
     private fun setupObservers() {
         viewModel.categories.observe(this) { categories ->
             categories?.let { refreshCategoryDisplay(it) } ?: showError("Failed to load categories")
@@ -57,6 +61,7 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
+    // Function to refresh the display of categories
     private fun refreshCategoryDisplay(categories: List<Category>) {
         val incomeContainer: LinearLayout = findViewById(R.id.incomeCategoriesContainer)
         val expenseContainer: LinearLayout = findViewById(R.id.expenseCategoriesContainer)
@@ -64,6 +69,7 @@ class CategoryManagerActivity : AppCompatActivity() {
         incomeContainer.removeAllViews()
         expenseContainer.removeAllViews()
 
+        // Populate the income and expense categories
         categories.forEach { category ->
             val container = when (category.type) {
                 "Income" -> incomeContainer
@@ -71,6 +77,7 @@ class CategoryManagerActivity : AppCompatActivity() {
                 else -> null
             }
 
+            // Create a button for each category
             container?.let {
                 Button(this).apply {
                     text = category.name
@@ -84,6 +91,7 @@ class CategoryManagerActivity : AppCompatActivity() {
                             else R.drawable.bg_expense_category
                         }
                     )
+                    // Set the click listener to open the category editor
                     isEnabled = !viewModel.isDefaultCategory(category)
                     layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -97,27 +105,31 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
+//OLD
+//    private fun createCategoryButton(category: Category): Button {
+//        return Button(this).apply {
+//            text = category.name
+//            setTextColor(Color.WHITE)
+//            //background = ContextCompat.getDrawable(context, R.drawable.button_background)
+//            layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//            ).apply {
+//                setMargins(0, 0, 0, 16.dpToPx())
+//            }
+//        }
+//    }
 
-    private fun createCategoryButton(category: Category): Button {
-        return Button(this).apply {
-            text = category.name
-            setTextColor(Color.WHITE)
-            //background = ContextCompat.getDrawable(context, R.drawable.button_background)
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 0, 0, 16.dpToPx())
-            }
-        }
-    }
-
+    //navigation
     private fun setupClickListeners() {
         findViewById<Button>(R.id.addButton).setOnClickListener { showAddDialog() }
         findViewById<Button>(R.id.removeButton).setOnClickListener { showRemoveDialog() }
-        findViewById<Button>(R.id.submitBudget).setOnClickListener { finish() }
+        findViewById<Button>(R.id.submitBudget).setOnClickListener {
+            startActivity(Intent(this, BudgetManagerActivity::class.java))
+        }
     }
 
+    // Function to show the add category dialog
     private fun showAddDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_category_editor, null)
         val nameET = dialogView.findViewById<EditText>(R.id.etCategoryName)
@@ -133,14 +145,17 @@ class CategoryManagerActivity : AppCompatActivity() {
             .show()
     }
 
+    // Function to handle category creation
     private fun handleCategoryCreation(nameET: EditText, typeRG: RadioGroup) {
         val name = nameET.text.toString().trim()
         val type = when (typeRG.checkedRadioButtonId) {
+            // uses radio button ids to determine type
             R.id.rbExpense -> "Expense"
             R.id.rbIncome -> "Income"
             else -> null
         }
 
+        // Validate input
         when {
             name.isEmpty() || type == null ->
                 showError(if (name.isEmpty()) "Name required" else "Type required")
@@ -154,6 +169,7 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
+    // Function to show the remove category dialog
     private fun showRemoveDialog() {
         val removable = viewModel.getRemovableCategories()
         when {
@@ -162,6 +178,7 @@ class CategoryManagerActivity : AppCompatActivity() {
         }
     }
 
+    // Function to show the removal selection dialog
     private fun showRemovalSelectionDialog(categories: List<Category>) {
         AlertDialog.Builder(this)
             .setTitle("Remove Category")
@@ -177,4 +194,27 @@ class CategoryManagerActivity : AppCompatActivity() {
     }
 
     private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
+
+    // Function to set up bottom navigation bar
+    private fun setupBottomNav() {
+        findViewById<ImageButton>(R.id.homeIcon).setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
+            finish()
+        }
+
+        findViewById<ImageButton>(R.id.searchIcon).setOnClickListener {
+            val intent = Intent(this, SearchByDateActivity::class.java).apply {
+                putExtra("USER_ID", sessionManager.getUserId())
+            }
+            startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.settingsIcon).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
 }
