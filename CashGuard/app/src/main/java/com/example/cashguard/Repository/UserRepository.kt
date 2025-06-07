@@ -11,4 +11,14 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getUserByCredentials(email, password)
     }
 
+    suspend fun insertUserAndGetId(firstName: String, lastName: String, email: String, password: String): Int {
+
+        val user = User(
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            password = password
+        )
+        return userDao.insertAndGetId(user).toInt()
+    }
 }

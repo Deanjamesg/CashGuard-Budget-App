@@ -16,23 +16,25 @@
 
     <style name="LargeInputField">
         <item name="android:background">@drawable/box_outline</item>
-        <item name="android:paddingLeft">50px</item>
+        <item name="android:paddingLeft">15dp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:fontFamily">@font/poppins</item>
-        <item name="android:layout_width">325sp</item>
-        <item name="android:layout_height">60sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
 
     <style name="CheckboxTextStyle">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="SubmitButton" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="android:layout_width">325sp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">60sp</item>
         <item name="android:backgroundTint">@color/menu</item>
         <item name="android:fontFamily">@font/poppins</item>
@@ -44,8 +46,8 @@
     </style>
 
     <style name="SmallButton" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="android:layout_width">550px</item>
-        <item name="android:layout_height">200px</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">75dp</item>
         <item name="android:backgroundTint">@color/menu</item>
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/white</item>
@@ -56,20 +58,38 @@
 
     <style name="FooterText">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/light_gray</item>
         <item name="android:fontFamily">@font/poppins</item>
 
     </style>
 
-<!--    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">-->
-<!--        <item name="android:background">@drawable/spinner_box</item>-->
-<!--        <item name="popupMenuBackground">@color/background</item>-->
-<!--        <item name="android:textColor">@color/white</item>-->
-<!--        <item name="android:layout_width">200sp</item>-->
-<!--        <item name="android:layout_height">50sp</item>-->
-<!--        <item name="android:textSize">16sp</item>-->
-<!--        <item name="android:fontFamily">@font/poppins</item>-->
-<!--    </style>-->
+    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/spinner_box</item>
+        <item name="popupMenuBackground">@color/background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">200sp</item>
+        <item name="android:layout_height">50sp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="MyGlowHintText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/glow</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CustomExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeColor">@color/text_input_layout_stroke_color_selector</item>
+        <item name="boxBackgroundColor">@color/background</item>
+        <item name="hintTextColor">@color/text_input_layout_hint_color_selector</item>
+        <item name="hintTextAppearance">@style/MyGlowHintText</item>
+        <item name="endIconTint">@color/white</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
 
     <style name="DatePickerTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="materialCalendarStyle">@style/CustomCalendarStyle</item>
@@ -89,6 +109,43 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#CBCBCB</item>
         <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="TabText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="CustomColorPickerDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurfaceContainerHigh">@color/menu</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/CustomDialogTitleTextStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogNegativeButtonStyle</item>
+        <item name="shapeAppearanceMediumComponent">@style/CustomDialogShapeAppearance</item>
+    </style>
+
+    <style name="CustomDialogTitleTextStyle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="CustomDialogNegativeButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">16sp</item>
+        <item name="rippleColor">@color/red_bright</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="CustomDialogShapeAppearance" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="CustomDrawerItem" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins</item>
     </style>
 
     <string-array name="transaction_types">

@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -14,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.cashguard"
-        minSdk = 35
+        minSdk = 33
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -47,6 +45,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.support.annotations)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -54,7 +54,13 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementation("androidx.fragment:fragment-ktx:1.7.1")
-//    implementation("androidx.fragment:fragment-ktx:1.6.1")
+
+    // Navigation Component
+    implementation(libs.androidx.navigation.fragment.ktx.v277)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // ViewPager2 (for tabs in Dashboard)
+    implementation(libs.androidx.viewpager2)
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
@@ -70,6 +76,9 @@ dependencies {
 
     // Lifecycle Scope
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
+    implementation (libs.eazegraph) // Check for the latest version
+    implementation (libs.library)      // EazeGraph often requires this
 
 
 }

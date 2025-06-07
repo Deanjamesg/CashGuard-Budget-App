@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single" />
+    <item
+        android:id="@+id/nav_create_budget"
+        android:title="Create Budget" />
+    <item
+        android:id="@+id/addTransactionFragment"
+        android:title="Add Transaction" />
+    <item
+        android:id="@+id/categoryManagerFragment"
+        android:title="Manage Categories" />
+    <item
+        android:id="@+id/nav_export"
+        android:title="Export to Excel" />
+    <item
+        android:id="@+id/nav_weekly"
+        android:title="Weekly Challenge" />
+    <item
+        android:id="@+id/nav_search"
+        android:title="Search" />
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/nav_saving_calc"
+        android:title="Savings Calculator" />
+    <item
+        android:id="@+id/nav_signOut"
+        android:title="Sign Out" />
+</menu>

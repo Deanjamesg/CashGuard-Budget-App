@@ -1,42 +1,26 @@
 package com.example.cashguard.Activities
 
 import android.os.Bundle
-import android.util.Log
-
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cashguard.Helper.SessionManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.cashguard.databinding.ActivityMainBinding
-import com.example.cashguard.Helper.loginIntent
-import com.example.cashguard.Helper.registerIntent
-
-lateinit var sessionManager : SessionManager
-var userId: Int = -1
+import com.example.cashguard.R
 
 class MainActivity : AppCompatActivity() {
 
-    //creates the binding variable
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sessionManager = SessionManager(this)
-        userId = sessionManager.getUserId()
-        Log.d("SESSION", "Main ID: ${sessionManager.getUserId()}")
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        //go to login page
-        binding.loginButton.setOnClickListener {
-            loginIntent(this, LoginActivity::class.java)
-        }
-
-        //go to registration page
-        binding.registerButton.setOnClickListener{
-            registerIntent(this, RegistrationActivity::class.java)
-        }
     }
 
 }

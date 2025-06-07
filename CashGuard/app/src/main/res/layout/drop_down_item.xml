@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewDropDownItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textAppearance="?attr/textAppearanceSubtitle1"
+    android:textColor="@color/white"
+    android:background="@drawable/dropdown_item_background_selector"
+    android:textSize="18sp">
+</TextView>

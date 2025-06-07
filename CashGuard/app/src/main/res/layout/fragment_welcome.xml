@@ -1,0 +1,185 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="10dp"
+    tools:context=".Fragments.WelcomeFragment">
+
+    <TextView
+        android:id="@+id/appName"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="CashGuard"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/appIcon" />
+
+    <ImageView
+        android:id="@+id/appIcon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_cashguard"
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="1:1.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName"
+        app:layout_constraintBottom_toTopOf="@id/expenseCard"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/expenseCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appIcon"
+        app:layout_constraintBottom_toTopOf="@id/budgetCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/menu"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/expenseIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/trackexpenses"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/expenseTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Track your expenses"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/poppins"
+                app:layout_constraintStart_toEndOf="@id/expenseIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/expenseIcon"
+                app:layout_constraintBottom_toTopOf="@id/expenseDescription"/>
+
+            <TextView
+                android:id="@+id/expenseDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Track, manage, and optimize your spending effortlessly."
+                android:textColor="#B0B0B0"
+                android:textSize="12sp"
+                app:fontFamily="@font/poppins"
+                app:layout_constraintStart_toStartOf="@id/expenseTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expenseTitle"
+                app:layout_constraintBottom_toBottomOf="@id/expenseIcon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/budgetCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expenseCard"
+        app:layout_constraintBottom_toTopOf="@id/loginButton">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/menu"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/budgetIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/createbudget"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/budgetTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Create a budget"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/poppins"
+                app:layout_constraintStart_toEndOf="@id/budgetIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/budgetIcon"
+                app:layout_constraintBottom_toTopOf="@id/budgetDescription"/>
+
+            <TextView
+                android:id="@+id/budgetDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Plan your spending and stay within your limits."
+                android:textColor="#B0B0B0"
+                android:textSize="12sp"
+                app:fontFamily="@font/poppins"
+                app:layout_constraintStart_toStartOf="@id/budgetTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/budgetTitle"
+                app:layout_constraintBottom_toBottomOf="@id/budgetIcon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/SubmitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Login"
+        app:cornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/budgetCard"
+        app:layout_constraintBottom_toTopOf="@id/registerButton"/>
+
+    <Button
+        android:id="@+id/registerButton"
+        style="@style/SubmitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Register"
+        app:cornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

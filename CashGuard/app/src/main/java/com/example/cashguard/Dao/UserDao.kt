@@ -10,6 +10,9 @@ interface UserDao {
     @Insert
     suspend fun insert(user: User)
 
+    @Insert
+    suspend fun insertAndGetId(user: User): Long
+
     @Query("SELECT * FROM users WHERE email = :email")
     suspend fun getUserByEmail(email: String): User?
 

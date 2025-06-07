@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="budget_item_min_height">72dp</dimen>
-    <dimen name="color_picker_size">40dp</dimen>
+    <dimen name="color_picker_size">48dp</dimen>
+    <dimen name="color_picker_item_size">48dp</dimen>
+    <dimen name="color_picker_item_margin">8dp</dimen>
 </resources>

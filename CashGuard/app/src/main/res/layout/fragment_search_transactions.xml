@@ -1,0 +1,103 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="10dp"
+    tools:context=".Fragments.SearchTransactionsFragment">
+
+    <Button
+        android:id="@+id/btnFromDate"
+        style="@style/SubmitButton"
+        android:layout_width="0dp"
+        android:layout_marginEnd="10dp"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:drawableTint="@color/white"
+        android:text="From Date"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnToDate"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnToDate"
+        style="@style/SubmitButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="10dp"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:drawableTint="@color/white"
+        app:layout_constraintHorizontal_weight="1"
+        android:text="To Date"
+        android:textColor="@color/white"
+        app:cornerRadius="6dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/btnFromDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFromDate" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputType"
+        style="@style/CustomExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Transaction"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/btnSearch"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnToDate">
+
+        <AutoCompleteTextView
+            android:id="@+id/type_Exposed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:inputType="none"
+            android:popupBackground="@color/background"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSearch"
+        style="@style/SubmitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:textSize="18sp"
+        app:cornerRadius="6dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/textInputType"
+        app:layout_constraintTop_toTopOf="@+id/textInputType" />
+
+    <TextView
+        android:id="@+id/tvDateRange"
+        style="@style/SubHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Select Dates"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputType" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactions_container_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateRange" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_user"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.cashguard.Fragments.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_addTransaction"
+            app:destination="@id/addTransactionFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment"
+            app:destination="@id/categoryManagerFragment" />
+        <action
+            android:id="@+id/action_searchTransactionsFragment"
+            app:destination="@id/searchTransactionsFragment" />
+        <action
+            android:id="@+id/action_budgetManagerFragment"
+            app:destination="@id/budgetManagerFragment" />
+        <action
+            android:id="@+id/action_budgetBalancesFragment"
+            app:destination="@id/budgetBalancesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="com.example.cashguard.Fragments.AddTransactionFragment"
+        android:label="fragment_add_transaction"
+        tools:layout="@layout/fragment_add_transaction" >
+        <argument
+            android:name="initialTransactionType"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Expense" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryManagerFragment"
+        android:name="com.example.cashguard.Fragments.CategoryManagerFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_category_manager"/>
+    <fragment
+        android:id="@+id/searchTransactionsFragment"
+        android:name="com.example.cashguard.Fragments.SearchTransactionsFragment"
+        android:label="fragment_search_transactions"
+        tools:layout="@layout/fragment_search_transactions" />
+    <fragment
+        android:id="@+id/budgetManagerFragment"
+        android:name="com.example.cashguard.Fragments.BudgetManagerFragment"
+        android:label="fragment_budget_manager"
+        tools:layout="@layout/fragment_budget_manager" />
+    <fragment
+        android:id="@+id/budgetBalancesFragment"
+        android:name="com.example.cashguard.Fragments.BudgetBalancesFragment"
+        android:label="fragment_budget_balances"
+        tools:layout="@layout/fragment_budget_balances" />
+</navigation>

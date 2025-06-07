@@ -26,13 +26,13 @@
 
     <TextView
         android:id="@+id/percentageText"
-        style="@style/FooterText"
+        style="@style/BodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/glow"
-        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/categoryName"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20dp"
         tools:text="100%" />
 
     <ProgressBar
@@ -49,14 +49,15 @@
 
     <TextView
         android:id="@+id/amountText"
-        style="@style/FooterText"
+        style="@style/BodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/stroke"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
         tools:textColor="@color/white"
-        tools:text="R750,00 / R1 000,00" />
+        android:textSize="18dp"
+        tools:text="R7500,00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

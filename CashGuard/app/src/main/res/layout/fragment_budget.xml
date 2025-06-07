@@ -1,200 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overviewConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".Fragments.BudgetFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:id="@+id/scrollViewContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:paddingBottom="24dp">
 
-            <!-- Chart Placeholder -->
-            <ImageView
-                android:id="@+id/budgetChart"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="32dp"
-                android:scaleType="fitCenter"/>
+            <org.eazegraph.lib.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                app:egHighlightStrength="1"
+                app:egInnerPadding="75"
+                app:egInnerPaddingColor="@color/background"
+                app:egInnerValueSize="18dp"
+                app:egInnerValueString="Create a Budget"
+                app:egUseInnerValue="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Button Grid -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewBudgetLabel"
+                style="@style/BodyText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginTop="24dp"
-                android:paddingHorizontal="16dp">
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:paddingVertical="8dp"
+                android:text="Budget Amount"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewBudget"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pieChart" />
 
-                <!-- First Row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp">
-
-                    <Button
-                        android:id="@+id/btnAddExpense"
-                        android:layout_weight="1"
-                        android:text="Add Expense"
-                        app:strokeColor="#FF4C4C"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
-                        android:textColor="@color/white"
-                        android:layout_marginEnd="8dp"/>
-
-                    <Button
-                        android:id="@+id/btnAddIncome"
-                        style="@style/SmallButton"
-                        android:layout_weight="1"
-                        app:cornerRadius="6dp"
-                        android:text="Add Income"
-                        app:strokeColor="#00FF6A"
-                        app:strokeWidth="2dp"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-
-                <!-- Second Row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <Button
-                        android:id="@+id/btnBudgetManager"
-                        android:layout_weight="1"
-                        android:text="Budget Manager"
-                        app:strokeColor="@color/glow"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <Button
-                        android:id="@+id/btnViewTransactions1"
-                        style="@style/SmallButton"
-                        app:strokeWidth="2dp"
-                        app:cornerRadius="6dp"
-                        android:layout_weight="1"
-                        app:strokeColor="@color/white"
-                        android:text="View Transactions"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Summary Text -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewBudget"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="32dp"
-                android:padding="16dp"
-                android:background="#1E2A4D"
-                android:layout_marginHorizontal="16dp"
-                android:elevation="4dp">
+                android:layout_marginEnd="36dp"
+                android:paddingVertical="8dp"
+                android:text="R0"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewBudgetLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewBudgetLabel" />
 
-                <!-- Budget Item -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp">
+            <View
+                android:id="@+id/dividerIncome"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBudgetLabel" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Budget"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textViewExpensesLabel"
+                style="@style/BodyText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingVertical="8dp"
+                android:text="Total Expenses"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewExpenses"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerIncome" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="R15 000"
-                        android:textColor="#00FFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+            <TextView
+                android:id="@+id/textViewExpenses"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:paddingVertical="8dp"
+                android:text="R0"
+                android:textColor="@color/red"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewExpensesLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewExpensesLabel" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#37455F"
-                    android:layout_marginVertical="4dp"/>
+            <View
+                android:id="@+id/dividerExpenses"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewExpensesLabel" />
 
-                <!-- Expenses Item -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp">
+            <TextView
+                android:id="@+id/textViewBalanceLabel"
+                style="@style/BodyText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingVertical="8dp"
+                android:text="Remaining Balance"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewBalance"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerExpenses" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Expenses"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textViewBalance"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:paddingVertical="8dp"
+                android:text="R0"
+                android:textColor="@color/gray"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewBalanceLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewBalanceLabel" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="R5 000"
-                        android:textColor="#FF4C4C"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+            <Button
+                android:id="@+id/buttonBudget"
+                style="@style/SmallButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="4dp"
+                android:text="Budget"
+                android:textColor="@color/white"
+                app:cornerRadius="6dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnViewTransactions2"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBalanceLabel"
+                app:strokeColor="@color/glow"
+                app:strokeWidth="2dp" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#37455F"
-                    android:layout_marginVertical="4dp"/>
+            <Button
+                android:id="@+id/btnViewTransactions2"
+                style="@style/SmallButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="15dp"
+                android:text="Transactions"
+                android:textColor="@color/white"
+                app:cornerRadius="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/buttonBudget"
+                app:layout_constraintTop_toTopOf="@+id/buttonBudget"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
 
-                <!-- Balance Item -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp">
+            <Button
+                android:id="@+id/buttonAddIncome"
+                style="@style/SmallButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                android:text="Add Income"
+                android:textColor="@color/white"
+                app:cornerRadius="6dp"
+                app:layout_constraintEnd_toStartOf="@+id/buttonAddExpense"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonBudget"
+                app:strokeColor="@color/green"
+                app:strokeWidth="2dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Balance"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"/>
+            <Button
+                android:id="@+id/buttonAddExpense"
+                style="@style/SmallButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="15dp"
+                android:text="Add Expense"
+                android:textColor="@color/white"
+                app:cornerRadius="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/buttonAddIncome"
+                app:layout_constraintTop_toTopOf="@+id/buttonAddIncome"
+                app:strokeColor="@color/red"
+                app:strokeWidth="2dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="R10 000"
-                        android:textColor="#00C853"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+            <ProgressBar
+                android:id="@+id/loadingProgressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

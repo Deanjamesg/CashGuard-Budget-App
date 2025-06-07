@@ -9,4 +9,5 @@ class BudgetRepository(private val budgetDao: BudgetDao) {
     suspend fun deleteBudget(budget: Budget) = budgetDao.delete(budget)
     suspend fun getBudgets(userId: Int) = budgetDao.getBudgetsByUser(userId)
     suspend fun getBudgetByMonth(userId: Int, month: String) = budgetDao.getBudgetByMonth(userId, month)
+    suspend fun getBudgetTotalByMonth(userId: Int, month: String) = budgetDao.getBudgetTotalByMonth(userId, month)
 }

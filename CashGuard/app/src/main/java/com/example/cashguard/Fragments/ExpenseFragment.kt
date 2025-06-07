@@ -1,6 +1,5 @@
 package com.example.cashguard.Fragments
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -10,46 +9,30 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope // Import lifecycleScope
-import com.example.cashguard.Activities.AddTransactionActivity
-import com.example.cashguard.Activities.CategoryManagerActivity
-import com.example.cashguard.Activities.TransactionsReportActivity
-import com.example.cashguard.Model.TransactionViewModel
-import com.example.cashguard.ViewModel.CategoryViewModel
-import com.example.cashguard.ViewModel.SharedViewModel
-import com.example.cashguard.data.Category
-import com.example.cashguard.data.Transaction
+import androidx.navigation.fragment.findNavController
 import com.example.cashguard.R
+import com.example.cashguard.ViewModel.ExpenseFragmentViewModel
+import com.example.cashguard.data.ExpenseBar
 import com.example.cashguard.databinding.FragmentExpenseBinding
-import kotlinx.coroutines.Dispatchers
-// Removed GlobalScope import, prefer lifecycleScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.eazegraph.lib.models.PieModel
 import java.text.NumberFormat
-import java.util.Date
 import java.util.Locale
 
 class ExpenseFragment : Fragment() {
     private var _binding: FragmentExpenseBinding? = null
     private val binding get() = _binding!!
 
-    // ViewModels obtained from Activity scope
-    private val sharedViewModel: SharedViewModel by activityViewModels()
-    private val transactionViewModel: TransactionViewModel by activityViewModels()
-    private val categoryViewModel: CategoryViewModel by activityViewModels()
+    private val viewModel: ExpenseFragmentViewModel by viewModels()
 
     // UI References and User Info
     private lateinit var categoryListContainer: LinearLayout
-    private var userId: Int = -1
 
     // Utilities
-    private val currencyFormatter = NumberFormat.getCurrencyInstance(Locale("en", "ZA")) // Adjust locale if needed
-
+    private val currencyFormatter = NumberFormat.getCurrencyInstance(Locale("en", "ZA"))
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,20 +40,147 @@ class ExpenseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExpenseBinding.inflate(inflater, container, false)
-        // Initialize categoryListContainer here using the binding
-        categoryListContainer = binding.expenseCategoryListContainer
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userId = sharedViewModel.userId
-        if (userId == -1) {
-            Log.e("ExpenseFragment", "User ID is invalid!")
-            // Consider showing an error message to the user
-            return
+        Log.d("Fragment", "Expense Fragment Created.")
+
+        categoryListContainer = binding.expenseCategoryListContainer
+
+        setupClickListeners()
+
+        // Observe loading state
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            Log.d("ExpenseFragment", "isLoading LiveData changed: $isLoading")
+            if (isLoading) {
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.scrollViewContent.visibility = View.GONE // Hide content while loading
+            } else {
+                binding.loadingProgressBar.visibility = View.GONE
+                binding.scrollViewContent.visibility = View.VISIBLE // Show content when loaded
+            }
+        })
+
+        viewModel.expenseBarData.observe(viewLifecycleOwner, Observer { expenseBars ->
+            Log.d("ExpenseFragment", "expenseBarData LiveData changed. Item count: ${expenseBars?.size ?: "null"}")
+            // The ViewModel should ideally always provide a non-null list (even if empty)
+            setUpExpenseBar(expenseBars ?: emptyList())
+        })
+    }
+
+    private fun setUpExpenseBar(expenseBarList: List<ExpenseBar>) {
+
+        Log.d("ExpenseFragment", "Setup Expense Bar Called")
+
+        binding.pieChart.clearChart()
+
+        if (expenseBarList.isEmpty()) {
+            Log.d("ExpenseFragment", "EMPTY LIST")
         }
+        // Setting up the Total Expenses TextView
+        var expenseTotal = 0.0
+        for (expenseBar in expenseBarList) {
+            expenseTotal += expenseBar.totalAmount
+        }
+        binding.totalExpensesText.text = currencyFormatter.format(expenseTotal)
+
+        val container = binding.expenseCategoryListContainer
+        container.removeAllViews()
+
+        val inflater = LayoutInflater.from(requireContext())
+
+        for (expenseBar in expenseBarList) {
+            val item = inflater.inflate(R.layout.item_expense_progress, container, false)
+
+            // Find the views within the inflated item_category.xml
+            val categoryNameTV = item.findViewById<TextView>(R.id.categoryName)
+            val percentageTV = item.findViewById<TextView>(R.id.percentageText)
+            val progressBar = item.findViewById<ProgressBar>(R.id.progressBar)
+            val amountTV = item.findViewById<TextView>(R.id.amountText)
+
+            categoryNameTV.text = expenseBar.categoryName
+
+            val percentage = if (expenseTotal > 0) (expenseBar.totalAmount / expenseTotal * 100) else 0.0
+            val percentageInt = percentage.toInt().coerceIn(0, 100)
+
+            progressBar.max = 100
+            progressBar.progress = percentageInt
+            progressBar.visibility = View.VISIBLE
+            percentageTV.text = getString(R.string.budget_percentage_format, percentageInt)
+            amountTV.text = currencyFormatter.format(expenseBar.totalAmount)
+
+            var color = ContextCompat.getColor(requireContext(), R.color.gray)
+
+            if (expenseBar.categoryColor != null) {
+                color = expenseBar.categoryColor
+            }
+            // Apply color tint
+            progressBar.progressTintList = ColorStateList.valueOf(color)
+            // Add the item view to the container
+            container.addView(item)
+            Log.d("ExpenseFragment", "Added view for ${expenseBar.categoryName} with progress: $percentageInt%")
+
+
+            // PIE CHART
+
+            binding.pieChart.addPieSlice(PieModel(
+                expenseBar.categoryName,
+                expenseBar.totalAmount.toFloat(),
+                expenseBar.categoryColor
+            ))
+        }
+
+        binding.pieChart.startAnimation()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroyView() {
+        viewModel.refreshExpenseBars()
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupClickListeners() {
+
+        binding.buttonAddExpense.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("initialTransactionType", "Expense")
+            }
+            findNavController().navigate(R.id.action_addTransaction, bundle)
+        }
+        binding.buttonAddIncome.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("initialTransactionType", "Income")
+            }
+            findNavController().navigate(R.id.action_addTransaction, bundle)
+        }
+
+        binding.categoryManager.setOnClickListener {
+            findNavController().navigate(R.id.action_categoriesFragment)
+        }
+
+        binding.searchTransactions.setOnClickListener {
+//            findNavController().navigate(R.id.action_searchTransactionsFragment)
+        }
+    }
+
+    /*
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.d("Fragment", "Expense Fragment View Created.")
+
+        sessionManager = SessionManager(requireContext())
+
+        userId = sessionManager.getUserId()
 
         binding.btnViewTransactions3.setOnClickListener {
             launchTransactionReport()
@@ -78,10 +188,11 @@ class ExpenseFragment : Fragment() {
         }
 
         setupClickListeners()
-        observeData() // Start observing data
+        observeData()
     }
 
     override fun onResume() {
+        Log.d("DashboardActivity", "Expense Fragment OnResume.")
         super.onResume()
         // Trigger data refresh when fragment resumes
         Log.d("ExpenseFragment", "onResume - Triggering category load for potential refresh")
@@ -92,20 +203,30 @@ class ExpenseFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        Log.d("DashboardActivity", "Expense Fragment Destroyed.")
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
-
 
     private fun setupClickListeners() {
         binding.categoryManager.setOnClickListener {
             navigateToCategoryManager()
         }
+
         binding.buttonAddExpense.setOnClickListener {
-            navigateToAddTransaction("Expense")
+            Log.d("Navigation", "Navigating to Add Transaction Fragment with type Expense")
+            val bundle = Bundle().apply {
+                putString("initialTransactionType", "Expense")
+            }
+            findNavController().navigate(R.id.action_addTransaction, bundle)
         }
+
         binding.buttonAddIncome.setOnClickListener {
-            navigateToAddTransaction("Income")
+            Log.d("Navigation", "Navigating to Add Transaction Fragment with type Income")
+            val bundle = Bundle().apply {
+                putString("initialTransactionType", "Income")
+            }
+            findNavController().navigate(R.id.action_addTransaction, bundle)
         }
 
     }
@@ -116,15 +237,6 @@ class ExpenseFragment : Fragment() {
         }
         startActivity(intent)
     }
-
-    private fun navigateToAddTransaction(type: String) {
-        val intent = Intent(requireContext(), AddTransactionActivity::class.java).apply {
-            putExtra("USER_ID", userId)
-            putExtra("TRANSACTION_TYPE", type)
-        }
-        startActivity(intent)
-    }
-
 
     private fun observeData() {
         // Observe categories from the ViewModel
@@ -139,7 +251,6 @@ class ExpenseFragment : Fragment() {
                 updateExpenseProgressBars(emptyList(), 0.0, emptyMap())
             }
         })
-
 
     }
 
@@ -235,18 +346,18 @@ class ExpenseFragment : Fragment() {
         for ((categoryName, amount) in expenses) {
             Log.d("ExpenseFragment", "Creating view for: $categoryName, Amount: $amount")
             val itemView = try {
-                // *** INFLATE THE CORRECT LAYOUT: view_budget_progress_bar ***
+                // *** INFLATE THE CORRECT LAYOUT: item_budget_progress ***
                 inflater.inflate(
                     R.layout.item_expense_progress, // Use the specified layout
                     container, // Pass the container view group
                     false
                 )
             } catch (e: Exception) {
-                Log.e("ExpenseFragment", "Failed to inflate layout R.layout.view_budget_progress_bar for $categoryName", e)
+                Log.e("ExpenseFragment", "Failed to inflate layout R.layout.item_budget_progress for $categoryName", e)
                 continue // Skip this item if layout inflation fails
             }
 
-            // Find views using IDs from view_budget_progress_bar.xml
+            // Find views using IDs from item_budget_progress.xml
             val nameTextView = itemView.findViewById<TextView>(R.id.categoryName)
             val percentageTextView = itemView.findViewById<TextView>(R.id.percentageText)
             val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar)
@@ -254,7 +365,7 @@ class ExpenseFragment : Fragment() {
 
             // Check if views were found (important!)
             if (nameTextView == null || percentageTextView == null || progressBar == null || amountTextView == null) {
-                Log.e("ExpenseFragment", "Error finding views within R.layout.view_budget_progress_bar for $categoryName. Check layout file and IDs.")
+                Log.e("ExpenseFragment", "Error finding views within R.layout.item_budget_progress for $categoryName. Check layout file and IDs.")
                 continue // Skip this item if views aren't found
             }
 
@@ -310,4 +421,5 @@ class ExpenseFragment : Fragment() {
             Log.e("BudgetFragment", "Navigation error", e)
         }
     }
+     */
 }

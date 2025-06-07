@@ -18,7 +18,10 @@ interface BudgetDao {
     suspend fun getBudgetsByUser(userId: Int): List<Budget>
 
     @Query("SELECT * FROM budgets WHERE user_id = :userId AND financial_month = :month")
-    suspend fun getBudgetByMonth(userId: Int, month: String): Budget?
+    suspend fun getBudgetByMonth(userId: Int, month: String): Budget
+
+    @Query("SELECT budget_amount FROM budgets WHERE user_id = :userId AND financial_month = :month")
+    suspend fun getBudgetTotalByMonth(userId: Int, month: String): Double?
 
     @Query("DELETE FROM budgets WHERE budgetId = :budgetId")
     suspend fun deleteBudget(budgetId: Int)

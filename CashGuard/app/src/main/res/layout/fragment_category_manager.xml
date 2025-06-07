@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Fragments.CategoryManagerFragment">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/buttonCategoryType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:checkedButton="@+id/button_income"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins"
+            android:text="Income"
+            android:textColor="@color/toggle_button_text_color_selector"
+            android:textSize="18sp"
+            app:backgroundTint="@color/income_button_background_selector"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_expense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins"
+            android:text="Expense"
+            android:textColor="@color/toggle_button_text_color_selector"
+            android:textSize="18sp"
+            app:backgroundTint="@color/expense_button_background_selector"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        style="@style/HeaderText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="8dp"
+        android:text="Categories"
+        android:textColor="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:id="@+id/categoriesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
+        android:padding="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="75dp"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextNewCategory"
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="1"
+            android:hint="New Category"
+            style="@style/LargeInputField"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColorHint="@color/gray" />
+
+        <View
+            android:id="@+id/viewSelectedColor"
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/menu"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addCategory"
+        style="@style/SubmitButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="0dp"
+        android:text="Add Category"
+        app:cornerRadius="6dp" />
+
+</LinearLayout>

@@ -17,6 +17,11 @@ class SessionManager(context: Context) {
         return sharedPreferences.getInt("USER_ID", -1)
     }
 
+    fun signOut() {
+        editor.remove("USER_ID")
+        editor.apply()
+    }
+
     fun clearSession() {
         editor.clear()
         editor.apply()

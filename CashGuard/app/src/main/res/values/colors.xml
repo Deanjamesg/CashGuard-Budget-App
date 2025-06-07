@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
     <color name="menu">#0B132B</color>
     <color name="background">#1C2541</color>
+    <color name="background_light">#1E2A4D</color>
     <color name="stroke">#5BC0BE</color>
     <color name="glow">#6FFFE9</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="orange">#FF9900</color>
     <color name="purple">#A600FF</color>
     <color name="green">#00FF6A</color>
-    <color name="gray">#CBCBCB</color>
-    <color name="button_background">#6200EE</color>
-    <color name="default_category">#6C757D</color>
-
-
-    <color name="green_light">#E6FBF6</color>
+    <color name="green_light">#76FF9F</color>
+    <color name="gray">#6C757D</color>
+    <color name="light_gray">#BEBEBE</color>
+    <color name="dark_gray">#484848</color>
+    <color name="red_bright">#E91E63</color>
     <color name="red">#FF585D</color>
-    <color name="red_light">#FFEEEF</color>
-    <color name="lightBrown">#5367FF</color>
-    <color name="lightBrown_light">#EEF0FF</color>
-    <color name="violet">#893168</color>
-    <color name="violet_light">#FFDEF3</color>
-    <color name="yellow">#FFB61B</color>
-    <color name="yellow_light">#FFF9EC</color>
-    <color name="lightBlue">#1DA1F2</color>
-    <color name="lightBlue_light">#E8F6FE</color>
+    <color name="red_light">#FF8A91</color>
+    <color name="violet">#9C27B0</color>
+    <color name="yellow">#FFEA00</color>
+    <color name="yellow_light">#FFEB7D</color>
+    <color name="ocean_blue">#5367FF</color>
+    <color name="blue">#1DA1F2</color>
+    <color name="blue_light">#6AC1FF</color>
 
-    <color name="pie_chart_expense">#FF6B6B</color>
-    <color name="pie_chart_savings">#4ECDC4</color>
 </resources>

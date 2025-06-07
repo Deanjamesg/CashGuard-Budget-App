@@ -1,42 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".Fragments.BudgetBalancesFragment"
-    android:padding="16dp">
+    android:padding="10dp"
+    tools:context=".Fragments.BudgetBalancesFragment">
 
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/expensesLabel"
         style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24sp"
         android:text="Budget Balances"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/expensesLabel"
-        style="@style/SubHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:textSize="24sp"
-        android:layout_marginTop="24dp"
-        android:text="Categories" app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleText" />
-
     <View
         android:id="@+id/line4"
         android:layout_width="375dp"
-        android:layout_height="4dp"
-        android:background="@color/white"
+        android:layout_height="2dp"
         android:layout_marginTop="15dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expensesLabel" />
@@ -45,33 +32,33 @@
         android:id="@+id/budgetRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp" android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddBudget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line4"
-        app:layout_constraintBottom_toTopOf="@+id/fabAddBudget"
-        tools:listitem="@layout/view_budget_progress_bar" />
+        tools:listitem="@layout/item_budget_progress" />
 
     <TextView
         android:id="@+id/emptyStateText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
         android:text="@string/budget_balances_empty_state"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/budgetRecyclerView"
         app:layout_constraintBottom_toBottomOf="@id/budgetRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/budgetRecyclerView" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddBudget"
@@ -81,46 +68,9 @@
         android:contentDescription="@string/add_budget_fab_description"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/menu"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
-    <LinearLayout
-        android:id="@+id/bottomNavBar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageButton
-            android:id="@+id/homeIcon"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerInside"
-            android:src="@drawable/home"
-            app:tint="@android:color/white" />
-
-        <ImageButton
-            android:id="@+id/searchIcon"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerInside"
-            android:src="@drawable/search"
-            app:tint="@android:color/white" />
-
-        <ImageButton
-            android:id="@+id/settingsIcon"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerInside"
-            android:src="@drawable/setting"
-            app:tint="@android:color/white" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
