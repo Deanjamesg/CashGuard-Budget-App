@@ -72,7 +72,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             try {
                 val userId = userRepository.insertUserAndGetId(firstName, lastName, email, password)
                 _toastMessage.value = "Registration successful!"
-                _registerState.value = true
+
                 createDefaultCategories(userId)
             } catch (e: Exception) {
                 _toastMessage.value = "Registration failed, please try again later."
@@ -81,7 +81,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private suspend fun createDefaultCategories(userId: Int) {
+    private fun createDefaultCategories(userId: String) {
         val context = getApplication<Application>().applicationContext
         val defaultCategories = DEFAULT_CATEGORIES.map { (name, type, colorResId) ->
             Category(
@@ -93,16 +93,16 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             )
         }
         Log.d("RegisterViewModel", "Creating ${defaultCategories.size} default categories.")
-        categoryRepository.insertCategories(defaultCategories)
+        viewModelScope.launch {
+            categoryRepository.insertCategories(defaultCategories)
+            Log.d("RegisterViewModel", "Inserted default categories.")
+            _registerState.value = true
+        }
     }
 
     fun onToastMessageShown() {
         _toastMessage.value = null
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("ViewModel", "RegisterViewModel Cleared.")
-    }
 }
 

@@ -20,7 +20,7 @@ data class Transaction(
     val transactionId: Int = 0,
 
     @ColumnInfo(name = "user_id", index = true)
-    val userId: Int,
+    val userId: String,
 
     @ColumnInfo(name = "date")
     val date: Date,
@@ -35,7 +35,7 @@ data class Transaction(
     val photoUri: String? = null,
 
     @ColumnInfo(name = "type")
-    val type: String,  // "Income" or "Expense"
+    val type: String,
 
     @ColumnInfo(name = "category_name")
     val categoryName: String

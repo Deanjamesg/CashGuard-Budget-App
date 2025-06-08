@@ -16,7 +16,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
 
     private val categoryRepository: CategoryRepository
     private val sessionManager: SessionManager
-    private val userId: Int
+    private val userId: String
 
     private var userCategoryObjects: List<CategoryItem> = emptyList()
 
@@ -32,7 +32,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
         sessionManager = SessionManager(application)
         userId = sessionManager.getUserId()
 
-        if (userId != -1) {
+        if (userId != "-1") {
             loadUserCategories()
         } else {
             Log.e("CategoryVM", "User ID not found in init, cannot load categories immediately.")
@@ -42,7 +42,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private fun loadUserCategories() {
-        if (userId == -1) {
+        if (userId == "-1") {
             Log.e("CategoryVM", "User ID not found, cannot load categories.")
             _expenseCategories.postValue(emptyList())
             _incomeCategories.postValue(emptyList())
@@ -68,7 +68,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun addCategory(name: String, type: String, color: Int) {
-        if (userId == -1) {
+        if (userId == "-1") {
             Log.e("CategoryVM", "Cannot add category, user ID not found.")
             return
         }
@@ -89,7 +89,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun deleteCategory(category: CategoryItem) {
-        if (userId == -1) {
+        if (userId == "-1") {
             Log.e("CategoryVM", "Cannot delete category, user ID not found.")
             return
         }

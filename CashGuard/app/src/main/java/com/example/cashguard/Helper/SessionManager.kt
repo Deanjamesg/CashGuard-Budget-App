@@ -8,13 +8,13 @@ class SessionManager(context: Context) {
         context.getSharedPreferences("UserSession", Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-    fun saveUserSession(userId: Int) {
-        editor.putInt("USER_ID", userId)
+    fun saveUserSession(userId: String) {
+        editor.putString("USER_ID", userId)
         editor.apply()
     }
 
-    fun getUserId(): Int {
-        return sharedPreferences.getInt("USER_ID", -1)
+    fun getUserId(): String {
+        return sharedPreferences.getString("USER_ID", "-1") ?: "-1"
     }
 
     fun signOut() {

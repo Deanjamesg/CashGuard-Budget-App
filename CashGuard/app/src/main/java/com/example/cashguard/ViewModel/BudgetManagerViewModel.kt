@@ -20,7 +20,7 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
     private val categoryRepository: CategoryRepository
     private val budgetRepository: BudgetRepository
     private val sessionManager: SessionManager
-    private val userId: Int
+    private val userId: String
 
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categories
@@ -38,7 +38,7 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
         sessionManager = SessionManager(application)
         userId = sessionManager.getUserId()
 
-        if (userId != -1) {
+        if (userId != "-1") {
             loadUserCategories()
         } else {
             _categories.postValue(emptyList())
@@ -59,13 +59,17 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
 
     fun saveBudgetOnClick(categories : List<Category>, budgetTotal: Double) {
         viewModelScope.launch {
-            val newBudget = Budget(
-                budgetId = budget.value.budgetId,
-                userId = userId,
-                financialMonth = budget.value.financialMonth,
-                budgetAmount = budgetTotal
-            )
-            budgetRepository.updateBudget(newBudget)
+            val newBudget = userId?.let {
+                Budget(
+                    budgetId = budget.value.budgetId,
+                    userId = it,
+                    financialMonth = budget.value.financialMonth,
+                    budgetAmount = budgetTotal
+                )
+            }
+            if (newBudget != null) {
+                budgetRepository.updateBudget(newBudget)
+            }
 
             for (category in categories) {
                 categoryRepository.updateCategory(category)

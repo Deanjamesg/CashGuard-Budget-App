@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.support.annotations)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,8 +80,9 @@ dependencies {
     // Lifecycle Scope
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation (libs.eazegraph) // Check for the latest version
-    implementation (libs.library)      // EazeGraph often requires this
+    // Pie Chart
+    implementation (libs.eazegraph)
+    implementation (libs.library)
 
 
 }

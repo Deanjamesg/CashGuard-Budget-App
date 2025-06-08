@@ -127,11 +127,6 @@ class BudgetFragment : Fragment() {
             val darkGrayColor = ContextCompat.getColor(requireContext(), R.color.dark_gray)
             binding.pieChart.addPieSlice(PieModel("Create a Budget", 1f, darkGrayColor))
             binding.pieChart.setUseInnerValue(true)
-            binding.pieChart.innerValueColor =
-                ContextCompat.getColor(requireContext(), R.color.gray)
-            // The app:egInnerValueString="Create a Budget" from XML will be used.
-            // You can also set it programmatically if needed:
-            // binding.pieChart.setInnerValueString(getString(R.string.create_a_budget))
             binding.pieChart.invalidate() // Refresh to show inner text
         }
 

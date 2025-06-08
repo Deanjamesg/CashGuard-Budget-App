@@ -36,7 +36,7 @@ class OverviewFragmentViewModel(application: Application) : AndroidViewModel(app
     private fun fetchUserDate() {
         val userId = sessionManager.getUserId()
         viewModelScope.launch {
-            if (userId != -1) {
+            if (userId != "-1") {
                 val expenses = transactionRepository.getTotalExpensesByUser(userId)
                 _totalExpenses.postValue(expenses ?: 0.0)
                 val income = transactionRepository.getTotalIncomeByUser(userId)

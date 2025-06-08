@@ -78,7 +78,20 @@ class ExpenseFragment : Fragment() {
         binding.pieChart.clearChart()
 
         if (expenseBarList.isEmpty()) {
+
+            val noDataTextColor = ContextCompat.getColor(requireContext(), R.color.light_gray)
+            val noDataChartColor = ContextCompat.getColor(requireContext(), R.color.dark_gray)
+            binding.pieChart.addPieSlice(PieModel("No Data", 1f, noDataChartColor))
+            binding.pieChart.isUseInnerValue = true
+
+            binding.textViewCategoryTotalExpensesTitle.visibility = View.GONE
+
+            binding.totalExpensesText.setTextColor(noDataTextColor)
+            binding.textViewTotalExpensesLabel.setTextColor(noDataTextColor)
+
             Log.d("ExpenseFragment", "EMPTY LIST")
+
+            return
         }
         // Setting up the Total Expenses TextView
         var expenseTotal = 0.0

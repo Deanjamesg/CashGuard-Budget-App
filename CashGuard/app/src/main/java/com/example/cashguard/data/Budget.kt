@@ -19,7 +19,7 @@ data class Budget(
     val budgetId: Int = 0,
 
     @ColumnInfo(name = "user_id", index = true)
-    val userId: Int,
+    val userId: String,
 
     @ColumnInfo(name = "financial_month")
     val financialMonth: String, // Format: "MMM-yyyy" (e.g. "May-2025")

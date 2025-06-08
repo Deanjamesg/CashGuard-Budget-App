@@ -61,7 +61,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun isUserSignedIn() {
         val userId = sessionManager.getUserId()
-        _signedIn.value = userId != -1
+        _signedIn.value = userId != "-1"
         return
     }
 

@@ -20,7 +20,7 @@ data class Category(
     val categoryId: Int = 0,
 
     @ColumnInfo(name = "user_id", index = true)
-    val userId: Int,
+    val userId: String,
 
     @ColumnInfo(name = "name")
     val name: String,

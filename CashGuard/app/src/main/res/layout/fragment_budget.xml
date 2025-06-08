@@ -32,6 +32,7 @@
                 app:egHighlightStrength="1"
                 app:egInnerPadding="75"
                 app:egInnerPaddingColor="@color/background"
+                app:egInnerValueColor="@color/light_gray"
                 app:egInnerValueSize="18dp"
                 app:egInnerValueString="Create a Budget"
                 app:egUseInnerValue="false"

@@ -29,6 +29,8 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
     private val _transactionSaveStatus = MutableLiveData<Boolean?>()
     val transactionSaveStatus: LiveData<Boolean?> = _transactionSaveStatus
 
+    private val userId: String
+
     var type: String = "Expense"
 
     init {
@@ -38,6 +40,14 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
         categoryRepository = CategoryRepository(categoryDao)
         sessionManager = SessionManager(application)
 
+        userId = sessionManager.getUserId()
+
+        if (userId == "-1") {
+            Log.e("AddTransactionVM", "User ID is null. Cannot load categories.")
+        } else {
+            Log.d("AddTransactionVM", "User ID: $userId")
+        }
+
         viewModelScope.launch {
             initializeAndLoadDefaultCategories()
         }
@@ -45,8 +55,7 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
 
     private suspend fun initializeAndLoadDefaultCategories() {
 
-        val userId = sessionManager.getUserId()
-        if (userId != -1) {
+        if (userId != "-1") {
             userCategoryObjects = categoryRepository.getCategorySpinner(userId)
             loadCategoriesForSpinner(type)
         } else {
@@ -74,22 +83,25 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
         date: Date,
         photoUri: String? = null
     ) {
-        val currentUserId = sessionManager.getUserId()
 
         // Create the Transaction object
-        val newTransaction = Transaction(
-            userId = currentUserId,
-            date = date,
-            amount = amount,
-            note = note,
-            photoUri = photoUri,
-            type = type,
-            categoryName = categoryName
-        )
+        val newTransaction = userId?.let {
+            Transaction(
+                userId = it,
+                date = date,
+                amount = amount,
+                note = note,
+                photoUri = photoUri,
+                type = type,
+                categoryName = categoryName
+            )
+        }
 
         viewModelScope.launch {
             try {
-                transactionRepository.insertTransaction(newTransaction)
+                if (newTransaction != null) {
+                    transactionRepository.insertTransaction(newTransaction)
+                }
                 Log.d("AddTransactionVM", "Transaction inserted successfully.")
                 _transactionSaveStatus.postValue(true) // Notify success via LiveData
             } catch (e: Exception) {

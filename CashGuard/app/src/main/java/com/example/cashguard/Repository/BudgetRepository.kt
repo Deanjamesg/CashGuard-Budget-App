@@ -7,7 +7,7 @@ class BudgetRepository(private val budgetDao: BudgetDao) {
     suspend fun insertBudget(budget: Budget) = budgetDao.insert(budget)
     suspend fun updateBudget(budget: Budget) = budgetDao.update(budget)
     suspend fun deleteBudget(budget: Budget) = budgetDao.delete(budget)
-    suspend fun getBudgets(userId: Int) = budgetDao.getBudgetsByUser(userId)
-    suspend fun getBudgetByMonth(userId: Int, month: String) = budgetDao.getBudgetByMonth(userId, month)
-    suspend fun getBudgetTotalByMonth(userId: Int, month: String) = budgetDao.getBudgetTotalByMonth(userId, month)
+    suspend fun getBudgets(userId: String) = budgetDao.getBudgetsByUser(userId)
+    suspend fun getBudgetByMonth(userId: String, month: String) = budgetDao.getBudgetByMonth(userId, month)
+    suspend fun getBudgetTotalByMonth(userId: String, month: String) = budgetDao.getBudgetTotalByMonth(userId, month)
 }

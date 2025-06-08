@@ -34,7 +34,7 @@ class BudgetBalancesViewModel(application: Application) : AndroidViewModel(appli
         viewModelScope.launch {
             _isLoading.postValue(true)
             val userId = sessionManager.getUserId()
-            if (userId != -1) {
+            if (userId != "-1") {
                 try {
                     val data = categoryRepository.getProgressBarData(userId)
                     _progressBarData.postValue(data)

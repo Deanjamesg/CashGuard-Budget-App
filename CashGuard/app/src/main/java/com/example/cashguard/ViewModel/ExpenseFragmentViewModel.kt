@@ -35,7 +35,7 @@ class ExpenseFragmentViewModel(application: Application) : AndroidViewModel(appl
         viewModelScope.launch {
             _isLoading.postValue(true)
             val userId = sessionManager.getUserId()
-            if (userId != -1) {
+            if (userId != "-1") {
                 try {
                     val data = transactionRepository.getTransactionsExpenseBar(userId)
                     _expenseBarData.postValue(data)
