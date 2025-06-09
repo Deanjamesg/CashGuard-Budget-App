@@ -3,6 +3,10 @@
 CashGaurd is a budgeting app that allows the user to customise their budgetng experience. CashGuard has features such as letting the user create their own categories for either expenses or incomes, or they can search for all transaciton types in a user selected time frame. CashGuard makes use of FirebaseDB for a cloud data storage and LiveData for in real time updates.
 <br/>
 
+## Design Considerations
+* We wanted the application to be as modern and as sleek as possible. This is to ensure that the application looks attractive and professional as possible.
+* The UI Design is to be as easy as possible to follow so that the user does not get confused when making use of the application.
+
 ## Features
 * Create own user categories.
 * Create transacitons (incomes or expense).
