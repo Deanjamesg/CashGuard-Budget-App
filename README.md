@@ -6,6 +6,11 @@ CashGaurd is a budgeting app that allows the user to customise their budgetng ex
 ## Design Considerations
 * We wanted the application to be as modern and as sleek as possible. This is to ensure that the application looks attractive and professional as possible.
 * The UI Design is to be as easy as possible to follow so that the user does not get confused when making use of the application.
+* When planning the code. A modular philosophy was adapted in order to make the transition from a LocalDB to a Cloud based one easier.
+* The code is also easy to understand and follow in order for it to be simple and make it easier for maintenance or upgrades in the future.
+* Has an inate focus on Core Tasks so that the user can really focus on their budgeting.
+* Has lots of visual cues to the user to present users the information in an easy to understand way.
+* Security added so that the user has their own account which tracks their specific goals and not someone elses. Also allows for cross application support.
 
 ## Features
 * Create own user categories.
@@ -24,8 +29,8 @@ CashGaurd is a budgeting app that allows the user to customise their budgetng ex
 * The insights offered by the app help reveal trends for the user. This helps with pattern recognition and see bad habitual spending so that the user can eliminate unnessicary spending month to month.
 
 ## Concepts used
-* LiveData and Room Database are being used, LiveData is to store & Update new transactions.
-* Bottom navigation bar allows the userto navigate home to dashboard and gives user a more enhanced UI/Ux interface.
+* FirbaseDB and Firebase are used, FirebaseDB is used to store & update new transactions.
+* Bottom navigation bar allows the user to navigate home to dashboard and gives user a more enhanced UI/Ux interface.
 * Fragments are used for easier dashboard navigation.
 * Storing photos with a URI
 
