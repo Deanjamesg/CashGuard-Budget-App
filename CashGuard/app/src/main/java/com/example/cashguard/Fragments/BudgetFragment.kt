@@ -1,6 +1,5 @@
 package com.example.cashguard.Fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -98,13 +97,14 @@ class BudgetFragment : Fragment() {
             binding.pieChart.clearChart()
             val darkGrayColor = ContextCompat.getColor(requireContext(), R.color.dark_gray)
 
+            val expenseColor = ContextCompat.getColor(requireContext(), R.color.red)
             // Expenses exist. Add each expense as a slice.
             currentExpenses.forEach { expense ->
                 binding.pieChart.addPieSlice(
                     PieModel(
                         expense.categoryName,
                         expense.totalAmount.toFloat(),
-                        expense.categoryColor
+                        expenseColor
                     )
                 )
             }
@@ -130,12 +130,13 @@ class BudgetFragment : Fragment() {
             binding.pieChart.invalidate() // Refresh to show inner text
         }
 
-        binding.pieChart.startAnimation()
+//        binding.pieChart.startAnimation()
 
     }
 
     override fun onResume() {
         super.onResume()
+        viewModel.refreshData()
         Log.d("BudgetFragment", "onResume called")
     }
 

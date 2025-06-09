@@ -146,11 +146,12 @@ class ExpenseFragment : Fragment() {
             ))
         }
 
-        binding.pieChart.startAnimation()
+//        binding.pieChart.startAnimation()
 
     }
 
     override fun onResume() {
+        viewModel.refreshExpenseBars()
         super.onResume()
     }
 

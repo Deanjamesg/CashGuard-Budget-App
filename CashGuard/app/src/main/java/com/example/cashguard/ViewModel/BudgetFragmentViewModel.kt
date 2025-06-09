@@ -50,10 +50,7 @@ class BudgetFragmentViewModel(application: Application) : AndroidViewModel(appli
                     val expenses = transactionRepository.getTransactionsExpenseBar(userId)
                     _expenseData.postValue(expenses)
 
-                    val startOfMonth = Calendar.getInstance().apply { set(Calendar.DAY_OF_MONTH, 1) }.time
-                    val endOfMonth = Calendar.getInstance().apply { add(Calendar.MONTH, 1); set(Calendar.DAY_OF_MONTH, 1); add(Calendar.DATE, -1) }.time
-
-                    val budget = budgetRepository.getUserBudgetByDateRange(userId, startOfMonth, endOfMonth)
+                    val budget = budgetRepository.getCurrentBudget(userId)
 
                     if (budget != null) {
                         _budgetData.postValue(budget.budgetAmount)

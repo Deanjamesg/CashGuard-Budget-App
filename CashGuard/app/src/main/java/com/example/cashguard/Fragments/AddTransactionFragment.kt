@@ -160,7 +160,6 @@ class AddTransactionFragment : Fragment() {
                 categoryAutoCompleteTextView.clearFocus()
             }
         }
-
         binding.buttonAddTransaction.setOnClickListener {
             val transactionAmount = binding.editTextAmount.text.toString().toDoubleOrNull()
             val transactionNote = binding.editTextNote.text.toString()

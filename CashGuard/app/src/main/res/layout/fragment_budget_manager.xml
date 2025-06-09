@@ -5,90 +5,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="10dp"
     tools:context=".Fragments.BudgetManagerFragment">
 
-    <TextView
-        android:id="@+id/tvHeaderSubtitle"
-        style="@style/BodyText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Create a budget and manage your expenses."
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvBudgetTotalLabel"
-        style="@style/HeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Budget Total:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderSubtitle" />
-
-    <TextView
-        android:id="@+id/tvCurrencySymbol"
-        style="@style/HeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="R"
-        android:layout_marginEnd="30dp"
-        android:textColor="@color/glow"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvBudgetTotalLabel"
-        app:layout_constraintTop_toTopOf="@+id/tvBudgetTotalLabel" />
-
-    <TextView
-        android:id="@+id/tvBudgetTotal"
-        style="@style/SubHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="12500"
-        android:textColor="@color/glow"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/tvCurrencySymbol"
-        app:layout_constraintStart_toEndOf="@id/tvCurrencySymbol"
-        app:layout_constraintTop_toTopOf="@id/tvCurrencySymbol" />
-
-    <TextView
-        android:id="@+id/tvCategoriesHeader"
-        style="@style/BodyText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Set your min and max budget goals for each category."
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCurrencySymbol" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCategories"
+    <ScrollView
+        android:id="@+id/scrollViewBudgetManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCategoriesHeader"
-        tools:listitem="@layout/item_budget_manager" />
-
-    <Button
-        android:id="@+id/submitButton"
-        style="@style/SubmitButton"
-        android:layout_marginBottom="5dp"
-        android:text="Submit Budget"
-        app:cornerRadius="6dp"
+        android:fillViewport="true"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvHeaderSubtitle"
+                style="@style/BodyText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Create a budget and manage your expenses."
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBudgetTotalLabel"
+                style="@style/HeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Budget Total:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderSubtitle" />
+
+            <TextView
+                android:id="@+id/tvCurrencySymbol"
+                style="@style/HeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R"
+                android:textColor="@color/glow"
+                android:textSize="30sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvBudgetTotal"
+                app:layout_constraintEnd_toStartOf="@+id/tvBudgetTotal"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/tvBudgetTotalLabel" />
+
+            <TextView
+                android:id="@+id/tvBudgetTotal"
+                style="@style/SubHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="0"
+                android:textColor="@color/glow"
+                android:textSize="30sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvBudgetTotalLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvCurrencySymbol" />
+
+            <TextView
+                android:id="@+id/tvCategoriesHeader"
+                style="@style/BodyText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Set your min and max budget goals for each category."
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBudgetTotalLabel" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                android:padding="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCategoriesHeader"
+                tools:listitem="@layout/item_budget_manager" />
+
+            <Button
+                android:id="@+id/submitButton"
+                style="@style/SubmitButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Submit Budget"
+                app:cornerRadius="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvCategories" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

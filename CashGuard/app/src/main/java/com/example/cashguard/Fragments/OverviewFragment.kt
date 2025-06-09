@@ -117,7 +117,7 @@ class OverviewFragment : Fragment() {
             Log.d("OverviewFragment", "Added 'No Data' pie slice.")
             binding.pieChart.isUseInnerValue = true
         }
-        binding.pieChart.startAnimation()
+//        binding.pieChart.startAnimation()
 
     }
 
@@ -153,6 +153,11 @@ class OverviewFragment : Fragment() {
         viewModel.refreshData()
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        viewModel.refreshData()
+        super.onResume()
     }
 
 

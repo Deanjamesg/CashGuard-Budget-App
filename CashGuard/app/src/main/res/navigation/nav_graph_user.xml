@@ -49,7 +49,11 @@
         android:id="@+id/searchTransactionsFragment"
         android:name="com.example.cashguard.Fragments.SearchTransactionsFragment"
         android:label="fragment_search_transactions"
-        tools:layout="@layout/fragment_search_transactions" />
+        tools:layout="@layout/fragment_search_transactions" >
+        <action
+            android:id="@+id/action_viewTransactionFragment"
+            app:destination="@id/viewTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/budgetManagerFragment"
         android:name="com.example.cashguard.Fragments.BudgetManagerFragment"
@@ -65,4 +69,13 @@
         android:name="com.example.cashguard.Fragments.BarGraphFragment"
         android:label="fragment_bar_graph"
         tools:layout="@layout/fragment_bar_graph" />
+    <fragment
+        android:id="@+id/viewTransactionFragment"
+        android:name="com.example.cashguard.Fragments.ViewTransactionFragment"
+        android:label="fragment_view_transaction"
+        tools:layout="@layout/fragment_view_transaction">
+        <argument
+            android:name="transactionId"
+            app:argType="string" />
+    </fragment>
 </navigation>

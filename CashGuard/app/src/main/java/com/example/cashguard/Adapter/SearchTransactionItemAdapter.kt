@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cashguard.R
 import com.example.cashguard.data.SearchTransactionItem
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class SearchTransactionItemAdapter :
-    ListAdapter<SearchTransactionItem, SearchTransactionItemAdapter.TransactionViewHolder>(TransactionDiffCallback()) {
+class SearchTransactionItemAdapter(
+    private val onItemClicked: (SearchTransactionItem) -> Unit
+) : ListAdapter<SearchTransactionItem, SearchTransactionItemAdapter.TransactionViewHolder>(TransactionDiffCallback()) {
 
-    private val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("dd MMM yy", Locale.getDefault())
+    private val currencyFormatter = NumberFormat.getCurrencyInstance(Locale("en", "ZA"))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -37,14 +40,18 @@ class SearchTransactionItemAdapter :
         fun bind(transaction: SearchTransactionItem) {
             categoryTextView.text = transaction.categoryName
             dateTextView.text = dateFormat.format(transaction.date)
-            amountTextView.text = String.format(Locale.getDefault(), "%.2f", transaction.amount)
+            amountTextView.text = currencyFormatter.format(transaction.amount)
 
             val amountColor = if (transaction.type.equals("Income", ignoreCase = true)) {
-                ContextCompat.getColor(itemView.context, R.color.green)
+                ContextCompat.getColor(itemView.context, R.color.glow)
             } else {
                 ContextCompat.getColor(itemView.context, R.color.red)
             }
             amountTextView.setTextColor(amountColor)
+
+            itemView.setOnClickListener {
+                onItemClicked(transaction)
+            }
         }
     }
 

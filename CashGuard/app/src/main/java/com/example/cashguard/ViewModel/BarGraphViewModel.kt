@@ -11,7 +11,7 @@ import com.example.cashguard.Helper.SessionManager
 import com.example.cashguard.Repository.CategoryRepository
 import com.example.cashguard.Repository.TransactionRepository
 import kotlinx.coroutines.launch
-import java.util.Calendar
+import java.util.Date
 
 data class ChartDataPoint(
     val categoryName: String,
@@ -27,8 +27,16 @@ class BarGraphViewModel(application: Application) : AndroidViewModel(application
     private val transactionRepository: TransactionRepository
     private val sessionManager: SessionManager
 
-    private val _chartData = MutableLiveData<List<ChartDataPoint>>()
-    val chartData: LiveData<List<ChartDataPoint>> = _chartData
+    // Holds the single data point for the currently selected category and date range
+    private val _chartDataPoint = MutableLiveData<ChartDataPoint?>()
+    val chartDataPoint: LiveData<ChartDataPoint?> = _chartDataPoint
+
+    // Holds the list of category names for the spinner
+    private val _categoryNamesForSpinner = MutableLiveData<List<String>>()
+    val categoryNamesForSpinner: LiveData<List<String>> = _categoryNamesForSpinner
+
+    // Stores all categories with goals so we don't have to query them repeatedly
+    private var categoriesWithGoals: List<com.example.cashguard.data.Category> = emptyList()
 
     init {
         val db = AppDatabase.getInstance(application)
@@ -37,43 +45,46 @@ class BarGraphViewModel(application: Application) : AndroidViewModel(application
         sessionManager = SessionManager(application)
     }
 
-
-    fun loadChartDataForPastMonth() {
+    // Call this once to populate the spinner
+    fun loadCategoriesForSpinner() {
         viewModelScope.launch {
-            // Get the userId from the session
             val userId = sessionManager.getUserId()
-
-            // Proceed only if the userId is valid
             if (userId != "-1") {
-                val calendar = Calendar.getInstance()
-                val endDate = calendar.time
-                calendar.add(Calendar.MONTH, -1)
-                val startDate = calendar.time
+                // Fetch and store the categories with goals
+                categoriesWithGoals = categoryRepository.getUserActiveCategories(userId)
+                    .filter { it.type == "Expense" && it.maxGoal != null && it.maxGoal > 0 }
 
-                Log.d("GraphViewModel", "Loading data for userId: $userId between $startDate and $endDate")
+                // Post just the names to the spinner's LiveData
+                _categoryNamesForSpinner.postValue(categoriesWithGoals.map { it.name })
+            }
+        }
+    }
 
-                val activeCategories = categoryRepository.getUserActiveCategories(userId)
-                val expenseGoalCategories = activeCategories.filter { it.type == "Expense" && it.maxGoal != null && it.maxGoal > 0 }
-                Log.d("GraphViewModel", "Found ${expenseGoalCategories.size} categories with goals.")
+    // Call this whenever the category or date range changes
+    fun loadChartDataForSelection(categoryName: String, startDate: Date, endDate: Date) {
+        viewModelScope.launch {
+            val userId = sessionManager.getUserId()
+            // Find the full category object from our stored list
+            val selectedCategory = categoriesWithGoals.find { it.name == categoryName }
 
-                val dataPoints = expenseGoalCategories.map { category ->
-                    val spentAmount = transactionRepository.getSumExpensesByCategoryIdAndDateRange(
-                        userId, category.categoryId, startDate, endDate
-                    ) ?: 0.0
+            if (userId != "-1" && selectedCategory != null) {
+                // Get the spending for just this category in the selected date range
+                val spentAmount = transactionRepository.getSumExpensesByCategoryIdAndDateRange(
+                    userId, selectedCategory.categoryId, startDate, endDate
+                ) ?: 0.0
 
-                    ChartDataPoint(
-                        categoryName = category.name,
-                        amountSpent = spentAmount.toFloat(),
-                        minGoal = (category.minGoal ?: 0.0).toFloat(),
-                        maxGoal = (category.maxGoal ?: 0.0).toFloat(),
-                        color = category.color
-                    )
-                }
-                _chartData.postValue(dataPoints)
-                Log.d("GraphViewModel", "Posted ${dataPoints.size} data points to LiveData.")
+                // Create a single ChartDataPoint and post it
+                val dataPoint = ChartDataPoint(
+                    categoryName = selectedCategory.name,
+                    amountSpent = spentAmount.toFloat(),
+                    minGoal = (selectedCategory.minGoal ?: 0.0).toFloat(),
+                    maxGoal = (selectedCategory.maxGoal ?: 0.0).toFloat(),
+                    color = selectedCategory.color
+                )
+                _chartDataPoint.postValue(dataPoint)
             } else {
-                Log.e("GraphViewModel", "Invalid userId from SessionManager. Cannot load chart data.")
-                _chartData.postValue(emptyList()) // Post an empty list on error
+                // If selection is invalid, post null to clear the chart
+                _chartDataPoint.postValue(null)
             }
         }
     }
