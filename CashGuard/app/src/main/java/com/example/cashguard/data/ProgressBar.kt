@@ -2,6 +2,7 @@ package com.example.cashguard.data
 
 data class ProgressBar (
     val categoryName: String,
-    val expenseAmount: Double,
-    val budgetAmount: Double
+    val totalSpentAmount: Double,
+    val maxBudgetAmount: Double,
+    val minBudgetAmount: Double
 )

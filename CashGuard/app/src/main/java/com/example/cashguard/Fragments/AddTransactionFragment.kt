@@ -151,7 +151,6 @@ class AddTransactionFragment : Fragment() {
             }
         }
 
-        // This listener handles cases where the dropdown is dismissed without an item click
         categoryAutoCompleteTextView.setOnDismissListener {
 
             val currentText = categoryAutoCompleteTextView.text.toString()
@@ -163,36 +162,37 @@ class AddTransactionFragment : Fragment() {
         }
 
         binding.buttonAddTransaction.setOnClickListener {
-
             val transactionAmount = binding.editTextAmount.text.toString().toDoubleOrNull()
             val transactionNote = binding.editTextNote.text.toString()
+            val transactionType = if (binding.buttonTransactionType.checkedButtonId == R.id.button_income) "Income" else "Expense"
+            val transactionDate = selectedDate ?: Calendar.getInstance().time
 
-            val category = selectedCategoryName
+            val categoryName = selectedCategoryName
 
-            val transactionType =
-                if (binding.buttonTransactionType.checkedButtonId == R.id.button_income) "Income" else "Expense"
-            val transactionDate =
-                Calendar.getInstance().time // Replace with actual selected date from DatePicker
-
-            if (category.isNullOrBlank() || category == "Select a Category" || category == "No Categories Available") {
-                Toast.makeText(requireContext(), "Please select a category.", Toast.LENGTH_SHORT)
-                    .show()
+            if (categoryName.isNullOrBlank() || categoryName == "No Categories Available") {
+                Toast.makeText(requireContext(), "Please select a category.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
             if (transactionAmount == null || transactionAmount <= 0) {
-                Toast.makeText(requireContext(), "Please enter a valid amount.", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "Please enter a valid amount.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            viewModel.addTransaction(
-                amount = transactionAmount.toDouble(),
-                note = transactionNote.takeIf { it.isNotBlank() },
-                categoryName = category,
-                type = transactionType,
-                date = transactionDate,
-                photoUri = selectedPhotoUri?.toString()
-            )
+            val categoryId = viewModel.getCategoryIdByName(categoryName)
+
+            if (categoryId != null) {
+                viewModel.addTransaction(
+                    amount = transactionAmount,
+                    note = transactionNote.takeIf { it.isNotBlank() },
+                    categoryId = categoryId,
+                    type = transactionType,
+                    date = transactionDate,
+                    photoUri = selectedPhotoUri?.toString()
+                )
+            } else {
+                Toast.makeText(requireContext(), "Error finding category. Please select again.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

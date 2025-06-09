@@ -56,7 +56,14 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
     private suspend fun initializeAndLoadDefaultCategories() {
 
         if (userId != "-1") {
-            userCategoryObjects = categoryRepository.getCategorySpinner(userId)
+            val activeCategories = categoryRepository.getUserActiveCategories(userId)
+            if (activeCategories != null) {
+                userCategoryObjects = activeCategories
+            }
+             else {
+                 userCategoryObjects = emptyList()
+            }
+//            userCategoryObjects = categoryRepository.getUserActiveCategories(userId)
             loadCategoriesForSpinner(type)
         } else {
             Log.e("AddTransactionVM", "No user ID found. Categories not loaded.")
@@ -78,30 +85,23 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
     fun addTransaction(
         amount: Double,
         note: String?,
-        categoryName: String,
+        categoryId: String,
         type: String,
         date: Date,
         photoUri: String? = null
     ) {
 
-        // Create the Transaction object
-        val newTransaction = userId?.let {
-            Transaction(
-                userId = it,
-                date = date,
-                amount = amount,
-                note = note,
-                photoUri = photoUri,
-                type = type,
-                categoryName = categoryName
-            )
-        }
-
         viewModelScope.launch {
             try {
-                if (newTransaction != null) {
-                    transactionRepository.insertTransaction(newTransaction)
-                }
+                transactionRepository.insertTransaction(
+                    userId = userId,
+                    categoryId = categoryId,
+                    date = date,
+                    amount = amount,
+                    type = type,
+                    note = note,
+                    photoFileName = photoUri
+                )
                 Log.d("AddTransactionVM", "Transaction inserted successfully.")
                 _transactionSaveStatus.postValue(true) // Notify success via LiveData
             } catch (e: Exception) {
@@ -109,6 +109,10 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
                 _transactionSaveStatus.postValue(false) // Notify failure via LiveData
             }
         }
+    }
+
+    fun getCategoryIdByName(name: String): String? {
+        return userCategoryObjects.find { it.name == name }?.categoryId
     }
 
     fun onTransactionSaveStatusHandled() {

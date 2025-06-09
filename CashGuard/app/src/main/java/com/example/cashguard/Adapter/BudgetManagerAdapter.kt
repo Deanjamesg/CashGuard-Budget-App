@@ -19,7 +19,8 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
 
     private var listener: OnBudgetChangedListener? = null
 
-    private val changedBudgets = mutableMapOf<Int, Double>()
+    // REPAIRED: Key changed from Int to String to match the categoryId type.
+    private val changedBudgets = mutableMapOf<String, Double>()
 
     inner class BudgetViewHolder(private val binding: ItemBudgetManagerBinding) : RecyclerView.ViewHolder(binding.root) {
         private var textWatcher: TextWatcher? = null
@@ -28,8 +29,8 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
             binding.categoryName.text = category.name
             binding.budgetInput.removeTextChangedListener(textWatcher)
 
-            if (category.budgetAmount != null && category.budgetAmount > 0) {
-                val formattedAmount = String.format(Locale.getDefault(), "%.0f", category.budgetAmount)
+            if (category.maxGoal != null && category.maxGoal!! > 0) {
+                val formattedAmount = String.format(Locale.getDefault(), "%.0f", category.maxGoal)
                 binding.budgetInput.setText(formattedAmount)
             } else {
                 binding.budgetInput.setText("")
@@ -41,8 +42,8 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     val newAmount = s.toString().toDoubleOrNull() ?: 0.0
+                    // The String categoryId now correctly works as the key.
                     changedBudgets[category.categoryId] = newAmount
-
                     listener?.onBudgetChanged()
                 }
             }
@@ -57,7 +58,8 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
     fun calculateNewTotal(): Double {
         var total = 0.0
         currentList.forEach { category ->
-            val amount = changedBudgets[category.categoryId] ?: (category.budgetAmount ?: 0.0)
+            // REPAIRED: The fallback now uses the correct 'maxGoal' field instead of the non-existent 'budgetAmount'.
+            val amount = changedBudgets[category.categoryId] ?: (category.maxGoal ?: 0.0)
             total += amount
         }
         return total
@@ -68,7 +70,8 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
         changedBudgets.forEach { (categoryId, newAmount) ->
             val originalCategory = currentList.find { it.categoryId == categoryId }
             if (originalCategory != null) {
-                val updatedCategory = originalCategory.copy(budgetAmount = newAmount)
+                // REPAIRED: .copy() now updates the correct 'maxGoal' field.
+                val updatedCategory = originalCategory.copy(maxGoal = newAmount)
                 updatedCategories.add(updatedCategory)
             }
         }

@@ -9,7 +9,6 @@ class UserRepository(private val userDao: UserDao) {
 
     // Get a reference to the 'users' node in your Firebase Realtime Database
     private val userDatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-    // Get an instance of Firebase Authentication
 
     suspend fun insertUser(user: User) = userDao.insert(user)
     suspend fun getUserByEmail(email: String) = userDao.getUserByEmail(email)
@@ -20,7 +19,6 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun insertUserAndGetId(firstName: String, lastName: String, email: String, password: String): String {
 
-        // The push() method creates a unique ID.
         val firebaseKey = userDatabaseReference.push().key
             ?: throw Exception("Could not generate a unique key from Firebase.")
 
@@ -33,7 +31,6 @@ class UserRepository(private val userDao: UserDao) {
         )
 
         userDatabaseReference.child(firebaseKey).setValue(user).await()
-
         userDao.insert(user)
 
         return firebaseKey

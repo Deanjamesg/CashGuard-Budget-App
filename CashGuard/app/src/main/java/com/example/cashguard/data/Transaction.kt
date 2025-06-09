@@ -13,11 +13,18 @@ import java.util.Date
         parentColumns = ["userId"],
         childColumns = ["user_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    ),
+        ForeignKey(
+            entity = Category::class,
+            parentColumns = ["categoryId"],
+            childColumns = ["category_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
 )
 data class Transaction(
-    @PrimaryKey(autoGenerate = true)
-    val transactionId: Int = 0,
+    @PrimaryKey
+    val transactionId: String,
 
     @ColumnInfo(name = "user_id", index = true)
     val userId: String,
@@ -31,12 +38,12 @@ data class Transaction(
     @ColumnInfo(name = "note")
     val note: String? = null,
 
-    @ColumnInfo(name = "photo_uri")
-    val photoUri: String? = null,
+    @ColumnInfo(name = "photo_filename")
+    val photoFilename: String? = null,
 
     @ColumnInfo(name = "type")
     val type: String,
 
-    @ColumnInfo(name = "category_name")
-    val categoryName: String
+    @ColumnInfo(name = "category_id", index = true)
+    val categoryId: String
 )

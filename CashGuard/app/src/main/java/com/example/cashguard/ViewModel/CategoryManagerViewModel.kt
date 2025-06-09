@@ -8,13 +8,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cashguard.Database.AppDatabase
 import com.example.cashguard.Helper.SessionManager
+import com.example.cashguard.Repository.BudgetRepository
 import com.example.cashguard.Repository.CategoryRepository
 import com.example.cashguard.data.CategoryItem // Ensure CategoryItem has color if you intend to display it
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class CategoryManagerViewModel(application: Application) : AndroidViewModel(application) {
 
     private val categoryRepository: CategoryRepository
+    private val budgetRepository: BudgetRepository
     private val sessionManager: SessionManager
     private val userId: String
 
@@ -29,6 +32,10 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
     init {
         val categoryDao = AppDatabase.getInstance(application).categoryDao()
         categoryRepository = CategoryRepository(categoryDao)
+
+        val budgetDao = AppDatabase.getInstance(application).budgetDao()
+        budgetRepository = BudgetRepository(budgetDao)
+
         sessionManager = SessionManager(application)
         userId = sessionManager.getUserId()
 
@@ -49,7 +56,14 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
             return
         }
         viewModelScope.launch {
-            userCategoryObjects = categoryRepository.getCategorySpinner(userId)
+            val activeCategories = categoryRepository.getUserActiveCategories(userId)
+            if (activeCategories != null) {
+                userCategoryObjects = activeCategories
+            } else {
+                userCategoryObjects = emptyList()
+            }
+
+//            userCategoryObjects = categoryRepository.getUserActiveCategories(userId)
             Log.d("CategoryVM", "Loaded ${userCategoryObjects.size} categories for user $userId")
             processAndPostCategories()
         }
@@ -79,8 +93,21 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
 
         viewModelScope.launch {
             try {
-                categoryRepository.addCategoryByNameAndType(name, type, userId, color)
-                Log.d("CategoryVM", "Attempted to add category: $name, Type: $type, Color: $color for user $userId")
+
+                val budget = budgetRepository.getCurrentBudget(userId)
+
+                if (budget == null) {
+                    Log.e(
+                        "CategoryVM",
+                        "No active budget found for user $userId. Cannot add category."
+                    )
+                    return@launch
+                }
+                categoryRepository.addCategory(name, type, userId, budget.budgetId, color)
+                Log.d(
+                    "CategoryVM",
+                    "Attempted to add category: $name, Type: $type, Color: $color for user $userId"
+                )
                 loadUserCategories()
             } catch (e: Exception) {
                 Log.e("CategoryVM", "Error adding category: $name", e)
@@ -95,8 +122,14 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
         }
         viewModelScope.launch {
             try {
-                categoryRepository.deleteCategoryById(category.categoryId, userId)
-                Log.d("CategoryVM", "Attempted to delete category ID: ${category.categoryId} for user $userId")
+                val userCategory = categoryRepository.getCategoryById(category.categoryId)
+
+                categoryRepository.deleteCategory(userCategory)
+
+                Log.d(
+                    "CategoryVM",
+                    "Attempted to delete category ID: ${category.categoryId} for user $userId"
+                )
                 loadUserCategories()
             } catch (e: Exception) {
                 Log.e("CategoryVM", "Error deleting category: ${category.name}", e)

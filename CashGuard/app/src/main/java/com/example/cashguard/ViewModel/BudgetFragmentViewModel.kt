@@ -11,6 +11,7 @@ import com.example.cashguard.Repository.BudgetRepository
 import com.example.cashguard.Repository.TransactionRepository
 import com.example.cashguard.data.ExpenseBar
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class BudgetFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -49,13 +50,13 @@ class BudgetFragmentViewModel(application: Application) : AndroidViewModel(appli
                     val expenses = transactionRepository.getTransactionsExpenseBar(userId)
                     _expenseData.postValue(expenses)
 
-                    val currentMonth = java.text.SimpleDateFormat("MMM-yyyy", java.util.Locale.getDefault())
-                        .format(java.util.Date())
+                    val startOfMonth = Calendar.getInstance().apply { set(Calendar.DAY_OF_MONTH, 1) }.time
+                    val endOfMonth = Calendar.getInstance().apply { add(Calendar.MONTH, 1); set(Calendar.DAY_OF_MONTH, 1); add(Calendar.DATE, -1) }.time
 
-                    val budget = budgetRepository.getBudgetTotalByMonth(userId, currentMonth)
+                    val budget = budgetRepository.getUserBudgetByDateRange(userId, startOfMonth, endOfMonth)
 
                     if (budget != null) {
-                        _budgetData.postValue(budget)
+                        _budgetData.postValue(budget.budgetAmount)
                     } else {
                         _budgetData.postValue(0.0)
                     }

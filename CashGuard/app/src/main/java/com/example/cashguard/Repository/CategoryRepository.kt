@@ -5,29 +5,58 @@ import com.example.cashguard.Dao.CategoryDao
 import com.example.cashguard.data.Category
 import com.example.cashguard.data.CategoryItem
 import com.example.cashguard.data.ProgressBar
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.tasks.await
 
 class CategoryRepository(private val categoryDao: CategoryDao) {
+
+    private val categoryDatabaseReference = FirebaseDatabase.getInstance().getReference("categories")
 
     suspend fun insertCategory(category: Category) = categoryDao.insert(category)
 
     suspend fun getUserCategories(userId: String) = categoryDao.getCategoriesByUser(userId)
 
-    suspend fun updateCategory(category: Category) = categoryDao.update(category)
+    suspend fun updateCategory(category: Category) {
+        categoryDao.update(category)
+        categoryDatabaseReference.child(category.categoryId).setValue(category).await()
+    }
 
-    suspend fun getBudgetCategories(userId: String) = categoryDao.getBudgetCategoriesByUser(userId)
+    suspend fun getUserActiveCategories(userId: String): List<CategoryItem>? =
+        categoryDao.getUserActiveCategories(userId)
 
-    suspend fun getCategoriesByType(userId: String, type: String) = categoryDao.getCategoriesByType(userId, type)
+    suspend fun deleteCategory(category: Category) {
+        category.isActive = false
+        categoryDao.update(category)
+        categoryDatabaseReference.child(category.categoryId).setValue(category).await()
+    }
 
-    suspend fun getCategorySpinner(userId: String): List<CategoryItem> =
-        categoryDao.getCategorySpinnerByUser(userId)
+    suspend fun getCategoryById(categoryId: String): Category {
 
-    suspend fun deleteCategory(category: Category) = categoryDao.delete(category)
+        val category = categoryDao.getCategoryById(categoryId)
 
-    suspend fun insertCategories(categories: List<Category>) {
-        for (category in categories) {
-            categoryDao.insert(category)
+        return category
+    }
+
+    suspend fun insertCategories(categoriesToInsert: List<Category>) {
+        val firebaseUpdates = mutableMapOf<String, Any>()
+        val categoriesForRoom = mutableListOf<Category>()
+
+        categoriesToInsert.forEach { category ->
+            val firebaseKey = categoryDatabaseReference.push().key
+                ?: throw Exception("Could not generate unique key from Firebase for a default category.")
+
+            val completeCategory = category.copy(categoryId = firebaseKey)
+
+            firebaseUpdates["/categories/$firebaseKey"] = completeCategory
+            categoriesForRoom.add(completeCategory)
+        }
+
+        if (firebaseUpdates.isNotEmpty()) {
+            FirebaseDatabase.getInstance().reference.updateChildren(firebaseUpdates).await()
+            categoryDao.insertAll(categoriesForRoom)
         }
     }
+
     suspend fun getExpenseCategories(userId: String): List<Category> {
         return categoryDao.getExpenseCategoriesByUser(userId)
     }
@@ -36,17 +65,38 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
         return categoryDao.getIncomeCategoriesByUser(userId)
     }
 
-    suspend fun addCategoryByNameAndType(name: String, type: String, userId: String, colorValue: Int = Color.BLACK) {
-        val newCategory = Category(userId = userId, name = name, type = type, budgetAmount = null, color = colorValue)
+    suspend fun addCategory(
+        name: String,
+        type: String,
+        userId: String,
+        budgetId: String,
+        colorValue: Int = Color.BLACK
+    ) {
+
+        val firebaseKey = categoryDatabaseReference.push().key
+            ?: throw Exception("Could not generate a unique key from Firebase for Category.")
+
+        val newCategory = Category(
+            categoryId = firebaseKey,
+            userId = userId,
+            budgetId = budgetId,
+            name = name,
+            type = type,
+            minGoal = null,
+            maxGoal = null,
+            isActive = true,
+            color = colorValue
+        )
+
+        // FIREBASE
+        categoryDatabaseReference.child(firebaseKey).setValue(newCategory).await()
+
+        // ROOM DB
         categoryDao.insert(newCategory)
     }
 
-    suspend fun deleteCategoryById(categoryId: Int, userId: String): Boolean {
-        val rowsAffected = categoryDao.deleteByIdAndUserId(categoryId, userId)
-        return rowsAffected > 0
-    }
 
-    suspend fun getProgressBarData(userId: String): List<ProgressBar> {
+    suspend fun getProgressBarData(userId: String): List<ProgressBar>? {
         return categoryDao.getProgressBarData(userId)
     }
 

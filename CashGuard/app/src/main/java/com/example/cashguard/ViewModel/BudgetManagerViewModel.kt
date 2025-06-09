@@ -13,6 +13,7 @@ import com.example.cashguard.Repository.CategoryRepository
 import com.example.cashguard.data.Budget
 import com.example.cashguard.data.Category
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import java.util.Locale
 
 class BudgetManagerViewModel(application: Application) : AndroidViewModel(application) {
@@ -50,9 +51,12 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
             val expenseCategories = categoryRepository.getExpenseCategories(userId)
             _categories.postValue(expenseCategories)
 
-            val currentMonth = java.text.SimpleDateFormat("MMM-yyyy", Locale.getDefault())
-                .format(java.util.Date())
-            val userBudget = budgetRepository.getBudgetByMonth(userId, currentMonth)
+            val startOfMonth = Calendar.getInstance().apply { set(Calendar.DAY_OF_MONTH, 1) }.time
+            val endOfMonth = Calendar.getInstance().apply { add(Calendar.MONTH, 1); set(Calendar.DAY_OF_MONTH, 1); add(
+                Calendar.DATE, -1) }.time
+
+            val userBudget = budgetRepository.getUserBudgetByDateRange(userId, startOfMonth, endOfMonth)
+
             _budget.postValue(userBudget)
         }
     }
@@ -63,7 +67,8 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
                 Budget(
                     budgetId = budget.value.budgetId,
                     userId = it,
-                    financialMonth = budget.value.financialMonth,
+                    startDate = budget.value.startDate,
+                    endDate = budget.value.endDate,
                     budgetAmount = budgetTotal
                 )
             }

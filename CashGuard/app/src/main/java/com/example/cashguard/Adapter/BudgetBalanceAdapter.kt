@@ -21,8 +21,8 @@ class BudgetBalanceAdapter : ListAdapter<ProgressBar, BudgetBalanceAdapter.Progr
         fun bind(progressData: ProgressBar) {
             binding.categoryName.text = progressData.categoryName
 
-            val expense = progressData.expenseAmount
-            val budget = progressData.budgetAmount
+            val expense = progressData.totalSpentAmount
+            val budget = progressData.maxBudgetAmount
 
             val percentage = if (budget > 0) (expense / budget) * 100 else 0.0
 

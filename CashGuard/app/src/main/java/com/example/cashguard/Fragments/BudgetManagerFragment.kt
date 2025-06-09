@@ -75,14 +75,6 @@ class BudgetManagerFragment : Fragment(), BudgetManagerAdapter.OnBudgetChangedLi
             budgetAdapter.submitList(categories)
             onBudgetChanged()
         }
-
-        // We can now remove the observer for the single 'budget' LiveData
-        // as the total is calculated dynamically on the screen.
-        /*
-        viewModel.budget.observe(viewLifecycleOwner) { budget ->
-            // ... this block is no longer needed for the total display ...
-        }
-        */
     }
 
     override fun onDestroyView() {

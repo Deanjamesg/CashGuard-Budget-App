@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(
     tableName = "budgets",
@@ -15,15 +16,19 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Budget(
-    @PrimaryKey(autoGenerate = true)
-    val budgetId: Int = 0,
+    @PrimaryKey
+    val budgetId: String,
 
     @ColumnInfo(name = "user_id", index = true)
     val userId: String,
 
-    @ColumnInfo(name = "financial_month")
-    val financialMonth: String, // Format: "MMM-yyyy" (e.g. "May-2025")
+    @ColumnInfo(name = "start_date")
+    val startDate: Date,
+
+    @ColumnInfo(name = "end_date")
+    val endDate: Date,
 
     @ColumnInfo(name = "budget_amount")
-    val budgetAmount: Double
+    val budgetAmount: Double?,
+
 )
