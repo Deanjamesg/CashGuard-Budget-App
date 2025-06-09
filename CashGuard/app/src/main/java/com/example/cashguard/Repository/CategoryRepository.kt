@@ -21,8 +21,12 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
         categoryDatabaseReference.child(category.categoryId).setValue(category).await()
     }
 
-    suspend fun getUserActiveCategories(userId: String): List<CategoryItem>? =
-        categoryDao.getUserActiveCategories(userId)
+    suspend fun getSpinnerCategories(userId: String): List<CategoryItem>? =
+        categoryDao.getSpinnerCategories(userId)
+
+    suspend fun getUserActiveCategories(userId: String): List<Category> =
+         categoryDao.getActiveCategoriesByUser(userId)
+
 
     suspend fun deleteCategory(category: Category) {
         category.isActive = false

@@ -35,10 +35,13 @@ interface CategoryDao {
     suspend fun getExpenseCategoryNames(userId: String): List<String>
 
     @Query("SELECT categoryId, name, type FROM categories WHERE user_id = :userId AND is_active = 1")
-    suspend fun getUserActiveCategories(userId: String): List<CategoryItem>?
+    suspend fun getSpinnerCategories(userId: String): List<CategoryItem>?
 
     @Query("SELECT * FROM categories WHERE categoryId = :categoryId LIMIT 1")
     suspend fun getCategoryById(categoryId: String): Category
+
+    @Query("SELECT * FROM categories WHERE user_id = :userId AND is_active = 1")
+    suspend fun getActiveCategoriesByUser(userId: String): List<Category>
 
     @Delete
     suspend fun delete(category: Category)
