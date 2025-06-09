@@ -1,40 +1,141 @@
-# CashGuard
-## Description
-CashGaurd is a budgeting app that allows the user to customise their budgetng experience. CashGuard has features such as letting the user create their own categories for either expenses or incomes, or they can search for all transaciton types in a user selected time frame. CashGuard makes use of FirebaseDB for a cloud data storage and LiveData for in real time updates.
-<br/>
+# CashGuard - Android Budgeting Application
+![image](https://github.com/user-attachments/assets/cfc396ea-3f9f-4905-9a0b-ea59e3f1fa2c)
 
-## Design Considerations
-* We wanted the application to be as modern and as sleek as possible. This is to ensure that the application looks attractive and professional as possible.
-* The UI Design is to be as easy as possible to follow so that the user does not get confused when making use of the application.
-* When planning the code. A modular philosophy was adapted in order to make the transition from a LocalDB to a Cloud based one easier.
-* The code is also easy to understand and follow in order for it to be simple and make it easier for maintenance or upgrades in the future.
-* Has an inate focus on Core Tasks so that the user can really focus on their budgeting.
-* Has lots of visual cues to the user to present users the information in an easy to understand way.
-* Security added so that the user has their own account which tracks their specific goals and not someone elses. Also allows for cross application support.
+An intuitive Android application designed to empower users to take control of their finances through detailed tracking of income, expenses, and progress towards their personal budgeting goals
 
-## Features
-* Create own user categories.
-* Create transacitons (incomes or expense).
-* Create their own budget.
-* Filter transactions to see all transactions in that specific category for a user selcted time period.
-* Filter either income or expense totals in a user given time period.
-* Progress bars to display how how all expenses are split.
-* Allows user to customise their own budgets.
-* Pie chart to show the user their incomes vs expenses to show them their current savings.
-<br/>
+## 1. Introduction
 
-## Innovative Features
-* Gamification of the app so that the user can be more engaged and commited when they budget. This increased attention to the budgeting app will help users follow their budget goals and save money.
-* Detailed breakdown of expenses so that the user can have a comprehsnive budget history. This helps the user track their expenses in more deatil and can help with taxes and expenses tracking. 
-* The insights offered by the app help reveal trends for the user. This helps with pattern recognition and see bad habitual spending so that the user can eliminate unnessicary spending month to month.
+Welcome to the CashGuard mobile application. This Android app serves as a powerful and intuitive tool for personal finance management, demonstrating core functionalities for tracking income, expenses, and budgeting. The platform's aim is to provide users with a clear visual understanding of their spending habits and help them progress towards their financial goals.
 
-## Concepts used
-* FirbaseDB and Firebase are used, FirebaseDB is used to store & update new transactions.
-* Bottom navigation bar allows the user to navigate home to dashboard and gives user a more enhanced UI/Ux interface.
-* Fragments are used for easier dashboard navigation.
-* Storing photos with a URI
+This application is built using modern Android development practices:
 
-## Referencing
+* **Platform:** Android
+* **Language:** Kotlin
+* **Architecture:** MVVM (Model-View-ViewModel)
+* **UI:** Android XML with Material Components
+* **Database:** Firebase Realtime Database (for cloud storage & sync) and Room Persistence Library (for offline-first UI performance)
+* **Authentication:** Firebase Authentication
+* **Asynchronous Operations:** Kotlin Coroutines
+* **Charting Library:** EazeGraph
+* **Navigation:** Jetpack Navigation Component
+* **Primary Development Environment:** Android Studio
+
+## 2. Core Features Implemented
+
+The application implements the following core functionalities:
+
+* **User Management:** Secure user registration and login backed by Firebase Authentication.
+* **Category Management:** A default set of income and expense categories are automatically created for each user upon registration.
+* **Transaction Management:** Users can add detailed income or expense transactions, specifying an amount, category, date, and optional note.
+* **Data Synchronization:** User data is synchronized with the Firebase Realtime Database for persistence and integrity.
+* **Budgeting & Data Visualization:** Key financial data is presented in clear, graphical formats.
+
+## 3. Custom Features for Final Submission
+
+As per the POE requirements, two major custom features have been implemented to provide users with deeper financial insights.
+
+### Feature 1: Categorical Spending Pie Chart
+
+This feature provides an at-a-glance visual breakdown of the user's expenses by category for the current period.
+
+* **Visual Breakdown:** A colorful pie chart instantly shows which categories make up the largest portions of the user's spending.
+* **Purpose:** Helps users quickly identify their biggest areas of expenditure and make informed decisions about their spending habits.
+
+![image](https://github.com/user-attachments/assets/5c372526-a12f-4d66-9a2b-0672e2e04478)
+![image](https://github.com/user-attachments/assets/c03a92e5-d44f-41b7-8c5d-a282fb455a7f)
+
+### Feature 2: Dynamic Budget Balance Tracking
+
+This is a dedicated screen where users can set specific budget amounts for any expense category and track their spending progress in real-time.
+
+* **Dedicated Budget Screen:** A central hub for managing all personal budgets. It displays a clear, scrollable list of every category for which a budget has been set.
+* **Dynamic Progress List:** Each item in the list shows the category name, the amount spent versus the budget limit (e.g., R750 / R1000), and the percentage of the budget used.
+* **Visual Progress Bars:** Every budget item includes a progress bar that visually fills as the user spends in that category, providing an immediate understanding of their remaining budget. The color of each progress bar is customized by the user.
+* **Easy Budget Management:** When a user creates a category and then updates that category to get a budget the list is dynamically updated.
+
+![image](https://github.com/user-attachments/assets/f051a0b6-0f7a-4713-8a0d-bf26f574f324)
+
+
+## 4. User Roles & Test Credentials
+
+The system is designed for a single user role. There are no pre-seeded user accounts.
+
+* **Action Required:** To use the application, you must first **register a new account** through the registration screen.
+
+## 5. Prerequisites (Development Environment Setup)
+
+To set up and run this project on your local machine, you will need:
+
+* **Android Studio:** Latest stable version recommended (e.g., Iguana, Jellyfish). Download from the [official Android Developer website](https://developer.android.com/studio).
+* **Android SDK:** The project targets SDK version 35. Ensure you have this SDK platform installed via Android Studio's SDK Manager.
+* **Git:** Required for cloning the repository.
+* **Firebase Setup:** To run the project with full cloud sync capabilities, you will need to connect it to your own Firebase project in the Firebase Console and place your own `google-services.json` file in the `app/` directory.
+
+## 6. Getting Started (Setup and Running the Project)
+
+Follow these steps to get the project running on an Android emulator or a physical device:
+
+1.  **Clone the Repository:** Open a terminal or command prompt and run the following command:
+    ```bash
+    git clone [https://github.com/Deanjamesg/CashGuard.git]
+    ```
+
+2.  **Firebase Setup:**
+    * Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+    * Add an Android app to your Firebase project with the package name `com.example.cashguard`.
+    * Follow the setup steps to download the `google-services.json` configuration file.
+    * Place this downloaded `google-services.json` file into the `CashGuard/app/` directory of your project.
+
+3.  **Open the Project in Android Studio:**
+    * Launch Android Studio.
+    * Select **Open** and navigate to the cloned `CashGuard` project folder.
+    * Wait for the automatic Gradle sync process to complete.
+
+4.  **Run the Application:**
+    * Ensure an emulator is running or a physical device is connected.
+    * Select the **`app`** run configuration from the top toolbar.
+    * Click the **Run 'app'** button (the green play icon ►).
+
+## 7. Building the APK
+
+To generate a debug APK file without running the app:
+
+* In Android Studio, select **Build > Build Bundle(s) / APK(s) > Build APK(s)**.
+* A notification will appear with a link to locate the generated `.apk` file.
+
+## 8. Database & Data Synchronization
+
+This app uses a hybrid data management strategy to enhance user experience by combining the speed of a local database with the robustness of cloud storage.
+
+### Firebase Realtime Database (Cloud Storage)
+
+* **Role:** Serves as the single source of truth and provides cloud backup for all user data (transactions, categories, budgets).
+* **Benefit:** This ensures data integrity and accessibility across different sessions or devices. All changes made locally are synchronized with Firebase.
+
+### Room Database (Local Cache)
+
+* **Role:** Acts as a local cache of the data stored in Firebase.
+* **Benefit:** The UI reads data directly from the Room database, providing an extremely fast, responsive, and smooth user experience that works even when the device is temporarily offline.
+
+## 9. Project Structure Overview
+
+* **/Activities:** Contains Android Activities, the entry points and containers for UI screens (`MainActivity`, `UserActivity`).
+* **/Fragments:** Contains individual UI screens (`BarGraphFragment`, `BudgetBalancesFragment`, etc.).
+* **/ViewModel:** Contains ViewModels for each screen, holding UI state and business logic (MVVM).
+* **/Repository:** Contains repository classes that abstract data sources from the ViewModels.
+* **/Dao:** Contains Room Data Access Objects (DAOs) for all local database queries.
+* **/data:** Contains the Room entities (`Category`, `Transaction`, `User`, `Budget`) and other data models.
+* **/Database:** Contains the `AppDatabase` class that defines the Room database configuration.
+* **/Helper:** Contains helper classes like `SessionManager` for managing user login state.
+* **/res/layout:** Contains all XML layout files for Activities, Fragments, and custom components.
+* **/res/navigation:** Contains the Jetpack Navigation graph XML file(s).
+
+## 10. Troubleshooting
+
+* **App crashes on startup:** Ensure you have placed your own `google-services.json` file in the `app/` directory. Also try performing a full **Build > Clean Project**, followed by **Build > Rebuild Project**.
+* **Default categories not appearing:** Uninstall the app completely from the emulator/device and re-run it from Android Studio. This clears any old database data and ensures the seeding logic runs for the new user.
+
+## 11. References
 * Attachment Icon:
   
 https://ionic.io/ionicons
@@ -82,19 +183,7 @@ https://developer.android.com/guide/topics/resources/color-list-resource
 
 ["com.github.PhilJay:MPAndroidChart:v3.1.0"](https://github.com/PhilJay/MPAndroidChart)
 
-## Youtube link
-https://www.youtube.com/watch?v=0iK8LnR5h_I
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* **Android Developers.** (2024) _Guide to app architecture_. Available at: https://developer.android.com/topic/architecture
+* **Firebase Documentation.** (2025) _Get Started with Firebase Realtime Database_. Available at: https://firebase.google.com/docs/database
+* **Android Developers.** (2024) _Room persistence library_. Available at: https://developer.android.com/training/data-storage/room
+* **Roehr, P.** (n.d.) _EazeGraph Library_. GitHub. Available at: https://github.com/blackfizz/EazeGraph
