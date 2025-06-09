@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "541765998535",
+    "firebase_url": "https://cashguard-poe-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "cashguard-poe",
+    "storage_bucket": "cashguard-poe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541765998535:android:fffe7c780007ecdff3abe2",
+        "android_client_info": {
+          "package_name": "com.example.cashguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6ZudL9wmjklsloAazFRUdbo4KE6oc7n4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
