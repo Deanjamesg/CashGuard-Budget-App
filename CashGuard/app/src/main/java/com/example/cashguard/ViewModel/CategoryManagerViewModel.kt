@@ -56,7 +56,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
             return
         }
         viewModelScope.launch {
-            val activeCategories = categoryRepository.getUserActiveCategories(userId)
+            val activeCategories = categoryRepository.getSpinnerCategories(userId)
             if (activeCategories != null) {
                 userCategoryObjects = activeCategories
             } else {

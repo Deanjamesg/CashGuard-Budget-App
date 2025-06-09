@@ -32,7 +32,6 @@ class CategoryManagerFragment : Fragment() {
 
     private var colorDialog: AlertDialog? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,7 +65,6 @@ class CategoryManagerFragment : Fragment() {
         }
         binding.viewSelectedColor.background = circleDrawable
     }
-
 
     private fun setupRecyclerView() {
         categoryAdapter = CategoryManagerAdapter { category ->

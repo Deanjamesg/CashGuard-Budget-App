@@ -56,7 +56,7 @@ class AddTransactionViewModel (application: Application) : AndroidViewModel(appl
     private suspend fun initializeAndLoadDefaultCategories() {
 
         if (userId != "-1") {
-            val activeCategories = categoryRepository.getUserActiveCategories(userId)
+            val activeCategories = categoryRepository.getSpinnerCategories(userId)
             if (activeCategories != null) {
                 userCategoryObjects = activeCategories
             }
