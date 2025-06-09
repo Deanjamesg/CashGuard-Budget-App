@@ -86,12 +86,33 @@ class BarGraphFragment : Fragment() {
 
     private fun loadDefaultDateRangeAndFetchData() {
         val calendar = Calendar.getInstance()
-        endDate = calendar.time
-        calendar.add(Calendar.DAY_OF_YEAR, -30)
+
+        // --- Calculate the Start of the Current Month ---
+        // Set the calendar to the first day of the month
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        // Set the time to the very beginning of that day (00:00:00)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        // Assign the start date
         startDate = calendar.time
 
-        binding.textViewFromDate.text = formatDate(startDate!!)
-        binding.textViewToDate.text = formatDate(endDate!!)
+        // --- Calculate the End of the Current Month ---
+        // Get the last possible day for the current month (e.g., 28, 30, 31)
+        val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        calendar.set(Calendar.DAY_OF_MONTH, lastDayOfMonth)
+        // Set time to the very end of that day (23:59:59)
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
+        calendar.set(Calendar.MINUTE, 59)
+        calendar.set(Calendar.SECOND, 59)
+        calendar.set(Calendar.MILLISECOND, 999)
+        // Assign the end date
+        endDate = calendar.time
+
+        // Update the button text to show the new default range
+        binding.buttonSelectFromDate.text = formatDate(startDate!!)
+        binding.buttonSelectToDate.text = formatDate(endDate!!)
 
         // Now that defaults are set, request the chart data
         requestChartUpdate()

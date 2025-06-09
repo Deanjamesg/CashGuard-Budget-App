@@ -43,7 +43,6 @@ class UserActivity : AppCompatActivity() {
 
         val topLevelDestinations = setOf(
             R.id.dashboardFragment,
-            R.id.searchTransactionsFragment
         )
         appBarConfiguration = AppBarConfiguration(topLevelDestinations)
 

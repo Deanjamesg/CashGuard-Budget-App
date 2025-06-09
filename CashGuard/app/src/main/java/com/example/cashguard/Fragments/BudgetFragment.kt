@@ -79,6 +79,10 @@ class BudgetFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_addTransaction, bundle)
         }
+
+        binding.btnViewTransactions2.setOnClickListener {
+            findNavController().navigate(R.id.action_searchTransactionsFragment)
+        }
     }
 
     private fun updateUIAndPieChart() {

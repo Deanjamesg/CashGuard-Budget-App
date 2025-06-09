@@ -10,10 +10,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/categorySpinnerLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/CustomExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Select a Category"
+        android:textColorHint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -21,18 +22,20 @@
         <AutoCompleteTextView
             android:id="@+id/categoryAutoCompleteTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:inputType="none"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        style="@style/SubHeaderText"
         android:id="@+id/textViewFromDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/box_outline"
         android:padding="12dp"
+        android:fontFamily="@font/poppins"
+        android:layout_marginEnd="50dp"
         android:text="Start Date"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/buttonSelectFromDate"
@@ -41,21 +44,25 @@
 
     <Button
         android:id="@+id/buttonSelectFromDate"
-        android:layout_width="wrap_content"
+        style="@style/SubmitButton"
+        android:textSize="18sp"
+        android:layout_width="120dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:text="Select"
+        app:cornerRadius="6dp"
+        android:text="From"
         app:layout_constraintBottom_toBottomOf="@id/textViewFromDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewFromDate" />
 
     <TextView
+        style="@style/SubHeaderText"
         android:id="@+id/textViewToDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/box_outline"
         android:padding="12dp"
+        android:fontFamily="@font/poppins"
+        android:layout_marginEnd="50dp"
         android:text="End Date"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/buttonSelectToDate"
@@ -64,10 +71,13 @@
 
     <Button
         android:id="@+id/buttonSelectToDate"
-        android:layout_width="wrap_content"
+        style="@style/SubmitButton"
+        android:textSize="18sp"
+        android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:text="Select"
+        app:cornerRadius="6dp"
+        android:text="To"
         app:layout_constraintBottom_toBottomOf="@id/textViewToDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textViewToDate" />

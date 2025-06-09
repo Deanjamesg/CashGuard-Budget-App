@@ -12,11 +12,12 @@
         android:id="@+id/categoryManagerFragment"
         android:title="Manage Categories" />
     <item
-        android:id="@+id/nav_weekly"
-        android:title="Weekly Challenge" />
+        android:id="@+id/searchTransactionsFragment"
+        android:title="Search Transactions" />
+
     <item
-        android:id="@+id/nav_saving_calc"
-        android:title="Savings Calculator" />
+        android:id="@+id/budgetBalancesFragment"
+        android:title="Budget Balances" />
     <item
         android:id="@+id/nav_signOut"
         android:title="Sign Out" />
