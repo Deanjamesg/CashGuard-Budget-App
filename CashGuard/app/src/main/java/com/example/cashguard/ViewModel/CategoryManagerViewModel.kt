@@ -93,7 +93,6 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
 
         viewModelScope.launch {
             try {
-
                 val budget = budgetRepository.getCurrentBudget(userId)
 
                 if (budget == null) {
@@ -120,6 +119,7 @@ class CategoryManagerViewModel(application: Application) : AndroidViewModel(appl
             Log.e("CategoryVM", "Cannot delete category, user ID not found.")
             return
         }
+
         viewModelScope.launch {
             try {
                 val userCategory = categoryRepository.getCategoryById(category.categoryId)

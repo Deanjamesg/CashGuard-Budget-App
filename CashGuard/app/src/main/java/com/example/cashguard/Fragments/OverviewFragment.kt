@@ -142,6 +142,10 @@ class OverviewFragment : Fragment() {
         binding.buttonBudgetBalances.setOnClickListener {
             findNavController().navigate(R.id.action_budgetBalancesFragment)
         }
+
+        binding.btnBudgetGraph.setOnClickListener {
+            findNavController().navigate(R.id.action_barGraphFragment)
+        }
     }
 
     override fun onDestroyView() {

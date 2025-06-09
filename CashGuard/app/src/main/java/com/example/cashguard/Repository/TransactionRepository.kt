@@ -48,6 +48,10 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         }
     }
 
+    suspend fun getSumExpensesByCategoryIdAndDateRange(userId: String, categoryId: String, startDate: Date, endDate: Date): Double? {
+        return transactionDao.getSumExpensesByCategoryIdAndDateRange(userId, categoryId, startDate, endDate)
+    }
+
     suspend fun getByDateRange(userId: String, from: Date, to: Date): List<Transaction> =
         transactionDao.getDateRange(userId, from, to)
 

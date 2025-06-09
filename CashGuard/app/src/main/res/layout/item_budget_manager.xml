@@ -5,31 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:padding="5dp">
+    android:background="@drawable/box_recycler_item"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/categoryName"
         style="@style/SubHeaderText"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="Category Name"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/budgetInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/budgetInput"
-        style="@style/LargeInputField"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/minLabel"
+        style="@style/SubHeaderText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Min:"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/minInput"
+        app:layout_constraintEnd_toStartOf="@+id/minInput"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/minInput"
+        style="@style/LargeInputField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:hint="R0"
         android:inputType="number"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/maxLabel"
+        app:layout_constraintStart_toEndOf="@+id/minLabel"
+        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+
+    <TextView
+        android:id="@+id/maxLabel"
+        style="@style/SubHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Max:"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/maxInput"
+        app:layout_constraintEnd_toStartOf="@+id/maxInput"
+        app:layout_constraintStart_toEndOf="@+id/minInput" />
+
+    <EditText
+        android:id="@+id/maxInput"
+        style="@style/LargeInputField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="R0"
+        android:inputType="number"
+        android:textColor="@color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/minInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/maxLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,33 +48,33 @@ class BudgetManagerViewModel(application: Application) : AndroidViewModel(applic
 
     private fun loadUserCategories() {
         viewModelScope.launch {
-            val expenseCategories = categoryRepository.getExpenseCategories(userId)
-            _categories.postValue(expenseCategories)
 
-            val startOfMonth = Calendar.getInstance().apply { set(Calendar.DAY_OF_MONTH, 1) }.time
-            val endOfMonth = Calendar.getInstance().apply { add(Calendar.MONTH, 1); set(Calendar.DAY_OF_MONTH, 1); add(
-                Calendar.DATE, -1) }.time
+            val budget = budgetRepository.getCurrentBudget(userId)
+            if (budget != null) {
+                val expenseCategories = categoryRepository.getActiveExpenseCategoriesByBudgetId(budget.budgetId)
+                _categories.postValue(expenseCategories)
+                _budget.postValue(budget)
+            } else {
 
-            val userBudget = budgetRepository.getUserBudgetByDateRange(userId, startOfMonth, endOfMonth)
-
-            _budget.postValue(userBudget)
+                Log.w("BudgetManagerVM", "No current budget found for user $userId")
+                _categories.postValue(emptyList())
+            }
         }
     }
 
     fun saveBudgetOnClick(categories : List<Category>, budgetTotal: Double) {
         viewModelScope.launch {
-            val newBudget = userId?.let {
-                Budget(
-                    budgetId = budget.value.budgetId,
-                    userId = it,
-                    startDate = budget.value.startDate,
-                    endDate = budget.value.endDate,
-                    budgetAmount = budgetTotal
-                )
-            }
-            if (newBudget != null) {
-                budgetRepository.updateBudget(newBudget)
-            }
+            val currentBudget = budget.value ?: return@launch
+
+            val newBudget = Budget(
+                budgetId = currentBudget.budgetId,
+                userId = userId,
+                startDate = currentBudget.startDate,
+                endDate = currentBudget.endDate,
+                budgetAmount = budgetTotal
+            )
+
+            budgetRepository.updateBudget(newBudget)
 
             for (category in categories) {
                 categoryRepository.updateCategory(category)

@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_budgetBalancesFragment"
             app:destination="@id/budgetBalancesFragment" />
+        <action
+            android:id="@+id/action_barGraphFragment"
+            app:destination="@id/barGraphFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
@@ -57,4 +60,9 @@
         android:name="com.example.cashguard.Fragments.BudgetBalancesFragment"
         android:label="fragment_budget_balances"
         tools:layout="@layout/fragment_budget_balances" />
+    <fragment
+        android:id="@+id/barGraphFragment"
+        android:name="com.example.cashguard.Fragments.BarGraphFragment"
+        android:label="fragment_bar_graph"
+        tools:layout="@layout/fragment_bar_graph" />
 </navigation>

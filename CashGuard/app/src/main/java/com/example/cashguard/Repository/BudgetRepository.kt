@@ -28,7 +28,7 @@ class BudgetRepository(private val budgetDao: BudgetDao) {
     suspend fun getBudgetTotalByBudgetId(userId: String, budgetId: String) =
         budgetDao.getBudgetTotalByBudgetId(userId, budgetId)
 
-    suspend fun getCurrentBudget(userId: String): Budget? {
+    suspend fun getCurrentBudget(userId: String): Budget {
         val today = Date()
         return budgetDao.getCurrentBudget(userId, today)
     }

@@ -12,17 +12,8 @@
         android:id="@+id/categoryManagerFragment"
         android:title="Manage Categories" />
     <item
-        android:id="@+id/nav_export"
-        android:title="Export to Excel" />
-    <item
         android:id="@+id/nav_weekly"
         android:title="Weekly Challenge" />
-    <item
-        android:id="@+id/nav_search"
-        android:title="Search" />
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings" />
     <item
         android:id="@+id/nav_saving_calc"
         android:title="Savings Calculator" />

@@ -22,27 +22,26 @@
 
     <TextView
         android:id="@+id/tvBudgetTotalLabel"
-        style="@style/SubHeaderText"
+        style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Budget Total:"
-        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderSubtitle" />
 
     <TextView
         android:id="@+id/tvCurrencySymbol"
-        style="@style/SubHeaderText"
+        style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         android:text="R"
+        android:layout_marginEnd="30dp"
         android:textColor="@color/glow"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvBudgetTotalLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvBudgetTotalLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvBudgetTotalLabel" />
 
     <TextView
         android:id="@+id/tvBudgetTotal"
@@ -63,7 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Add a budget for specific categories."
+        android:text="Set your min and max budget goals for each category."
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +73,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
         android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/submitButton"
@@ -86,7 +84,7 @@
     <Button
         android:id="@+id/submitButton"
         style="@style/SubmitButton"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="5dp"
         android:text="Submit Budget"
         app:cornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"

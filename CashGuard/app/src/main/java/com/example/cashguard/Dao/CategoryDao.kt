@@ -19,7 +19,7 @@ interface CategoryDao {
     @Query("SELECT * FROM categories WHERE user_id = :userId")
     suspend fun getCategoriesByUser(userId: String): List<Category>
 
-    @Query("SELECT * FROM categories WHERE user_id = :userId AND type = 'Expense'")
+    @Query("SELECT * FROM categories WHERE user_id = :userId AND type = 'Expense' AND is_active = 1")
     suspend fun getExpenseCategoriesByUser(userId: String): List<Category>
 
     @Query("SELECT * FROM categories WHERE user_id = :userId AND type = :type")
@@ -42,6 +42,9 @@ interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE user_id = :userId AND is_active = 1")
     suspend fun getActiveCategoriesByUser(userId: String): List<Category>
+
+    @Query("SELECT * FROM categories WHERE budget_id = :budgetId AND type = 'Expense' AND is_active = 1")
+    suspend fun getActiveExpenseCategoriesByBudgetId(budgetId: String): List<Category>
 
     @Delete
     suspend fun delete(category: Category)

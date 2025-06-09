@@ -24,6 +24,9 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions WHERE user_id = :userId AND date BETWEEN :fromDate AND :toDate ORDER BY date DESC")
     suspend fun getDateRange(userId: String, fromDate: Date, toDate: Date): List<Transaction>
 
+    @Query("SELECT SUM(amount) FROM transactions WHERE user_id = :userId AND category_id = :categoryId AND type = 'Expense' AND date BETWEEN :startDate AND :endDate")
+    suspend fun getSumExpensesByCategoryIdAndDateRange(userId: String, categoryId: String, startDate: Date, endDate: Date): Double?
+
     @Query("""
     SELECT
         t.transactionId,

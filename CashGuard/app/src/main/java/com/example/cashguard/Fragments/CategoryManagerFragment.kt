@@ -1,6 +1,5 @@
 package com.example.cashguard.Fragments
 
-// Remove: import android.app.AlertDialog
 import androidx.appcompat.app.AlertDialog // Import the correct AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable

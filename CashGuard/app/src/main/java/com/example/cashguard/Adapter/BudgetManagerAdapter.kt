@@ -13,53 +13,60 @@ import java.util.Locale
 
 class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetViewHolder>(CategoryDiffCallback()) {
 
-    interface OnBudgetChangedListener {
-        fun onBudgetChanged()
-    }
-
-    private var listener: OnBudgetChangedListener? = null
-
-    // REPAIRED: Key changed from Int to String to match the categoryId type.
-    private val changedBudgets = mutableMapOf<String, Double>()
+    private val changedMinGoals = mutableMapOf<String, Double>()
+    private val changedMaxGoals = mutableMapOf<String, Double>()
 
     inner class BudgetViewHolder(private val binding: ItemBudgetManagerBinding) : RecyclerView.ViewHolder(binding.root) {
-        private var textWatcher: TextWatcher? = null
+        private var minTextWatcher: TextWatcher? = null
+        private var maxTextWatcher: TextWatcher? = null
 
         fun bind(category: Category) {
             binding.categoryName.text = category.name
-            binding.budgetInput.removeTextChangedListener(textWatcher)
 
-            if (category.maxGoal != null && category.maxGoal!! > 0) {
-                val formattedAmount = String.format(Locale.getDefault(), "%.0f", category.maxGoal)
-                binding.budgetInput.setText(formattedAmount)
+            binding.minInput.removeTextChangedListener(minTextWatcher)
+            binding.maxInput.removeTextChangedListener(maxTextWatcher)
+
+            if (category.minGoal != null && category.minGoal!! > 0) {
+                binding.minInput.setText(String.format(Locale.getDefault(), "%.0f", category.minGoal))
             } else {
-                binding.budgetInput.setText("")
-                binding.budgetInput.hint = "R0"
+                binding.minInput.setText("")
+                binding.minInput.hint = "R0"
             }
 
-            textWatcher = object : TextWatcher {
+            if (category.maxGoal != null && category.maxGoal!! > 0) {
+                binding.maxInput.setText(String.format(Locale.getDefault(), "%.0f", category.maxGoal))
+            } else {
+                binding.maxInput.setText("")
+                binding.maxInput.hint = "R0"
+            }
+
+            minTextWatcher = object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     val newAmount = s.toString().toDoubleOrNull() ?: 0.0
-                    // The String categoryId now correctly works as the key.
-                    changedBudgets[category.categoryId] = newAmount
-                    listener?.onBudgetChanged()
+                    changedMinGoals[category.categoryId] = newAmount
                 }
             }
-            binding.budgetInput.addTextChangedListener(textWatcher)
-        }
-    }
 
-    fun setOnBudgetChangedListener(listener: OnBudgetChangedListener) {
-        this.listener = listener
+            maxTextWatcher = object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    val newAmount = s.toString().toDoubleOrNull() ?: 0.0
+                    changedMaxGoals[category.categoryId] = newAmount
+                }
+            }
+
+            binding.minInput.addTextChangedListener(minTextWatcher)
+            binding.maxInput.addTextChangedListener(maxTextWatcher)
+        }
     }
 
     fun calculateNewTotal(): Double {
         var total = 0.0
         currentList.forEach { category ->
-            // REPAIRED: The fallback now uses the correct 'maxGoal' field instead of the non-existent 'budgetAmount'.
-            val amount = changedBudgets[category.categoryId] ?: (category.maxGoal ?: 0.0)
+            val amount = changedMaxGoals[category.categoryId] ?: (category.maxGoal ?: 0.0)
             total += amount
         }
         return total
@@ -67,11 +74,15 @@ class BudgetManagerAdapter : ListAdapter<Category, BudgetManagerAdapter.BudgetVi
 
     fun getChangedCategories(): List<Category> {
         val updatedCategories = mutableListOf<Category>()
-        changedBudgets.forEach { (categoryId, newAmount) ->
+        val allChangedIds = (changedMinGoals.keys + changedMaxGoals.keys).distinct()
+
+        allChangedIds.forEach { categoryId ->
             val originalCategory = currentList.find { it.categoryId == categoryId }
             if (originalCategory != null) {
-                // REPAIRED: .copy() now updates the correct 'maxGoal' field.
-                val updatedCategory = originalCategory.copy(maxGoal = newAmount)
+                val updatedCategory = originalCategory.copy(
+                    minGoal = changedMinGoals[categoryId] ?: originalCategory.minGoal,
+                    maxGoal = changedMaxGoals[categoryId] ?: originalCategory.maxGoal
+                )
                 updatedCategories.add(updatedCategory)
             }
         }

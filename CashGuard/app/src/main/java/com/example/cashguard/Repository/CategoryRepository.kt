@@ -27,6 +27,9 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
     suspend fun getUserActiveCategories(userId: String): List<Category> =
          categoryDao.getActiveCategoriesByUser(userId)
 
+    suspend fun getActiveExpenseCategoriesByBudgetId(budgetId: String): List<Category> {
+        return categoryDao.getActiveExpenseCategoriesByBudgetId(budgetId)
+    }
 
     suspend fun deleteCategory(category: Category) {
         category.isActive = false
@@ -35,9 +38,7 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
     }
 
     suspend fun getCategoryById(categoryId: String): Category {
-
         val category = categoryDao.getCategoryById(categoryId)
-
         return category
     }
 

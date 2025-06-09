@@ -25,5 +25,5 @@ interface BudgetDao {
     suspend fun getBudgetTotalByBudgetId(userId: String, budgetId: String): Double?
 
     @Query("SELECT * FROM budgets WHERE user_id = :userId AND :currentDate BETWEEN start_date AND end_date LIMIT 1")
-    suspend fun getCurrentBudget(userId: String, currentDate: Date): Budget?
+    suspend fun getCurrentBudget(userId: String, currentDate: Date): Budget
 }
