@@ -1,7 +1,9 @@
 # CashGuard - Android Budgeting Application
 An intuitive Android application designed to empower users to take control of their finances through detailed tracking of income, expenses, and progress towards their personal budgeting goals
 
-![image](https://github.com/user-attachments/assets/cfc396ea-3f9f-4905-9a0b-ea59e3f1fa2c)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cfc396ea-3f9f-4905-9a0b-ea59e3f1fa2c">
+</p>
 
 </br>
 
