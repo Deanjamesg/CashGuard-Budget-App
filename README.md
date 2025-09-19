@@ -1,7 +1,9 @@
 # CashGuard - Android Budgeting Application
+An intuitive Android application designed to empower users to take control of their finances through detailed tracking of income, expenses, and progress towards their personal budgeting goals
+
 ![image](https://github.com/user-attachments/assets/cfc396ea-3f9f-4905-9a0b-ea59e3f1fa2c)
 
-An intuitive Android application designed to empower users to take control of their finances through detailed tracking of income, expenses, and progress towards their personal budgeting goals
+</br>
 
 ## 1. Introduction
 
@@ -20,6 +22,8 @@ This application is built using modern Android development practices:
 * **Navigation:** Jetpack Navigation Component
 * **Primary Development Environment:** Android Studio
 
+</br>
+
 ## 2. Core Features Implemented
 
 The application implements the following core functionalities:
@@ -29,6 +33,8 @@ The application implements the following core functionalities:
 * **Transaction Management:** Users can add detailed income or expense transactions, specifying an amount, category, date, and optional note.
 * **Data Synchronization:** User data is synchronized with the Firebase Realtime Database for persistence and integrity.
 * **Budgeting & Data Visualization:** Key financial data is presented in clear, graphical formats.
+
+</br>
 
 ## 3. Custom Features for Final Submission
 
@@ -55,12 +61,15 @@ This is a dedicated screen where users can set specific budget amounts for any e
 
 ![image](https://github.com/user-attachments/assets/f051a0b6-0f7a-4713-8a0d-bf26f574f324)
 
+</br>
 
 ## 4. User Roles & Test Credentials
 
 The system is designed for a single user role. There are no pre-seeded user accounts.
 
 * **Action Required:** To use the application, you must first **register a new account** through the registration screen.
+
+</br>
 
 ## 5. Prerequisites (Development Environment Setup)
 
@@ -70,6 +79,8 @@ To set up and run this project on your local machine, you will need:
 * **Android SDK:** The project targets SDK version 35. Ensure you have this SDK platform installed via Android Studio's SDK Manager.
 * **Git:** Required for cloning the repository.
 * **Firebase Setup:** To run the project with full cloud sync capabilities, you will need to connect it to your own Firebase project in the Firebase Console and place your own `google-services.json` file in the `app/` directory.
+
+</br>
 
 ## 6. Getting Started (Setup and Running the Project)
 
@@ -96,12 +107,16 @@ Follow these steps to get the project running on an Android emulator or a physic
     * Select the **`app`** run configuration from the top toolbar.
     * Click the **Run 'app'** button (the green play icon ►).
 
+</br>
+
 ## 7. Building the APK
 
 To generate a debug APK file without running the app:
 
 * In Android Studio, select **Build > Build Bundle(s) / APK(s) > Build APK(s)**.
 * A notification will appear with a link to locate the generated `.apk` file.
+
+</br>
 
 ## 8. Database & Data Synchronization
 
@@ -117,6 +132,8 @@ This app uses a hybrid data management strategy to enhance user experience by co
 * **Role:** Acts as a local cache of the data stored in Firebase.
 * **Benefit:** The UI reads data directly from the Room database, providing an extremely fast, responsive, and smooth user experience that works even when the device is temporarily offline.
 
+</br>
+
 ## 9. Project Structure Overview
 
 * **/Activities:** Contains Android Activities, the entry points and containers for UI screens (`MainActivity`, `UserActivity`).
@@ -130,58 +147,48 @@ This app uses a hybrid data management strategy to enhance user experience by co
 * **/res/layout:** Contains all XML layout files for Activities, Fragments, and custom components.
 * **/res/navigation:** Contains the Jetpack Navigation graph XML file(s).
 
+</br>
+
 ## 10. Troubleshooting
 
 * **App crashes on startup:** Ensure you have placed your own `google-services.json` file in the `app/` directory. Also try performing a full **Build > Clean Project**, followed by **Build > Rebuild Project**.
 * **Default categories not appearing:** Uninstall the app completely from the emulator/device and re-run it from Android Studio. This clears any old database data and ensures the seeding logic runs for the new user.
 
-## 11. References
-* Attachment Icon:
+</br>
+
+# References
+- [Icons](https://ionic.io/ionicons)
   
-https://ionic.io/ionicons
-* Adapter + Spinner:
+- [Adapters and Spinners](https://www.geeksforgeeks.org/how-to-add-custom-spinner-in-android/)
 
-https://www.geeksforgeeks.org/how-to-add-custom-spinner-in-android/
-* Photo Uri:
+- [Photo Uri](https://developer.android.com/reference/android/net/Uri)
 
-https://developer.android.com/reference/android/net/Uri
-* Session Manager:
+- [Session Manager](https://developers.google.com/android/reference/com/google/android/gms/cast/framework/SessionManager)
 
-https://developers.google.com/android/reference/com/google/android/gms/cast/framework/SessionManager
-* Shared Preferences:
+- [Shared Preferences](https://developer.android.com/training/data-storage/shared-preferences)
 
-https://developer.android.com/training/data-storage/shared-preferences
-* Fragments Overview:
+- [Fragments Overview](https://developer.android.com/guide/fragments)
 
-https://developer.android.com/guide/fragments
-* DialogFragment:
+- [DialogFragment](https://developer.android.com/guide/fragments/dialogs)
 
-https://developer.android.com/guide/fragments/dialogs
-* Create dynamic lists with RecyclerView:
+- [Create dynamic lists with RecyclerView](https://developer.android.com/develop/ui/views/layout/recyclerview )
 
-https://developer.android.com/develop/ui/views/layout/recyclerview   
-* ListAdapter and DiffUtil:
+- [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter)
 
-https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
-https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil
-* Custom view components:
+- [DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil)
 
-https://www.google.com/search?q=https://developer.android.com/develop/ui/views/layout/custom-views 
-* View binding:
+- [Custom view components](https://www.google.com/search?q=https://developer.android.com/develop/ui/views/layout/custom-views )
 
-https://developer.android.com/topic/libraries/view-binding
-* Styles and Themes:
+- [View binding](https://developer.android.com/topic/libraries/view-binding)
 
-https://www.google.com/search?q=https://developer.android.com/develop/ui/views/theming/styles-themes
-* Drawable resources:
+- [Styles and Themes](https://www.google.com/search?q=https://developer.android.com/develop/ui/views/theming/styles-themes)
 
-https://developer.android.com/guide/topics/resources/drawable-resource
-* Color resources
+- [Drawable resources](https://developer.android.com/guide/topics/resources/drawable-resource)
 
-https://developer.android.com/guide/topics/resources/color-list-resource
-* Pie chart
+- [Color resources](https://developer.android.com/guide/topics/resources/color-list-resource)
 
-["com.github.PhilJay:MPAndroidChart:v3.1.0"](https://github.com/PhilJay/MPAndroidChart)
+- [Pie chart](https://github.com/PhilJay/MPAndroidChart)
+
 
 * **Android Developers.** (2024) _Guide to app architecture_. Available at: https://developer.android.com/topic/architecture
 * **Firebase Documentation.** (2025) _Get Started with Firebase Realtime Database_. Available at: https://firebase.google.com/docs/database
